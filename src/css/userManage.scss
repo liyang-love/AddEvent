@@ -1,0 +1,147 @@
+@import "./common/search.scss";
+
+$themeColor:#00a0e9;
+$themeBlendent1:white;
+$height: 150px;
+$slectColor:#aee6ff;
+%shadow-space{
+	background-color: #ffffff;
+	box-shadow: 2px 3px 18px 0px rgba(0, 0, 0, 0.26);
+}
+
+@mixin triangle($top,$left,$borderW){
+	content:"";
+	position: absolute;
+	top:$top;
+	left:$left;
+	width: 0;
+	height: 0;
+	border:$borderW solid transparent;
+	border-bottom-color:white;
+}
+
+.tab-node{
+	cursor: pointer;
+	font-size:14px;
+	i{
+		color:$themeColor;
+		font:{
+			size:16px;
+		}
+	}
+}
+
+
+
+.tab-type{
+	color:$themeColor;
+	font:{
+		weight:bolder;
+	}
+}
+
+.issue-item{
+	z-index: 1;
+	margin-bottom:16px;
+	position: relative;
+	.search-wrap.active-search .input-box{
+		width:300px;
+	}
+	.calendar-inpTxt{
+		width:320px;
+	}
+	.time-inpbox{
+		margin-left:30px;
+		transition: all .3s ease-out;
+		overflow:hidden;
+		width:0;
+		visibility:hidden;
+		opacity:0;
+	}
+	.active{
+		visibility:visible;
+		opacity:1;
+	}
+	.time-inpbox.active{
+		width:320px;
+	}
+	&:first-child{
+		z-index: 2;
+	}
+	.org-box.active{
+		height:260px;
+	}
+
+	.item-status{
+		display:flex;
+		align-items:center;
+		&>b{
+			padding-right:10px;
+			width:100px;
+			text-align:right;
+		}
+	}
+}
+.org-box{
+	min-width:500px;
+	height:0px;
+	transition: all .3s ease-out;
+	overflow:hidden;
+	visibility:hidden;
+	opacity:0;
+	.s-tree{
+	   height:216px;
+	}
+	
+	.org-content{
+	    margin-top: 10px;
+		display:flex;
+		background: #fff ;
+		height: 100%;
+		border-bottom:1px solid $themeColor;
+		border-right:1px solid $themeColor;
+		box-sizing:border-box;
+
+	}
+	.org-item:first-child{
+			width:60%;
+		//	border-right:1px solid grey;
+	}
+	.org-item:last-child{
+			width:40%;
+			overflow:auto;
+	}
+	.org-sel-item{
+			padding:8px;
+			border-bottom:1px solid grey;
+			.fa{
+				font-size:18px;
+			}
+	}
+	.g-sel-title{
+		height:33px;
+		line-height:30px;
+		text-align:center;
+		background: $themeColor ;
+		color:white;
+	}
+	.g-sel{
+		height:calc(100% - 33px);
+		overflow:auto;
+	}
+}
+
+/* 输入框 */
+.s-inp{
+	width:300px;
+}
+
+/*创建模态框 */
+#add-MView{
+	.s-title{
+		width:80px;
+	}
+}
+div.sel-item{
+	margin: 14px;
+}
