@@ -161,14 +161,10 @@ module.exports=function(env,argv){
 		       // clientLogLevel: "none", // cancel console client log
 		        port: '8097', //设置端口号
 		        proxy: {
-		             '/AdvEvent': {
-		              //  target: 'http://172.16.13.139:8080',
-		                target: 'http://localhost:8080',
+		             '/69276': {
+		                target: 'http://yapi.demo.qunar.com/mock',
 		                secure: false,
 		                changeOrigin:true,
-		               /* pathRewrite: {
-				          '^/apis': '/'//需要rewrite重写
-				        }*/
 		            }
 		        }
     		},

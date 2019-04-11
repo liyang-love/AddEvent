@@ -1,5 +1,4 @@
 import "css/userManage.scss";
-import "css/common/dropMenu.scss";
 
 import {Unit,SModal,SInp,Search} from "js/common/Unit.js";
 import {api} from "api/userManage.js";

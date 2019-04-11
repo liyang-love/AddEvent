@@ -275,6 +275,32 @@ $slectColor:#aee6ff;
 }
 
 
+/*日历 */
+.g-calendar{
+	position: relative;
+	&>div{
+		position: relative;
+	}
+}
+.calendar-time{
+	$h:40px;
+	position: relative;
+	color:$themeColor;
+	.calendar-inp-icon{
+		position: absolute;
+		line-height:$h;
+		left:10px;
+	}
+	.calendar-inpTxt{
+		border-radius: 4px;
+		border: solid 1px #e3e3e3;
+		width:300px;
+		height:$h;
+		text-indent:2.5em;
+		cursor: pointer;
+	}
+}
+
 
 
 

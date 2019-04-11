@@ -1,14 +1,34 @@
-/*渲染菜单*/
-class Menu{
-	static status = "view";
+import "css/common/menu.scss";
 
-	constructor(){
-		this.init();
-		this.handle();
+/*渲染菜单*/
+
+class Menu{
+
+	constructor(data,$box){
+		this.init(data,$box);
+		this.handle($box);
 	}
 
-	init(){
-		this.box = $("#menu");
+	init(data,$box){
+	
+		
+	  const str = data.map(val=>{
+
+	  		const {children} = val ;
+	  		
+	  		if(children && children.length){
+
+	  				const childArr = children.map(node=>this.childComponent(node)).join("");
+
+	  				return this.parentComponent(childArr,val);
+	  				
+	  		}else{
+
+	  			return this.childComponent(val);
+	  		}
+
+	  });
+		$box.html(str.join(""));
 	}
 	
 	mapMenuJson(arr,_lev){
@@ -45,31 +65,37 @@ class Menu{
 
 	}
 
-	parentComponent(child,name,data){
+	parentComponent(child,data){
 
-		let {url,lev,par_id,id,icon}= data;
+		let {url,id,text,icon="fa-circle"}= data;
 
-		const  indent =new Array(lev).fill(`<span class="indent"></span>`).join("");
 		return (`
-			<li class="par_li_${lev} par_li" >
-				<div class="menuItem par-item " data-url=${url} lev="${lev}" echo-id="${id}">
-					${indent}<i class="fa ${icon}"></i><span class="icon-wrap"><span class="menu-name">&nbsp;${name}</span><span class="slide-icon"><i class="fa fa-chevron-down  "></i></span></span>
-				</div>
-				<ul class="par-menu">${child.join("")}</ul>
-		</li>
+							<li class="li-par" >
+									<div  class="menu-item menu-par" data-url="${url}">
+											<span class="par-icon">
+												<i class="fa ${icon}"></i>
+											</span>	
+											<span class="j-nav" data-id="${id}">${text}</span>
+											<span class="j-slide_menu">
+												<i class="fa fa-chevron-down"></i>
+											</span>
+									</div>	
+									<ul class="child-ul">
+										${child}
+									</ul>
+							</li>
 		`);
 
 	}
 
-	childComponent(name,data){
-		const  indent =new Array(+data.lev).fill(`<span class="indent"></span>`).join("");
-		let {icon,url,id}= data;
+	childComponent(data){
+		let {url,id,text}= data;
 		return (`
-			<li class="child_li child_li_${data.lev}">
-				<div class="menuItem child-item " data-url=${url} echo-id="${id}">
-				${indent}<i class="fa ${icon} ">&nbsp;</i><span class="icon-wrap"><span class="menu-name">${name}</span></span>
-				</div>
-			</li>
+						<li class="li-child" >
+								<div  class="menu-item menu-child" data-url="${url}">
+										<span class="j-nav" data-id="${id}"> ${text} </span>
+								</div>	
+						</li>
 		`);		
 	}
 
@@ -88,18 +114,18 @@ class Menu{
 		}
 	}
 
-	handle(){
+	handle($box){
 
 		const _self = this ;
 
 		const getUrlMethod = this.getIframeUrl();
 
 		/*收缩目录*/
-		this.box.on("click",".slide-icon",function(e){
+		$box.on("click",".j-slide_menu",function(e){
 			e.stopPropagation();
 			const $this = $(this);
 			const $icon = $this.children(".fa");
-			const $childEl = $this.parent().parent().siblings(".par-menu");
+			const $childEl = $this.parent().siblings(".child-ul");
 			const is_down = $icon.hasClass("fa-chevron-down");
 
 			if(is_down){
@@ -113,39 +139,22 @@ class Menu{
 		});
 
 		/*切换菜单*/
-		this.box.on("click",".menuItem",function(events){
+		$box.on("click",".menu-item",function(events){
 
 			const $this = $(this);
-
-			if($this.hasClass("par-item")){
-				return;
-			}
-
-			$(".active").removeClass("active");
-			$(".active-par").removeClass("active-par");
-
-			const  par_item =  $this.closest(".par-menu").siblings(".menuItem");
-			par_item.addClass("active-par");
+			$("#menu .active").removeClass("active");
 			$this.addClass("active");
 
-			const layout_id = $this.attr("echo-id"),
-				  layout_name = $this.find(".menu-name").html();
+			if($this.hasClass("menu-par")){
+				return;
+			};
 
-			const url=$this.attr("data-url");
+			$this.closest(".child-ul").siblings(".menu-par").addClass("active");
 
+			const url= $this.attr("data-url");
 			const iframeUrl = getUrlMethod(url);
-
+				$("#routerConter").html(`<iframe frameborder="0" id="router" name="myFrameName" src="${iframeUrl}"></iframe>`);
 			
-
-			if(Menu.status === "menu"){ //后台页面
-				const src = iframeUrl;
-				$("#routerConter").html(`<iframe frameborder="0" id="router" name="myFrameName" src="${src}"></iframe>`);
-			
-			}else{//前台页面
-
-				const src = iframeUrl;
-				$("#routerConter").html(`<iframe frameborder="0" id="router" name="myFrameName" src="${url}"></iframe>`);
-			}
 
 		});
 	}

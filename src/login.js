@@ -1,5 +1,4 @@
 import "css/login.scss";
-import Particles from "js/common/particles.js" ;
 import {Remind} from "js/login/Remind.js" ;
 
 const {baseUrl} = window.jsp_config;
