@@ -1,25 +1,30 @@
 import * as React from "react";
 import MenuNav from "@js/common/NavMenu";
-import SlideBar from "@js/components/SlideBar";
 import ErrorBoundary from "@js/common/ErrorBoundary";
 import * as Immutable from "immutable";
 import * as Velocity from "velocity-react";
+import axios from "axios";
 
 
 type slideMenu={
-
 	expand:boolean;
 	isFetch:boolean;
-	data:MenuData;
+	data:Immutable.List<MenuItem>
 };
-type MenuData = Immutable.List<Immutable.Map<string,any>> ;
-	
-declare global {
-	interface MenuImmtubleData extends MenuData{
-	
-	}
+
+declare global{
+	type MenuItem = TypedMap<{
+		 id: string;
+   	 appId: string;
+     name: string;
+     url: string;
+     sysParam: string;
+     parId:number;
+     children:Immutable.List<MenuItem>
+	}>;
 }
 
+	
 
 class SlideMenu extends React.PureComponent{
 
@@ -35,19 +40,24 @@ class SlideMenu extends React.PureComponent{
 		this.setState({
 				isFetch:true,
 		});
-		fetch("http://127.0.0.1:3033/mock/11/getMenu").then(res=>{
-				return res.json();
-		}).then(data=>{
 
-			if(Array.isArray(data)){
-					this.setState({
-							data:Immutable.fromJS(data),
+		axios({
+			url:"main/getLeftMenu",
+			 params:{roleId:29},
+		}).then(res=>{
+			console.log(res);
+			const data = res.data;
+			if(data && data.data.length){
+
+				this.setState({
+							data:Immutable.fromJS(data.data),
 							isFetch:false,
 					});
+			}else{
+				alert("获取不到菜单");
 			}
+		})
 		
-				
-		});
 	}
 
 	componentDidMount(){
@@ -68,16 +78,19 @@ class SlideMenu extends React.PureComponent{
 
 		const {expand,data} = this.state;
 
-							
 		return (
 			<Velocity.VelocityComponent duration={300} animation={{width:this.state.expand ? 250 : 50}}>
 					<div className={"g-slideMenu "+ (!expand ? "expand" : "")}>
-															<SlideBar expandHandle={this.expandHandle}/>
-															<ErrorBoundary>
-																<MenuNav  data={data} expand={expand} /> 
-															</ErrorBoundary>
-											
+											<div className="g-logo">
+													<span className="m-logo"></span>
+													<span className="j-slideBar" onClick={this.expandHandle}>
+														 <i className="fa fa-bars fa-2x"></i>
+													</span>	
 											</div>
+											<ErrorBoundary>
+												<MenuNav  data={data} expand={expand} textField="name" iconField="sysParam"/> 
+											</ErrorBoundary>
+					</div>
 			</Velocity.VelocityComponent> );
 	}
 

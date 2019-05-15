@@ -13,10 +13,9 @@ module.exports = env =>{
 	  devtool: id_dev ? "eval-source-map" : "source-map",
 		entry:{
 			main:path.join(__dirname,"src/App.tsx"),
-		/*	vendor:["react","react-dom","react-loadable","react-redux","react-router","react-router-dom","redux","redux-logger","redux-thunk","velocity-react","immutable"],*/
 		},
 		output:{
-			path:path.join(__dirname,"dist"),
+			path:path.join(__dirname,"static"),
 			filename:"[name].js",
 			publicPath:"/",
 			chunkFilename:id_dev ? 'js/[name].[chunkhash:5].chunk.js' :'js/[name].chunk.js',
@@ -110,7 +109,7 @@ module.exports = env =>{
 		        },
 		},
 		optimization: {
-			minimize: false,
+			//minimize: false,
 		  namedModules: true,
 			namedChunks: true,
 			chunkIds: 'named',
@@ -178,7 +177,7 @@ module.exports = env =>{
 		],
 		devServer: {
 		        historyApiFallback: true,
-		        contentBase:path.resolve(__dirname,'dist'),
+		        contentBase:path.resolve(__dirname,'static'),
 		        quiet: false, //控制台中不输出打包的信息
 		        noInfo: false,
 		        inline: true, //开启页面自动刷新,
@@ -199,8 +198,8 @@ module.exports = env =>{
 		        port: '8034', //设置端口号
 		        openPage:"login",//导航页面
 		        proxy: {
-		             '/11': {
-		                target: 'http://127.0.0.1:3033/mock',
+		             '/AdvEvent': {
+		                target: 'http://localhost:8081',
 		                secure: false,
 		                changeOrigin:true,
 		            }

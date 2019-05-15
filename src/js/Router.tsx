@@ -7,28 +7,24 @@ const Main = ()=>{
 
 			return (
 								<>
-									<Route path="/index/ill_search" component={loadable({
-											loader:()=>import( /*webpackChunkName: "illSearch" */"./containers/illSearch/index"),
+									<Route path="/index/report" component={loadable({
+											loader:()=>import( /*webpackChunkName: "report" */"./containers/report/index"),
 											loading:()=><div>loading...</div>
 									})}  />
-									<Route path="/index/con_search" component={loadable({
-											loader:()=>import( /*webpackChunkName: "conSearch" */"./containers/conSearch/index"),
+									<Route path="/index/my_report" component={loadable({
+											loader:()=>import( /*webpackChunkName: "myReport" */"./containers/myReport/index"),
 											loading:()=><div>loading...</div>
 									})}  />
-									<Route path="/index/glob_search" component={loadable({
-											loader:()=>import( /*webpackChunkName: "globSearch" */"./containers/globSearch/index"),
+									<Route path="/index/my_back" component={loadable({
+											loader:()=>import( /*webpackChunkName: "myBack" */"./containers/myBack/index"),
 											loading:()=><div>loading...</div>
 									})}  />
-									<Route path="/index/translate" component={loadable({
-											loader:()=>import( /*webpackChunkName: "translate" */"./containers/translate/index"),
+									<Route path="/index/my_analysis" component={loadable({
+											loader:()=>import( /*webpackChunkName: "myAnalysis" */"./containers/myAnalysis/index"),
 											loading:()=><div>loading...</div>
 									})}  />
-									<Route path="/index/usermanage" component={loadable({
-											loader:()=>import( /*webpackChunkName: "usermanage" */"./containers/usermanage/index"),
-											loading:()=><div>loading...</div>
-									})}  />
-									<Route path="/index/ill_type/:type" component={loadable({
-											loader:()=>import( /*webpackChunkName: "illType" */"./containers/illSearch/illType"),
+									<Route path="/index/my_inspector" component={loadable({
+											loader:()=>import( /*webpackChunkName: "myInspector" */"./containers/myInspector/index"),
 											loading:()=><div>loading...</div>
 									})}  />
 									<div  id="s-modal"></div>

@@ -13,13 +13,13 @@ class Head extends React.Component{
 		
 		return (<div className="g-head">
 
-							<span className="m-theme">出院小结双语平台</span>
+							<span className="m-theme">医疗安全（不良）事件上报管理</span>
 							<div className="g-sys_set">
 								<div>
-										<p>切换语言</p>
+										<p>消息</p>
 								</div>
 								<div>
-									<p>系统设置</p>
+									<p>切换角色</p>
 								</div>
 								<div className="g-user-opt" >
 									<div style={{padding:"20px 10px",}}>

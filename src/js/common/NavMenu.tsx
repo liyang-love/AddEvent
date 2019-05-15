@@ -4,26 +4,26 @@ import "@css/menu.scss";
 import * as Immutable from "immutable";
 import * as Velocity from "velocity-react";
 
-type fieldConfig = {
-		textFile:string;
-		childrenField?:string;
-		pathFiled:string;
-		iconField?:string;
-		idField:string;
-} & {
-			[key:string]:any
-		};
+
 
 type props = {
-		data:MenuImmtubleData;
-		config?:fieldConfig ;
+		data:Immutable.List<MenuItem>;
 		expand:boolean;
+		textField?:string;
+		childrenField?:string;
+		pathField?:string;
+		iconField?:string;
+		idField?:string;
 };
 
 
 type ItemProps ={
 	obj:Immutable.Map<string,any>;
-	config:fieldConfig;
+	textField:string;
+	
+	pathField:string;
+	iconField:string;
+	idField:string;
 	slectItem:(id:string,type?:string)=>void;
 	activeName:string;
 	expand:boolean;
@@ -48,22 +48,20 @@ class ParMenu extends React.PureComponent<ItemProps>{
 
 	
 			
-			const {obj,config=NavMenu.defaultConfig,slectItem,activeName,sub,childSlected} = this.props;
+			const {obj,idField,textField,iconField,pathField,slectItem,activeName,sub,childSlected} = this.props;
 
+			const path = obj.get(pathField);
+			const text = obj.get(textField);
+			const icon = obj.get(iconField);
+			const id = obj.get(idField);
 
-
-			const path = obj.get(config.pathFiled);
-			const text = obj.get(config.textFile);
-			const icon = obj.get(config.iconField!) || "fa-circle";
-			const id = obj.get(config.idField);
-
-		const hObj = this.props.expand ? {display: "block"} : {};
+			const hObj = this.props.expand ? {display: "block"} : {};
 
 			return (
 					<li className="li-par">
 							<div  className={"menu-item menu-par " + activeName} onClick={()=>slectItem(id)}>
 									<span className="par-icon">
-										<i className={"fa "+icon}></i>
+										<i className={icon}></i>
 									</span>	
 									<span className="j-nav" >
 										<Link to={path}>{text}</Link>
@@ -78,7 +76,17 @@ class ParMenu extends React.PureComponent<ItemProps>{
 													sub!.map((node:Immutable.Map<string,any>)=>{
 																	  const nodeId = node.get("id");
 																		const activeName = nodeId === childSlected ? "active":"";
-																	return <SubMenu obj={node} activeName={activeName}   config={config} key={nodeId} slectItem={slectItem} parId={id}/>
+																	return <SubMenu 
+																						obj={node} 
+																						activeName={activeName}   
+																						key={nodeId} 
+																						slectItem={slectItem} 
+																						parId={id}
+																						idField={idField}
+																						textField={textField}
+																						iconField={iconField}
+																						pathField={pathField}
+																						/>
 													})
 
 											}
@@ -94,20 +102,20 @@ class ParMenu extends React.PureComponent<ItemProps>{
 
 
 
-const SubMenu:React.SFC< (Pick<ItemProps,Exclude<keyof ItemProps,"expand">>)> = ({obj,config=NavMenu.defaultConfig,slectItem,parId,activeName})=>{
+const SubMenu:React.SFC< (Pick<ItemProps,Exclude<keyof ItemProps,"expand">>)> = ({obj,idField,textField,pathField,slectItem,parId,activeName})=>{
 
-		  const path = obj.get(config.pathFiled);
-			const text = obj.get(config.textFile);
-		  const id = obj.get(config.idField);
-	return (
-			<li className="li-child">
-					<div  className={"menu-item menu-child "+activeName} >
-							<span className="j-nav" onClick={()=>slectItem(id,parId)}>
-								<Link to={path}>{text}</Link>
-							</span>
-					</div>	
-			</li>
-		)
+		  const path = obj.get(pathField);
+			const text = obj.get(textField);
+		  const id = obj.get(idField);
+			return (
+					<li className="li-child">
+							<div  className={"menu-item menu-child "+activeName} >
+									<span className="j-nav" onClick={()=>slectItem(id,parId)}>
+										<Link to={path}>{text}</Link>
+									</span>
+							</div>	
+					</li>
+				)
 };
 
 
@@ -119,10 +127,10 @@ type state={
 
 class NavMenu extends React.PureComponent<props,state>{
 	
-	static defaultConfig = {
-					textFile:"text",
+	static defaultProps = {
+					textField:"text",
 					childrenField:"children",
-					pathFiled:"url",
+					pathField:"url",
 					iconField:"icon",
 					idField:"id"
 				};
@@ -154,9 +162,8 @@ class NavMenu extends React.PureComponent<props,state>{
 
 
 	render(){
-		const {data,config=NavMenu.defaultConfig,expand} = this.props;
+		const {data,textField,childrenField,idField,iconField,expand,pathField} = this.props;
 
-		const {childrenField} = config ;
 
 		const {parSlected,childSlected} = this.state;
 		
@@ -167,15 +174,37 @@ class NavMenu extends React.PureComponent<props,state>{
 
 								data.map(item=>{
 															const val = item!;
-															const child = val.get(childrenField!) as Immutable.List<Immutable.Map<string,any>>;
+															const child = val.get(childrenField as "children");
 															const id = val.get("id");
 															const activeName = id === parSlected ? "active" : "";
 
 															if(child && child.size){
-																	return <ParMenu expand={expand} activeName={activeName} childSlected={childSlected} sub={child}  obj={val}  config={config} key={id} slectItem={this.slectItem} /> 
+																	return <ParMenu 
+																						expand={expand} 
+																						activeName={activeName} 
+																						childSlected={childSlected} 
+																						sub={child}  
+																						obj={val}  
+																						key={id} 
+																						slectItem={this.slectItem} 
+																						idField={idField!}
+																						textField={textField!}
+																						pathField={pathField!}
+																						iconField={iconField!}
+																					/> 
 															}else{
-																	return <SubMenu obj={val} key={id} config={config}  activeName={activeName}  slectItem={this.slectItem} parId={""} />
-															}
+																	return <SubMenu 
+																						obj={val} 
+																						key={id} 
+																						activeName={activeName}  
+																						slectItem={this.slectItem} 
+																						parId={""} 
+																						idField={idField!}
+																						textField={textField!}
+																						pathField={pathField!}
+																						iconField={iconField!}
+																						/>
+																				}
 													})
 							
 							}

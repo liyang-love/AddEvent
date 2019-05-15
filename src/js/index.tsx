@@ -1,14 +1,12 @@
 import * as React from "react" ;
 import {Switch} from "react-router";
-import {BrowserRouter,Route} from "react-router-dom";
+import {BrowserRouter,Route } from "react-router-dom";
 
 import Login from "./login";
 import SlideMenu from "@js/containers/SlideMenu";
 import Head from "@js/containers/Head";
 import MainRouter from "@js/Router" ;
 import DefaultRouter from "./containers/defaultRouter" ;
-
-
 
 type appProps = {
 
@@ -22,7 +20,7 @@ class App extends React.PureComponent<appProps,appState>{
 
 	render(){
 			return (
-					<BrowserRouter>
+					<BrowserRouter basename="/AdvEvent">
 							<Switch>
 										<Route path="/login" component={Login} />	
 										<Route path="/index">	
@@ -42,9 +40,5 @@ class App extends React.PureComponent<appProps,appState>{
 					)
 	}
 }
-
-
-
-
 
 export	default App;

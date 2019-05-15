@@ -92,9 +92,7 @@ const mapDispatchToProp:MapDispatchToProps<dispatchProp,LoginProp>= (dispatch:an
 
 	return {
 			login:(user,pwd)=>{
-				console.log(user,pwd)
-				dispatch(fetchPostLoginIfNeeded());
-
+				dispatch(fetchPostLoginIfNeeded(user,pwd));
 			}
 	}
 
