@@ -1,0 +1,80 @@
+@import "./scss/variables";
+
+.g-table{
+	//height: 100%;
+  flex:auto;
+	margin-top: 20px;
+	table{
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	td{
+		padding: 6px;
+		text-align: left;
+		height: 30px;
+	}
+
+	th{
+		padding: 10px 6px;
+		text-align: left;
+	}
+
+	.m-fixTabHead tr{
+			border-bottom:2px solid $themeColor;
+	}
+
+	.m-fixTabBody{
+		overflow: auto;
+		tr:hover{
+			background: $hover;
+			color: $themeColor;
+		}
+	}
+	.tab-over{
+		padding-right: 18px;
+	}
+	tr{
+
+		border-bottom: 1px solid #e5e6fe;
+	}
+
+	@at-root{
+		.g-pageCode{
+			margin-top: 18px;
+			display: flex;
+			justify-content: space-between;
+			cursor: pointer;
+			.m-page-total{
+				&>span{
+					margin: 0 8px;
+				}
+			}
+			.j-jump-page{
+				margin-left: 10px;
+				width: 60px;
+				height: 30px;
+				outline: 1px solid $normal;
+				border:none;
+				text-align: center;
+			}
+			
+
+			.m-page-num	{
+				display: inline-block;
+				text-align: center;
+				background:#fff;
+				border: solid 1px $normal;
+				margin: 0 6px;
+		    padding: 6px 10px;
+		    border-radius: 4px;
+			}
+			.m-page-num.active{
+				background: $themeColor;
+				color: white;
+			}
+		}
+	}
+
+	
+}
