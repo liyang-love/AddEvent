@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Link} from "react-router-dom";
+import {Link,NavLink} from "react-router-dom";
 import "@css/menu.scss";
 import * as Immutable from "immutable";
 import * as Velocity from "velocity-react";
@@ -107,11 +107,21 @@ const SubMenu:React.SFC< (Pick<ItemProps,Exclude<keyof ItemProps,"expand">>)> = 
 		  const path = obj.get(pathField);
 			const text = obj.get(textField);
 		  const id = obj.get(idField);
+
+		  const pathObj={
+			  	 pathname: path,
+	       	 state: {
+	       	 	id,
+	       	 },
+			  };
+
 			return (
 					<li className="li-child">
 							<div  className={"menu-item menu-child "+activeName} >
 									<span className="j-nav" onClick={()=>slectItem(id,parId)}>
-										<Link to={path}>{text}</Link>
+										<NavLink 
+										to={pathObj} 
+										>{text}</NavLink>
 									</span>
 							</div>	
 					</li>

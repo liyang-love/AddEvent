@@ -10,7 +10,7 @@ $bg:#ffffff;
 
 %combox-inp{
 	position: relative;
-	z-index: 2;
+
 	.m-combo-inp{
 		display: flex;
 		height: $inpHeight;
@@ -23,7 +23,7 @@ $bg:#ffffff;
 
 	  .m-inp{
 	  	flex: auto;
-	  	height: 100%;
+	  	width: 100%;
 	  	box-sizing: border-box;
 	  	border:none;
 	  	outline: none;
@@ -52,6 +52,7 @@ $bg:#ffffff;
 			border: solid 1px #ececec;
 			margin-top: 10px;
 			padding: 8px;
+			z-index: 10;
 			.m-combo-item{
 				padding: 8px;
 				cursor: pointer;

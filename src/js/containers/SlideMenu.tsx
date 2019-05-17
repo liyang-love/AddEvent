@@ -4,6 +4,7 @@ import ErrorBoundary from "@js/common/ErrorBoundary";
 import * as Immutable from "immutable";
 import * as Velocity from "velocity-react";
 import axios from "axios";
+import {connect,MapStateToProps} from "react-redux";
 
 
 type slideMenu={
@@ -25,8 +26,15 @@ declare global{
 }
 
 	
+type SlideMenuProp={
 
-class SlideMenu extends React.PureComponent{
+}
+type SlideMenuState ={
+
+
+}
+
+class SlideMenu extends React.PureComponent< SlideMenuProp & reduxProp,SlideMenuState>{
 
 	state:slideMenu = {
 		expand:true,
@@ -41,9 +49,11 @@ class SlideMenu extends React.PureComponent{
 				isFetch:true,
 		});
 
+		const {roleId}  = this.props;
+
 		axios({
-			url:"main/getLeftMenu",
-			 params:{roleId:29},
+			url:"AdvEvent/main/getLeftMenu",
+			 params:{roleId},
 		}).then(res=>{
 			console.log(res);
 			const data = res.data;
@@ -98,6 +108,19 @@ class SlideMenu extends React.PureComponent{
 
 }
 
+type reduxProp ={
+	roleId:string;
+} 
+
+const mapStateToProp:MapStateToProps<reduxProp,SlideMenuProp,appStore>=({app})=>{
 
 
-export default SlideMenu ;
+	return {
+
+		roleId:(app.get("userInfo").roleId)![0],
+
+	}
+}
+
+
+export default connect(mapStateToProp)(SlideMenu) ;

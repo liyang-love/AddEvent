@@ -75,6 +75,7 @@ type props = {
 			width?:number;
 			maxHeight?:number;
 			data:itemObj[];
+			hasSlideIcon?:boolean;
 }
 
 type state = {
@@ -96,6 +97,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 					defaultVal:[],
 					width:240,
 					maxHeight:300,
+					hasSlideIcon:true,
 	 	
 	 }
 
@@ -177,7 +179,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 				const {drop,slected} = this.state;
 
-				const {data,idField,textField,icon,multiply,width,maxHeight} = this.props;
+				const {data,idField,textField,icon,multiply,width,maxHeight,hasSlideIcon} = this.props;
 
 				const clickFn = multiply ? this.multiplyClickItem : this.singleClickItem;
 
@@ -185,7 +187,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 				return (<div className={"combobox "+(drop ? "active ":"")+ (!value?"no-fill":"")} style={{width}}>
 									
-									<ComboInp multiply={multiply!} toggleDrop={this.toggleDrop} value={value} drop={drop} />
+									<ComboInp multiply={multiply!} toggleDrop={this.toggleDrop} value={value} drop={drop} hasSlideIcon={hasSlideIcon}/>
 									<VelocityComponent duration={300} animation={drop?"slideDown":"slideUp"}>
 											<DropCom icon={icon!} maxHeight={maxHeight!} data={data} idField={idField!} textField={textField!} clickHande={clickFn} slected={slected}/>
 									</VelocityComponent >

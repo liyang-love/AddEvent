@@ -1,14 +1,13 @@
 import "@css/login.scss";
 import * as React  from "react";
 import {Redirect} from "react-router-dom";
-import {connect,MapStateToProps,MapDispatchToProps} from "react-redux";
-import {fetchPostLoginIfNeeded} from "@js/actions/index";
-
 
 
 
 type LoginProp = {
-
+	isLogin:boolean;
+	login:(user:string,pwd:string)=>void;
+	isFetching:boolean;
 };
 
 type LoginState = {
@@ -16,7 +15,7 @@ type LoginState = {
 };
 
 
- class Login extends React.PureComponent<LoginProp & LoginReduxProps & dispatchProp ,LoginState>{
+ class Login extends React.PureComponent<LoginProp ,LoginState>{
 
 	userDom:React.RefObject<HTMLInputElement> = React.createRef();
 	psdDom:React.RefObject<HTMLInputElement> = React.createRef();
@@ -74,30 +73,6 @@ type LoginState = {
 };
 
 
-type LoginReduxProps = Pick<app,"isFetching" | "isLogin">
-const mapStateToProp:MapStateToProps<LoginReduxProps,LoginProp,appStore>  = ({app})=>{
 
-	return {
-		isFetching:app.get("isFetching"),
-		isLogin:app.get("isLogin"),
 
-	}
-
-}
-
-type dispatchProp = {
-		login:(user:string,pwd:string)=>void;
-}
-const mapDispatchToProp:MapDispatchToProps<dispatchProp,LoginProp>= (dispatch:any)=>{
-
-	return {
-			login:(user,pwd)=>{
-				dispatch(fetchPostLoginIfNeeded(user,pwd));
-			}
-	}
-
-}
-
-const LoginConnect = connect(mapStateToProp,mapDispatchToProp)(Login);
-
-export default LoginConnect;
+export default Login;

@@ -1,0 +1,107 @@
+@import "./scss/variables";
+
+$borderColor:black;
+
+.report-article{
+	width: 790px;
+  margin: 2.5% auto;
+  position: relative;
+  .report-container{
+
+  }
+  .report-content{
+  	 height: 100%;
+  }
+	
+	%pageBtn{
+		text-align: center;
+		position: absolute;
+		top:40%;
+		cursor: pointer;
+		color:$themeColor;
+	}
+
+  .pre-btn{
+		left:-50px;
+			@extend %pageBtn;
+	}
+  	.next-btn{
+			right:-50px;
+			@extend %pageBtn;
+			
+  }
+}
+
+ .report-content{
+		$h:24px;
+  	table{
+	    width: 100%;
+	    border:1px solid $borderColor;
+	    border-spacing: 0;   
+	  }
+	  tr {border-bottom: 1px solid $borderColor}
+	  td{
+  		padding: 8px 10px;
+			vertical-align:top;
+	  }
+	  .item-tr{
+	  	position: relative;
+	  	//z-index: auto;
+	  }
+	  .detail{
+
+			margin:4px;
+			display: inline-flex;
+  	  align-items: center;
+  	  .m-combo-inp{
+  	  	border:none;
+  	  	border-bottom: 1px solid $borderColor;
+ 			 border-radius: 0;
+  	  }
+		}
+	  .footer{
+			text-align: right;
+			margin-top: 6px;
+		}
+		.txtInp{
+			height: 100%;
+			width: 100%;
+			text-indent: 2rem;
+			line-height: 1.5rem;
+	    padding: 8px;
+	    border:none;
+	    resize: none;
+			box-sizing: border-box;
+		}
+		.inp{
+			border:none;
+			border-bottom: 1px solid $borderColor;
+			height: 30px;
+		}
+
+		
+		.select{
+			border: none;
+	    border-bottom: 1px solid $borderColor;
+	    height: 30px;
+		}
+	 	.main-tit{
+	 		padding: 8px 0
+	 	}
+		.underline{
+			display: inline-block;
+			height: $h;
+			border-bottom: 1px solid $borderColor;
+		}
+		.btn{
+			text-align: center; 
+			color: #fff; 
+			background-color: #3297db; 
+			border: 0; 
+			cursor: pointer; 
+			padding: 0 8px; 
+			height: 28px; 
+			line-height: 28px; 
+			border-radius: 4px;
+		} 
+  }

@@ -4,17 +4,17 @@ import { Action } from 'redux';
 import  ReduceCreate from "./createReucer";
 import {createTypedMap} from "@js/common/ImmutableMap";
 import axios from "axios";
-import  * as Md5 from "md5";
 
-console.log(Md5(Md5("123456")));
+
 
 const REQUEST_POSTS_LOGIN = "REQUEST_POSTS_LOGIN";
 const RECEIVE_POSTS_LOGIN = "RECEIVE_POSTS_lOGIN";
-
+const STOP_LOGIN = "STOP_LOGIN";
 const RECEIVE_POSTS_LOGIN_OUT = "RECEIVE_POSTS_lOGIN_OUT";
 
 const GET_LOGIN_URL = "/AdvEvent/login/logVal";
-const GET_LOGIN_OUT_URL = "http://127.0.0.1:3033/mock/11/getOrg";
+const GET_LOGIN_OUT_URL = "/AdvEvent/login/logOut";
+
 
 
 const defaultLoginState:appStore["app"] = createTypedMap({
@@ -46,6 +46,12 @@ const requestPostLogin = function(){
 	}
 };
 
+const stopLogin = function(){
+	return {
+			 type:STOP_LOGIN,
+	}
+};
+
 
 const receivePostLogin = function(json:app["userInfo"]){
 		return {
@@ -71,18 +77,26 @@ const shouldPost = (state:appStore)=>{
 
 // 异步的action
  const fetchPosts = (userName:string,password:string): ThunkAction<void, appStore, null, Action<string>> => (dispatch) => {
- 			console.log(userName,password);
+
  		dispatch(requestPostLogin());
 
  		axios({
  			url:GET_LOGIN_URL,
  			 method: 'post', 
- 			 data:{userName:"护理部",password:"F59BD65F7EDAFB087A81D4DCA06C4910"},
+ 			 data:{userName,password:window.hex_md5(window.hex_md5(password))},
  			 headers:{
  				"Content-Type":"application/json",
  			}
  		}).then(res=>{
-			dispatch(receivePostLogin(res.data))
+
+ 			const data = res.data;
+
+ 			if(data.data== "登陆失败!"){
+					dispatch(stopLogin());
+ 			}else{
+ 					dispatch(receivePostLogin(data.data));
+ 			}
+			
  		});
 	
 };
@@ -126,6 +140,9 @@ const loginReducer = ReduceCreate(defaultLoginState,{
 			return state.set("isLogin",false).set("userInfo",{}).set("isFetching",false);
 
 	},
+	[STOP_LOGIN]:function(state){
+		return state.set("isFetching",false);
+	}
 })
 
 
