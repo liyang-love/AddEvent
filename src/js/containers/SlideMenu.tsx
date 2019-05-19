@@ -1,29 +1,17 @@
 import * as React from "react";
 import MenuNav from "@js/common/NavMenu";
 import ErrorBoundary from "@js/common/ErrorBoundary";
-import * as Immutable from "immutable";
 import * as Velocity from "velocity-react";
-import axios from "axios";
+import axios from "@js/common/AxiosInstance";
 import {connect,MapStateToProps} from "react-redux";
 
 
 type slideMenu={
 	expand:boolean;
 	isFetch:boolean;
-	data:Immutable.List<MenuItem>
+	data:any[];
 };
 
-declare global{
-	type MenuItem = TypedMap<{
-		 id: string;
-   	 appId: string;
-     name: string;
-     url: string;
-     sysParam: string;
-     parId:number;
-     children:Immutable.List<MenuItem>
-	}>;
-}
 
 	
 type SlideMenuProp={
@@ -39,7 +27,7 @@ class SlideMenu extends React.PureComponent< SlideMenuProp & reduxProp,SlideMenu
 	state:slideMenu = {
 		expand:true,
 		isFetch:false,
-		data:Immutable.List([]),
+		data:[],
 	}
   
 
@@ -52,15 +40,14 @@ class SlideMenu extends React.PureComponent< SlideMenuProp & reduxProp,SlideMenu
 		const {roleId}  = this.props;
 
 		axios({
-			url:"AdvEvent/main/getLeftMenu",
+			url:"/main/getLeftMenu",
 			 params:{roleId},
 		}).then(res=>{
 			console.log(res);
 			const data = res.data;
 			if(data && data.data.length){
-
 				this.setState({
-							data:Immutable.fromJS(data.data),
+							data:data.data,
 							isFetch:false,
 					});
 			}else{
@@ -98,7 +85,7 @@ class SlideMenu extends React.PureComponent< SlideMenuProp & reduxProp,SlideMenu
 													</span>	
 											</div>
 											<ErrorBoundary>
-												<MenuNav  data={data} expand={expand} textField="name" iconField="sysParam"/> 
+											{data.length ?	<MenuNav  data={data} expand={expand} textField="name" iconField="sysParam"/> :null}
 											</ErrorBoundary>
 					</div>
 			</Velocity.VelocityComponent> );
@@ -123,4 +110,4 @@ const mapStateToProp:MapStateToProps<reduxProp,SlideMenuProp,appStore>=({app})=>
 }
 
 
-export default connect(mapStateToProp)(SlideMenu) ;
+export default connect(mapStateToProp)(SlideMenu);

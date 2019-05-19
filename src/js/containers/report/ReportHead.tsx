@@ -1,6 +1,6 @@
 import * as React from "react";
 import Combobox from "@js/common/Combobox";
-import axios from "axios";
+import axios from "@js/common/AxiosInstance";
 
 
 type ReportHeadProp = {
@@ -48,12 +48,12 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 		
 		//事发场景职称层级
 		const getLevAndEventArr = axios({
-																	url:"./AdvEvent/event/sceneCareerClass",
+																	url:"/event/sceneCareerClass",
 																	params:{formType}
 															});
 		//类别联动科室
 		const getCascadeOrgArr = axios({
-																	url:"./AdvEvent/event/categoryLinkOrg",
+																	url:"/event/categoryLinkOrg",
 																	params:{formType}
 															});
 		Promise.all([getLevAndEventArr,getCascadeOrgArr]).then(arr=>{

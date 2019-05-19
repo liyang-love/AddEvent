@@ -3,7 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import { Action } from 'redux';
 import  ReduceCreate from "./createReucer";
 import {createTypedMap} from "@js/common/ImmutableMap";
-import axios from "axios";
+import axios from "@js/common/AxiosInstance";
 
 
 
@@ -12,8 +12,8 @@ const RECEIVE_POSTS_LOGIN = "RECEIVE_POSTS_lOGIN";
 const STOP_LOGIN = "STOP_LOGIN";
 const RECEIVE_POSTS_LOGIN_OUT = "RECEIVE_POSTS_lOGIN_OUT";
 
-const GET_LOGIN_URL = "/AdvEvent/login/logVal";
-const GET_LOGIN_OUT_URL = "/AdvEvent/login/logOut";
+const GET_LOGIN_URL = "/login/logVal";
+const GET_LOGIN_OUT_URL = "/login/logOut";
 
 
 
@@ -24,21 +24,6 @@ const defaultLoginState:appStore["app"] = createTypedMap({
 });
 
 
-// 添加响应拦截器
-axios.interceptors.response.use(function (response) {
-
-		if(response.status != 20000){
-			return response;
-		}else{// session过期，重新登录
-			 return Promise.reject();
-		}
-    
-    
-  }, function (error) {
-   	
-    return Promise.reject(error);
-  });
- 
 
 const requestPostLogin = function(){
 	return {
