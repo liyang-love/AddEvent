@@ -1,0 +1,149 @@
+@import "./scss/variables.scss","./scss/unit.scss";
+
+
+$sel:#FF6666;
+$slectColor:#aee6ff;
+
+
+.g-calendar{
+	.g-calendar-box{
+		display: flex;
+		width: 250px;
+	}	
+	.m-clalendar-inpBox{
+		width: 250px;
+		color: $themeColor;
+		.calendar-inpTxt{
+		    border-radius: 4px;
+		    border: 1px solid $normal;
+		    text-indent: 2.5em;
+		    cursor: pointer;
+		    width: 100%;
+		}
+		.calendar-inp-icon{
+				position: absolute;
+    		line-height: $inpHeight;
+    		left: 10px;
+			
+		}
+	
+	}
+}
+
+.g-calendar-box{
+	@extend %shadow ;
+	.g-calendar-view{
+		width:100%;
+		position: relative;
+	}
+	
+	.m-viewOpt{
+		display: flex;
+		justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    border-bottom: 1px solid $themeColor;
+		.m-moveBtns{
+
+			.s-btn{
+				color:$themeColor;
+	  		background: none;
+			}
+	  
+	}
+	}
+	.m-calendar-view{
+		padding:4px 0 8px 0;
+	}
+
+}	
+
+.m-calendar-view{
+			.view-item{
+				text-align:center;
+				span{
+					display:inline-block;
+					border-radius:50%;
+				}
+				.day-span{
+					width: 35px;
+					height: 35px;
+					line-height:35px;
+				}
+				.mon-span,.year-span{
+					width: 60px;
+					height: 60px;
+					line-height:60px;
+				}
+				.sea-span{
+					width: 80px;
+					height: 80px;
+					line-height:80px;
+				}
+			}
+			.day-disabled{
+				color:grey;
+				cursor: not-allowed;
+				text-align:center;
+				span{
+					display:inline-block;
+					width: 35px;
+					height: 35px;
+					line-height:35px;
+				}
+			}
+			.week-group{
+				display:flex;
+				color:black;
+				font:{
+					weight:bolder;
+				}
+				&>li{
+					width:14.28% ;
+					text-align:center;
+					padding:8px 0;
+				}
+			}
+		.data-group{
+			display:flex;
+			&>li{
+				width:14.28% ;
+			}
+			.view-item{
+				cursor: pointer;
+				&:hover{
+					span{
+						background:$themeColor;
+						color:white;
+					}
+				
+				}
+			}
+			
+		}
+	.calendar-today{
+		span{
+			color:$sel;
+			font:{
+				weight:bolder;
+			}
+		}
+	}
+	
+	.calendar-sel{
+		span{
+			background: $sel;
+			color:white;
+		}
+	}
+	}
+
+
+
+
+
+
+
+
+
+
