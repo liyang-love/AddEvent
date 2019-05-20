@@ -1,6 +1,7 @@
 import * as React from "react";
 import "@css/Calendar.scss";
 import {VelocityComponent} from "velocity-react";
+import * as  Immutable from "immutable";
 
 
 
@@ -30,8 +31,9 @@ class CalendarInp extends React.PureComponent<calendarInpProps,calendarInpState>
 
 type DayViewProp={
 	curTime:CalendarApi["curTime"],
-	showTimeObj:calendarViewState["showTimeObj"];
-	selTimeObj:calendarViewState["showTimeObj"];
+	showTimeObj:calendarViewProps["selTimeObj"];
+	selTimeObj:calendarViewProps["selTimeObj"];
+	clickSelHandle:(e:React.MouseEvent<HTMLLIElement>)=>void;
 };
 type DayViewState={
 
@@ -44,13 +46,19 @@ class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
 		dayNum:number;
 		disabled:boolean;
 		showTimeObj:calendarViewState["showTimeObj"];
-		curTime:CalendarApi["curTime"],
-		selTimeObj:CalendarApi["curTime"],
-	}>=({dayNum,disabled,showTimeObj,selTimeObj,curTime})=>{
+		curTime:CalendarApi["curTime"];
+		selTimeObj:calendarViewState["showTimeObj"];
+		clickSelHandle:DayViewProp["clickSelHandle"] |undefined;
+	}>=({dayNum,disabled,showTimeObj,selTimeObj,curTime,clickSelHandle})=>{
 		
-		const {year,month} = showTimeObj;
 
-		const {year:sel_year,month:sel_mon,day:sel_day} = selTimeObj;
+		const year = showTimeObj.get("year") ,
+					month = showTimeObj.get("month") ;
+
+
+		const sel_year = selTimeObj.get("year"),
+					sel_mon = selTimeObj.get("month"),
+					sel_day= selTimeObj.get("day");
 
 		const is_able = !disabled ? " view-item " :"day-disabled" ;
 
@@ -58,8 +66,8 @@ class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
 
 		const is_sel = (!disabled &&  year === sel_year && month === sel_mon && dayNum === sel_day) && "calendar-sel" || "";
 
-		return 	(<li className={is_able + " " + is_Today + " " + is_sel }>
-								<span className="day-span">{dayNum}</span>
+		return 	(<li className={is_able + " " + is_Today + " " + is_sel } >
+								<span className="day-span" data-sign="day" data-num={dayNum} onClick={clickSelHandle}>{dayNum}</span>
 						</li>)
 				
 	}	
@@ -74,8 +82,10 @@ class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
 	render(){
 
 
-				const {showTimeObj,curTime,selTimeObj} = this.props;
-				const {year,month} = showTimeObj;
+				const {showTimeObj,curTime,selTimeObj,clickSelHandle} = this.props;
+
+				const year = showTimeObj.get("year") ,
+							month = showTimeObj.get("month") ;
 	
 				const days = this.getMonDays(year,month);
 
@@ -105,6 +115,7 @@ class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
 													  curTime={curTime} 
 													  selTimeObj={selTimeObj} 
 													  showTimeObj={showTimeObj}
+													   clickSelHandle={undefined} 
 													  /> ;
 							});
 														
@@ -116,11 +127,12 @@ class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
 														disabled={false}
 														curTime={curTime} 
 													  selTimeObj={selTimeObj} 
-													  showTimeObj={showTimeObj} 
+													  showTimeObj={showTimeObj}
+													  clickSelHandle={clickSelHandle} 
 													  /> ;
 							});
 
-							return (<ul className="data-group">
+							return (<ul className="data-group" key={index}>
 												{
 													preMonDayArr.concat(firstArr)
 												}
@@ -142,6 +154,7 @@ class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
 													   selTimeObj={selTimeObj} 
 													   showTimeObj={showTimeObj} 
 													   key={day}
+													   clickSelHandle={clickSelHandle}
 														 /> ;
 							 });
 
@@ -153,11 +166,12 @@ class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
 													  selTimeObj={selTimeObj} 
 													  showTimeObj={showTimeObj} 
 													  key={val}
+													  clickSelHandle={undefined}
 													/> ;
 							 });
 							
 
-							return (<ul className="data-group">
+							return (<ul className="data-group" key={index}>
 												{
 													lastArr.concat(lastMonDays)
 												}
@@ -177,11 +191,12 @@ class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
 																					curTime={curTime} 
 																				  selTimeObj={selTimeObj} 
 																		 			 showTimeObj={showTimeObj} 
+																		 			 clickSelHandle={clickSelHandle}
 
 																					/> ;
 										});
 
-								return (<ul className="data-group">
+								return (<ul className="data-group" key={index}>
 												{
 													MonDayArr
 												}
@@ -218,12 +233,12 @@ class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
 
 type calendarViewProps={
 		rotate:calendarProps["rotate"],
-		selTimeObj:CalendarApi["curTime"],
+		selTimeObj:TypedMap<CalendarApi["curTime"]>,
 		curTime:CalendarApi["curTime"],
 }
 
 type calendarViewState = {
-		showTimeObj:	CalendarApi["curTime"]
+		showTimeObj:	calendarViewProps["selTimeObj"],
 }
 
 
@@ -232,12 +247,71 @@ interface CalendarViewApi{
 
 }
 
+
+
 class CalendarView extends React.PureComponent<calendarViewProps,calendarViewState> implements CalendarViewApi {
 
 	state:calendarViewState={
-		showTimeObj:JSON.parse(JSON.stringify(this.props.selTimeObj))
+		showTimeObj:this.props.selTimeObj,
 	}	
 
+	updateYears(movePre:"next"|"back"){
+
+		console.log(movePre);
+
+		/*const yearRange = movePre === "back" ? this.lastYear-10 : this.lastYear + 1; 
+
+		const str = this.renderYear(yearRange).join("");
+		this.calendarItems.eq(0).html(str);*/
+	}
+
+	clickSelHandle=(e:React.MouseEvent<HTMLSpanElement>)=>{
+
+			const dataset =  e.currentTarget.dataset;
+			const type = dataset.sign as "day" | "year" | "month" | "searson";
+			const num = ~~(dataset.num!);
+			
+			
+			this.setState(pre=>{
+				return {
+					showTimeObj:pre.showTimeObj.set(type,num)
+				}
+			})
+	}
+
+	updateDaysView(movePre:"next"|"back"){
+
+		const {showTimeObj}= this.state;
+
+		const year= showTimeObj.get("year"),
+					month=showTimeObj.get("month");
+		
+		let updata_mon = 1, updata_year = 1;
+
+		switch(movePre){
+			case "back":
+				updata_mon = month -1 == 0 ? 12 : month-1;
+				updata_year = month -1 == 0 ? year - 1  : year;
+				break;
+			case "next":
+				updata_mon = month + 1 == 13 ?  1 : month +1;
+				updata_year = month + 1 == 13 ? year +1   : year ;
+				break;
+		}
+
+		this.setState({
+			showTimeObj:showTimeObj.withMutations(map=>map.set("year",updata_year).set("month",updata_mon).set("searson",Math.ceil(month / 3))),
+		});
+	}
+
+	controlBtnHandle=(e:React.MouseEvent<HTMLSpanElement>)=>{
+
+		const type = (e.currentTarget.dataset.sign) as any;
+		const {rotate} = this.props;
+
+  	rotate=== calendarType.day ? 	this.updateDaysView(type) : this.updateYears(type) ;
+
+	}
 
 	render(){
 		const {curTime,selTimeObj,rotate} = this.props;
@@ -250,14 +324,14 @@ class CalendarView extends React.PureComponent<calendarViewProps,calendarViewSta
 									{
 											rotate === calendarType.day ? (<div>
 												<i className="fa fa-calendar"/>&nbsp;
-												<span>{showTimeObj.year}年 / </span>
-												<span>{showTimeObj.month}月</span>
-												</div>) : rotate !== calendarType.year ?  <div><i className="fa fa-calendar"/>&nbsp;<span>{showTimeObj.year}年</span></div> :null 
+												<span>{showTimeObj.get("year")}年 / </span>
+												<span>{showTimeObj.get("month")}月</span>
+												</div>) : rotate !== calendarType.year ?  <div><i className="fa fa-calendar"/>&nbsp;<span>{showTimeObj.get("year")}年</span></div> :null 
 									}
 								</div>
 								<div className="m-moveBtns">
-									<span ><i className="fa fa-backward" /></span>
-									<span ><i className="fa fa-forward" /></span>
+									<button onClick={this.controlBtnHandle} data-sign="back"><i className="fa fa-backward" /></button>
+									<button onClick={this.controlBtnHandle} data-sign="next"><i className="fa fa-forward" /></button>
 								</div>
 							</div>
 							<div className="m-calendar-view">
@@ -265,7 +339,7 @@ class CalendarView extends React.PureComponent<calendarViewProps,calendarViewSta
 									curTime={curTime} 
 								  selTimeObj={selTimeObj} 
 								  showTimeObj={showTimeObj} 
-
+								  clickSelHandle={this.clickSelHandle}
 								 />
 							</div>
 					</div>
@@ -294,7 +368,7 @@ type calendarProps={
 
 type calendarState = {
 		expand:boolean;
-		selTimeArr:CalendarApi["curTime"][];
+		selTimeArr:Immutable.List<TypedMap<CalendarApi["curTime"]>>;
 }
 
 interface CalendarApi {
@@ -322,7 +396,7 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 
 	state:calendarState={
 		expand:true,
-		selTimeArr:this.timeValToTimeObj()
+		selTimeArr:Immutable.fromJS(this.timeValToTimeObj()) 
 	}
 
 	
@@ -405,8 +479,7 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 	}
 	render(){
 
-			const {hasInp,style,rotate} = this.props;
-
+			const {hasInp,rotate} = this.props;
 			const {expand,selTimeArr} = this.state;
 
 			return (
@@ -417,13 +490,13 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 						>
 							<div className="g-calendar-box">
 									<CalendarView
-								rotate = {rotate}
-								selTimeObj= {selTimeArr[0]}
-								curTime={this.curTime}
-							/>
-							{style == 2 ? <CalendarView 
+										rotate = {rotate}
+										selTimeObj= {selTimeArr.get(0)!}
+										curTime={this.curTime}
+									/>
+							{selTimeArr.size == 2 ? <CalendarView 
 																rotate={rotate}
-																selTimeObj= {selTimeArr[1]}
+																selTimeObj= {selTimeArr.get(1)!}
 																curTime={this.curTime}
 
 														/> : null }
