@@ -13,7 +13,6 @@ type props = {
 }
 
 
-
 class  Radio extends React.PureComponent<props>{
 
 		static Item:React.SFC<itemObj & {nameFiled:string}> = ({value,tit,nameFiled})=>{

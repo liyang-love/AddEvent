@@ -1,5 +1,5 @@
 import * as React from "react";
-import Calendar from "@js/common/Calendar";
+import Calendar from "@js/common/calendar/index";
 
 
 
@@ -9,7 +9,7 @@ const GlobSearch = ()=>{
 		
 			<div>
 				globSearch
-				<Calendar />
+				<Calendar  />
 			</div>
 			
 	)

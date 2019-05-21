@@ -25,6 +25,7 @@ module.exports = env =>{
 			rules:[
 				{
 					test:/\.tsx?$/,
+				//	 test: /(?<!\.d)\.tsx?$/,
 					//exclude: /node_modules|assert/, // 排除不处理的目录
 					exclude: /assert/, // 排除不处理的目录
 			//	  include: path.resolve(__dirname, 'src'), // 精确指定要处理的目录
@@ -34,6 +35,10 @@ module.exports = env =>{
 						}
 					]	
 				},
+				/*{
+				    test: /\.d\.ts$/,
+				    loader: 'ignore-loader'
+				},*/
 				{
 					test:/.(css|scss)$/,
 					exclude: /assert/, // 排除不处理的目录
@@ -109,7 +114,7 @@ module.exports = env =>{
 		        },
 		},
 		optimization: {
-			//minimize: false,
+			minimize: false,
 		  namedModules: true,
 			namedChunks: true,
 			chunkIds: 'named',

@@ -41,8 +41,10 @@ $slectColor:#aee6ff;
 		display: flex;
 		justify-content: space-between;
     align-items: center;
-    padding: 4px 8px;
+    padding: 4px 0;
+    padding-left: 12px;
     border-bottom: 1px solid $themeColor;
+    	color:$themeColor;
 		.m-moveBtns{
 
 			.s-btn{
