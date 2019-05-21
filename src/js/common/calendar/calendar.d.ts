@@ -1,4 +1,4 @@
- namespace Validation {
+ declare namespace CalendarSpace {
     export interface StringValidator {
         name:string;
     }
@@ -12,6 +12,8 @@
 							searson:number;
 							month:number;
 							day:number;
+							hour:number;
+							minute:number;
 						};	
 			showTimeObj:TypedMap<commonInterface["curTime"]>
 	}
@@ -20,6 +22,7 @@
 export	interface CalendarApi {
 		curTime:commonInterface["curTime"];
 		changeSelTimeItme(viewIndex:number,showTimeObj:CalendarApi["curTime"]):void;
+		changeTime(e:React.ChangeEvent<HTMLInputElement>):void;
 
 	}
 

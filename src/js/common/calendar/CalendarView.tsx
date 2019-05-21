@@ -1,5 +1,10 @@
 import * as React from "react";
 import CalendarDayView from "./CalendarDayView";
+import CalendarYearView from "./CalendarYearView";
+import CalendarMonthView from "./CalendarMonthView";
+import CalendarSearsonView from "./CalendarSearsonView";
+import {VelocityComponent} from "velocity-react";
+import * as Immutable from "immutable";
 
 enum calendarType  {
 				year = 1 ,
@@ -8,9 +13,10 @@ enum calendarType  {
 				day = 4 ,
 		}
 
-type commonInterface = Validation.commonInterface ;
-type CalendarApi = Validation.CalendarApi ;
-type CalendarViewApi = Validation.CalendarViewApi;
+
+type commonInterface = CalendarSpace.commonInterface ;
+type CalendarApi = CalendarSpace.CalendarApi ;
+type CalendarViewApi = CalendarSpace.CalendarViewApi;
 
 
 type calendarViewProps={
@@ -19,10 +25,15 @@ type calendarViewProps={
 		curTime:commonInterface["curTime"];
 		changeSelTimeItme:CalendarApi["changeSelTimeItme"];
 		viewIndex:0 | 1;
+		time:boolean;
+		changeTime:CalendarSpace.CalendarApi["changeTime"];
+
 }
 
 type calendarViewState = {
-		showTimeObj:	calendarViewProps["selTimeObj"];
+		showTimeObj:calendarViewProps["selTimeObj"];
+		showViewArr:Immutable.List<"fadeIn" | "fadeOut">;
+		lastYear:number;
 }
 
 
@@ -34,24 +45,47 @@ export default class CalendarView extends React.PureComponent<calendarViewProps,
 
 	state:calendarViewState={
 		showTimeObj:this.props.selTimeObj,
+		showViewArr:(function(rotate){
+			let animationArr = new Array(5).fill("fadeOut");
+					animationArr[rotate] = "fadeIn";
+				return Immutable.List(animationArr);
+		})(this.props.rotate),
+		lastYear:(function(year){
+
+				let viewIndex = year % 10 ;
+							viewIndex = viewIndex === 0  ? 10 : viewIndex;
+					
+					const startTime = year - viewIndex  + 1;
+					return startTime + 9 ;
+
+		})(this.props.selTimeObj.get("year"))
 	}	
 
 	updateYears(movePre:"next"|"back"){
 
-		console.log(movePre);
+		this.setState(pre=>{
 
-		/*const yearRange = movePre === "back" ? this.lastYear-10 : this.lastYear + 1; 
+			let lastYear=  movePre === "back" ? pre.lastYear-10 : pre.lastYear + 1; 
 
-		const str = this.renderYear(yearRange).join("");
-		this.calendarItems.eq(0).html(str);*/
+			let index = lastYear % 10 ;
+					index = index === 0 ? 10 : index ;
+
+			lastYear = lastYear - index  + 10;
+
+			return {
+				lastYear,
+			}
+		})
 	}
 
-	clickSelHandle=(e:React.MouseEvent<HTMLSpanElement>)=>{
+	
+
+	clickSelHandle=(e:React.MouseEvent<HTMLElement>)=>{
 
 			const dataset =  e.currentTarget.dataset;
 			const type = dataset.sign as "day" | "year" | "month" | "searson";
 			const num = ~~(dataset.num!);
-			const {viewIndex,changeSelTimeItme} = this.props;
+			const {viewIndex,changeSelTimeItme,rotate} = this.props;
 
 			const flag = {[type]:num};
 			
@@ -64,6 +98,19 @@ export default class CalendarView extends React.PureComponent<calendarViewProps,
 			const _showTimeobj = Object.assign({},this.state.showTimeObj.toJS(),flag)
 
 			changeSelTimeItme(viewIndex,_showTimeobj);
+
+			const {showViewArr} = this.state;
+
+			const curShowIndex = showViewArr.findIndex(val=>val==="fadeIn");
+
+			if(curShowIndex === calendarType.year || curShowIndex === calendarType.month){
+
+				this.setState({
+					showViewArr:showViewArr.set(curShowIndex,"fadeOut").set(rotate,"fadeIn")
+				});
+
+			}
+
 
 
 	}
@@ -93,18 +140,43 @@ export default class CalendarView extends React.PureComponent<calendarViewProps,
 		});
 	}
 
+	changeView=(e:React.MouseEvent<HTMLSpanElement>)=>{
+
+
+
+		const type = e.currentTarget.dataset.sign as ("year" | "month");
+
+		this.setState(pre=>{
+			const preIndex = pre.showViewArr.findIndex(val=>val==="fadeIn");
+			const showViewArr = pre.showViewArr.set(preIndex,"fadeOut").set(calendarType[type],"fadeIn");
+			return {
+				showViewArr,
+			}
+		})
+		
+
+	
+	}
+
 	controlBtnHandle=(e:React.MouseEvent<HTMLSpanElement>)=>{
 
-		const type = (e.currentTarget.dataset.sign) as any;
-		const {rotate} = this.props;
+		const dataset = e.currentTarget.dataset
+		const type = (dataset.sign) as any;
+		const curViewIndex = +dataset.curviewindex!;
+	
 
-  	rotate=== calendarType.day ? 	this.updateDaysView(type) : this.updateYears(type) ;
+  	curViewIndex === calendarType.day ? 	this.updateDaysView(type) : this.updateYears(type) ;
 
 	}
 
 	render(){
-		const {curTime,selTimeObj,rotate} = this.props;
-		const {showTimeObj} = this.state;
+		const {curTime,selTimeObj,rotate,time,changeTime,viewIndex} = this.props;
+		const {showTimeObj,showViewArr,lastYear} = this.state;
+
+		const curViewInde = showViewArr.findIndex(val=>val==="fadeIn");
+
+		const showMoveBtn = (curViewInde === calendarType.day || curViewInde === calendarType.year);
+
 
 			return (
 					<div className="g-calendar-view">
@@ -113,23 +185,65 @@ export default class CalendarView extends React.PureComponent<calendarViewProps,
 									{
 											rotate === calendarType.day ? (<div>
 												<i className="fa fa-calendar"/>&nbsp;
-												<span>{showTimeObj.get("year")}年 / </span>
-												<span>{showTimeObj.get("month")}月</span>
+												<span data-sign="year" onClick={this.changeView}>{showTimeObj.get("year")}年 / </span>
+												<span data-sign="month" onClick={this.changeView}>{(showTimeObj.get("month")+"").padStart(2,"0")}月</span>
 												</div>) : rotate !== calendarType.year ?  <div><i className="fa fa-calendar"/>&nbsp;<span>{showTimeObj.get("year")}年</span></div> :null 
 									}
 								</div>
-								<div className="m-moveBtns">
-									<button className="s-btn" onClick={this.controlBtnHandle} data-sign="back"><i className="fa fa-backward" /></button>
-									<button  className="s-btn" onClick={this.controlBtnHandle} data-sign="next"><i className="fa fa-forward" /></button>
+								<span className="curViewType">
+									{
+										["","年","季","月","日"][curViewInde]
+									}
+								</span>
+								<div className={"m-moveBtns " + (showMoveBtn ? "":"hideMoveBtn")}>
+									<button className="s-btn" onClick={this.controlBtnHandle} data-sign="back" data-curviewindex={curViewInde}><i className="fa fa-backward" /></button>
+									<button  className="s-btn" onClick={this.controlBtnHandle} data-sign="next" data-curviewindex={curViewInde}><i className="fa fa-forward" /></button>
 								</div>
 							</div>
 							<div className="m-calendar-view">
-								<CalendarDayView
-									curTime={curTime} 
-								  selTimeObj={selTimeObj} 
-								  showTimeObj={showTimeObj} 
-								  clickSelHandle={this.clickSelHandle}
-								 />
+									<VelocityComponent animation={showViewArr.get(calendarType.day)!}>
+										<CalendarDayView
+												curTime={curTime} 
+											  selTimeObj={selTimeObj} 
+											  showTimeObj={showTimeObj} 
+											  clickSelHandle={this.clickSelHandle}
+											  time={time}
+											  changeTime={changeTime}
+											  viewIndex={viewIndex}
+											 />
+									</VelocityComponent>
+									<VelocityComponent animation={showViewArr.get(calendarType.year)!}>
+										 <CalendarYearView 
+										 	curTime={curTime} 
+										  selTimeObj={selTimeObj} 
+										  showTimeObj={showTimeObj} 
+										  clickSelHandle={this.clickSelHandle}
+										  rotate={rotate}
+										  lastYear={lastYear}
+										 />
+									</VelocityComponent>
+									<VelocityComponent animation={showViewArr.get(calendarType.month)!}>
+										 <CalendarMonthView 
+											 	curTime={curTime} 
+											  selTimeObj={selTimeObj} 
+											  showTimeObj={showTimeObj} 
+											  clickSelHandle={this.clickSelHandle}
+											  rotate={rotate}
+											 />
+									</VelocityComponent>
+									<VelocityComponent animation={showViewArr.get(calendarType.searson)!}>
+										  <CalendarSearsonView 
+											 	curTime={curTime} 
+											  selTimeObj={selTimeObj} 
+											  showTimeObj={showTimeObj} 
+											  clickSelHandle={this.clickSelHandle}
+											 />
+									</VelocityComponent>
+								
+								
+								
+								
+								 
 							</div>
 					</div>
 				)

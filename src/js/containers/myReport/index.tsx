@@ -9,7 +9,7 @@ const GlobSearch = ()=>{
 		
 			<div>
 				globSearch
-				<Calendar  />
+				<Calendar time={true}  />
 			</div>
 			
 	)

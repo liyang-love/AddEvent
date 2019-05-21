@@ -1,17 +1,23 @@
 import * as React from "react";
 
-type commonInterface = Validation.commonInterface;
+type commonInterface = CalendarSpace.commonInterface;
 
 
 type DayViewProp={
 	curTime:commonInterface["curTime"];
 	showTimeObj:commonInterface["showTimeObj"];
 	selTimeObj:commonInterface["showTimeObj"];
-	clickSelHandle:(e:React.MouseEvent<HTMLLIElement>)=>void;
+	clickSelHandle:(e:React.MouseEvent<HTMLElement>)=>void;
+	time:boolean;
+	changeTime:CalendarSpace.CalendarApi["changeTime"];
+	viewIndex:0|1;
 };
 type DayViewState={
 
 };
+
+
+
 
 
 export default class CalendarDayView extends React.PureComponent<DayViewProp,DayViewState>{
@@ -40,9 +46,39 @@ export default class CalendarDayView extends React.PureComponent<DayViewProp,Day
 
 		const is_sel = (!disabled &&  year === sel_year && month === sel_mon && dayNum === sel_day) && "calendar-sel" || "";
 
-		return 	(<li className={is_able + " " + is_Today + " " + is_sel } >
-								<span className="day-span" data-sign="day" data-num={dayNum} onClick={clickSelHandle}>{dayNum}</span>
+		return 	(<li className={is_able + " " + is_Today + " " + is_sel } data-sign="day" data-num={dayNum} onClick={clickSelHandle}>
+								<span className="day-span" >{dayNum}</span>
 						</li>)
+				
+	}	
+
+	static TimePick:React.SFC<{
+		selTimeObj:DayViewProp["showTimeObj"];
+		changeTime:CalendarSpace.CalendarApi["changeTime"];
+		viewIndex:0|1;
+	}>=({selTimeObj,changeTime,viewIndex})=>{
+
+
+
+		
+
+		const hour = selTimeObj.get("hour") ,
+					minute = selTimeObj.get("minute") ;
+
+
+	
+	
+
+		return 	(<div className="m-time">
+					<div>
+						<b>时间：&nbsp;</b>
+						<input type="number" className="wacth-time" data-viewindex={viewIndex} max="24" min="0" value={hour} name="hour" onChange={changeTime} />	
+					</div>
+					<div>
+						<b>&nbsp;&nbsp;:&nbsp;</b>
+						<input type="number" className="wacth-time" max="60" data-viewindex={viewIndex}  min="0" name="minute" value={minute} onChange={changeTime} />
+					</div>
+				</div>)
 				
 	}	
 
@@ -56,7 +92,7 @@ export default class CalendarDayView extends React.PureComponent<DayViewProp,Day
 	render(){
 
 
-				const {showTimeObj,curTime,selTimeObj,clickSelHandle} = this.props;
+				const {showTimeObj,curTime,selTimeObj,clickSelHandle,time,changeTime,viewIndex} = this.props;
 
 				const year = showTimeObj.get("year") ,
 							month = showTimeObj.get("month") ;
@@ -186,15 +222,23 @@ export default class CalendarDayView extends React.PureComponent<DayViewProp,Day
 
 			//	this.time && daysArr.push(this.renderTimeBox()) ;	
 				return (
-						<>
+						<div className="m-dayView item-calendar-view">
 							<ul className="week-group">
 										<li>日</li><li>一</li><li>二</li><li>三</li><li>四</li><li>五</li><li>六</li>
 					 		</ul>
 					 		{
 					 			daysArr
+					 		}{
+
+					 			time ? <CalendarDayView.TimePick 
+					 									selTimeObj={selTimeObj}
+					 									changeTime={changeTime}
+					 									viewIndex={viewIndex}
+
+					 							/> : null
 					 		}
 
-						</>
+						</div>
 					)
 
 	}

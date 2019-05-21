@@ -6,12 +6,15 @@ $slectColor:#aee6ff;
 
 
 .g-calendar{
+	position: relative;
 	.g-calendar-box{
-		display: flex;
-		width: 250px;
+		margin-top:10px; 
+		width: 280px;
+		position: absolute;
+		z-index: 2;
 	}	
 	.m-clalendar-inpBox{
-		width: 250px;
+		width: 280px;
 		color: $themeColor;
 		.calendar-inpTxt{
 		    border-radius: 4px;
@@ -35,6 +38,8 @@ $slectColor:#aee6ff;
 	.g-calendar-view{
 		width:100%;
 		position: relative;
+		color: $themeColor;
+		font-weight: bold;
 	}
 	
 	.m-viewOpt{
@@ -44,7 +49,20 @@ $slectColor:#aee6ff;
     padding: 4px 0;
     padding-left: 12px;
     border-bottom: 1px solid $themeColor;
-    	color:$themeColor;
+    color:$themeColor;
+    .hideMoveBtn{
+    	visibility: hidden;
+    	pointer-events: none;
+    	opacity: 0;
+    }
+    .curViewType{
+    	border-radius: 100%;
+    	border:1px solid;
+    	padding: 4px 6px;
+    }
+  	.m-timeSel{
+  		cursor: pointer;
+  	}
 		.m-moveBtns{
 
 			.s-btn{
@@ -56,73 +74,113 @@ $slectColor:#aee6ff;
 	}
 	.m-calendar-view{
 		padding:4px 0 8px 0;
+		position: relative;
+		height: 280px;
 	}
+
 
 }	
 
 .m-calendar-view{
-			.view-item{
-				text-align:center;
+	.item-calendar-view{
+		position: absolute;
+		width: 100%;
+		display: none;
+
+	}
+	.view-item{
+			cursor: pointer;
+			&:hover{
 				span{
-					display:inline-block;
-					border-radius:50%;
+					background:$themeColor;
+					color:white;
 				}
-				.day-span{
-					width: 35px;
-					height: 35px;
-					line-height:35px;
-				}
-				.mon-span,.year-span{
-					width: 60px;
-					height: 60px;
-					line-height:60px;
-				}
-				.sea-span{
-					width: 80px;
-					height: 80px;
-					line-height:80px;
-				}
+			
 			}
-			.day-disabled{
-				color:grey;
-				cursor: not-allowed;
-				text-align:center;
-				span{
-					display:inline-block;
-					width: 35px;
-					height: 35px;
-					line-height:35px;
-				}
-			}
-			.week-group{
-				display:flex;
-				color:black;
-				font:{
-					weight:bolder;
-				}
-				&>li{
-					width:14.28% ;
-					text-align:center;
-					padding:8px 0;
-				}
-			}
-		.data-group{
+		}
+	.view-item{
+		text-align:center;
+		span{
+			display:inline-block;
+			border-radius:50%;
+		}
+		.day-span{
+			width: 35px;
+			height: 35px;
+			line-height:35px;
+		}
+		.mon-span,.year-span{
+			width: 60px;
+			height: 60px;
+			line-height:60px;
+		}
+		.searson-span{
+			width: 80px;
+			height: 80px;
+			line-height:80px;
+		}
+	}
+	.day-disabled{
+		color:grey;
+		cursor: not-allowed;
+		text-align:center;
+		span{
+			display:inline-block;
+			width: 35px;
+			height: 35px;
+			line-height:35px;
+		}
+	}
+	.week-group{
+		display:flex;
+		color:black;
+		font:{
+			weight:bolder;
+		}
+		&>li{
+			width:14.28% ;
+			text-align:center;
+			padding:8px 0;
+		}
+	}
+	.data-group{
+		display:flex;
+		&>li{
+			width:14.28% ;
+		}
+		
+		
+	}
+	.year-group , .mon-group{
 			display:flex;
-			&>li{
-				width:14.28% ;
+			.view-item{	
+				width:33.3%;
 			}
-			.view-item{
-				cursor: pointer;
-				&:hover{
+		}
+		.mon-grop{
+			.calendar-sel{
+				border-radius:20%;
+			}
+		}
+		
+		.searson-group{
+			display:flex;
+			.view-item{	
+				width:50%;
+			}
+		}
+	.last-year{
+		width:33.3%;
+		margin:auto;
+		text-align:center;
+		&:hover{
 					span{
 						background:$themeColor;
 						color:white;
 					}
-				
+					
 				}
-			}
-			
-		}
+	}
 	.calendar-today{
 		span{
 			color:$sel;
@@ -138,6 +196,21 @@ $slectColor:#aee6ff;
 			color:white;
 		}
 	}
+		.m-time {
+	    color: #000;
+	    display: flex;
+	    justify-content: center;
+	    width: 100%;
+	    padding-top: 6px;
+		}
+
+		.wacth-time {
+	    width: 64px;
+	    height: 24px;
+	    border: 1px solid $themeColor;
+	    border-radius: 4px;
+	    text-align: center;
+		}
 	}
 
 

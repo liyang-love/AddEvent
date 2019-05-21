@@ -5,8 +5,8 @@ import * as  Immutable from "immutable";
 import CalendarView from "./CalendarView";
 
 
-type commonInterface = Validation.commonInterface ;
-type CalendarApi = Validation.CalendarApi ;
+type commonInterface = CalendarSpace.commonInterface ;
+type CalendarApi = CalendarSpace.CalendarApi ;
 
 enum calendarType  {
 				year = 1 ,
@@ -47,17 +47,17 @@ class CalendarInp extends React.PureComponent<calendarInpProps,calendarInpState>
 
 
 type calendarProps={
-		rotate: commonInterface["rotate"], // 日历类型
+		rotate?: commonInterface["rotate"], // 日历类型
 		style?:1 | 2,
 		time?:boolean, //可选择时间
 		hasInp?:boolean,
-		ableSwitchType?:boolean;	//能切换日历类型
 		selTimeValArr?:string[];//最终显示的时间字符串
 }
 
 type calendarState = {
 		expand:boolean;
 		selTimeArr:Immutable.List<TypedMap<CalendarApi["curTime"]>>;
+		rotate:commonInterface["rotate"], 
 }
 
 
@@ -65,10 +65,9 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 
 	static defaultProps={
 					rotate:calendarType.day,
-					style:2,
+					style:1,
 					time:false,
 					hasInp:true,	
-					ableSwitchType:false,
 					selTimeValArr:[],
 	}
 
@@ -76,13 +75,14 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 
 	state:calendarState={
 		expand:false,
-		selTimeArr:Immutable.fromJS(this.timeValToTimeObj()) 
+		selTimeArr:Immutable.fromJS(this.timeValToTimeObj()),
+		rotate:this.props.rotate! ,
 	}
 
 	
 	changeSelTimeItme=(viewIndex:number,showTimeObj:CalendarApi["curTime"])=>{
 				const {year,month,day,searson} = showTimeObj;
-				const {rotate} = this.props;
+				const {rotate} = this.state;
 				this.setState(pre=>{
 
 							let selTimeArr = pre.selTimeArr;
@@ -140,18 +140,40 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 		const month = time.getMonth()+1;
 		const day = time.getDate();
 		const searson = Math.ceil(month / 3);
+		const hour=  time.getHours();
+		const minute= time.getMinutes();
 
-		return {year,searson,month,day}
+		return {year,searson,month,day,hour,minute}
+
+	}
+
+	changeTime=(e:React.ChangeEvent<HTMLInputElement>)=>{
+
+		 const value = +e.currentTarget.value,
+					 field = e.currentTarget.name,
+					 viewIndex = +e.currentTarget.dataset.viewindex!;
+
+
+			this.setState(pre=>{
+
+			const 	selTimeArr = pre.selTimeArr.setIn([viewIndex,field],value);
+				return {
+					selTimeArr,
+				}
+			})
 
 	}
 
 	timeValToTimeObj(){
 
-		const {rotate,style,selTimeValArr} = this.props;
+		const {style,selTimeValArr,rotate} = this.props;
 
 		const defaultTimeArr = selTimeValArr;
 		const curTimeArr = Array.from({length:style!},()=>Object.assign({},this.curTime)) ;
 		const has_defaultTime = !!selTimeValArr![0] ;
+
+		const hour = this.curTime.hour;
+		const minute = this.curTime.minute;
 
 		const setTime = (item:string)=>{
 
@@ -166,7 +188,9 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 										year,
 										month,
 										searson:Math.ceil(month / 3),
-										day:~~arr[2]
+										day:~~arr[2],
+										hour,
+										minute,
 									}
 							}
 							case calendarType.month:{
@@ -175,7 +199,9 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 										year,
 										month,
 										searson:Math.ceil(month / 3),
-										day:1
+										day:1,
+										hour,
+										minute,
 									}
 								
 							}
@@ -185,7 +211,9 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 										year,
 										month:searson*3-2,
 										searson,
-										day:1
+										day:1,
+										hour,
+										minute,
 									}
 								
 							}
@@ -194,7 +222,9 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 										year,
 										month:1,
 										searson:1,
-										day:1
+										day:1,
+										hour,
+										minute,
 									}
 							}
 						}
@@ -213,8 +243,10 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 
 	getSelTimeVal(){
 
-		const {selTimeArr} = this.state;
-		const {rotate} = this.props;
+		const {selTimeArr,rotate} = this.state;
+		const {time} = this.props;
+
+
 
 		const getStr = (val:commonInterface["showTimeObj"],rotate:number)=>{
 
@@ -223,9 +255,11 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 														day = (val.get("day")+"").padStart(2,"0"),
 														searson = val.get("searson");
 
+							const timeStr = time ? (val.get("hour")+"").padStart(2,"0") + " : "+(val.get("minute")+"").padStart(2,"0") : "";
+
 											switch (rotate) {
 												case calendarType.day:
-													return year + "-" + month + "-" + day; 
+													return year + "-" + month + "-" + day + " " +timeStr; 
 												case calendarType.searson:
 													return year + "-S" + searson; 
 												case calendarType.year:
@@ -249,11 +283,8 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 	}
 	render(){
 
-			const {hasInp,rotate} = this.props;
-			const {expand,selTimeArr} = this.state;
-rotate
-
-selTimeArr
+			const {hasInp,time} = this.props;
+			const {expand,selTimeArr,rotate} = this.state;
 
 			return (
 					<div className="g-calendar">
@@ -271,6 +302,8 @@ selTimeArr
 																		curTime={this.curTime}
 																		changeSelTimeItme = {this.changeSelTimeItme}
 																		viewIndex={0}
+																		time={time!}
+																		changeTime={this.changeTime}
 																	/>
 															{selTimeArr.size == 2 ? <CalendarView 
 																								rotate={rotate}
@@ -278,6 +311,8 @@ selTimeArr
 																								curTime={this.curTime}
 																								changeSelTimeItme = {this.changeSelTimeItme}	
 																								viewIndex={1}
+																								time={time!}
+																								changeTime={this.changeTime}
 																						/> : null }
 							</div>
 						
