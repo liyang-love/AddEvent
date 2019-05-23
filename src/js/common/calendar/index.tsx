@@ -52,6 +52,9 @@ type calendarProps={
 		time?:boolean, //可选择时间
 		hasInp?:boolean,
 		selTimeValArr?:string[];//最终显示的时间字符串
+		width?:number;
+		clickBack?:(timeArr:Readonly<any[]>,field:string)=>void;
+		field?:string;
 }
 
 type calendarState = {
@@ -69,6 +72,7 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 					time:false,
 					hasInp:true,	
 					selTimeValArr:[],
+					width:240,
 	}
 
   curTime = this.getCurTime();
@@ -244,7 +248,7 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 	getSelTimeVal(){
 
 		const {selTimeArr,rotate} = this.state;
-		const {time} = this.props;
+		const {time,clickBack,field} = this.props;
 
 
 
@@ -255,11 +259,12 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 														day = (val.get("day")+"").padStart(2,"0"),
 														searson = val.get("searson");
 
-							const timeStr = time ? (val.get("hour")+"").padStart(2,"0") + " : "+(val.get("minute")+"").padStart(2,"0") : "";
+						
 
 											switch (rotate) {
 												case calendarType.day:
-													return year + "-" + month + "-" + day + " " +timeStr; 
+													const timeStr = time ? (val.get("hour")+"").padStart(2,"0") + " : "+(val.get("minute")+"").padStart(2,"0") +" : 00": "";
+													return year + "-" + month + "-" + day + "  " +timeStr; 
 												case calendarType.searson:
 													return year + "-S" + searson; 
 												case calendarType.year:
@@ -273,6 +278,9 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 			return getStr(val,rotate)!;
 		});
 
+		
+		clickBack && clickBack(strArr.toJS(),field!);
+
 		return strArr.join(" 至 ");
 	}
 
@@ -283,11 +291,11 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 	}
 	render(){
 
-			const {hasInp,time} = this.props;
+			const {hasInp,time,width} = this.props;
 			const {expand,selTimeArr,rotate} = this.state;
 
 			return (
-					<div className="g-calendar">
+					<div className="g-calendar" style={{width}}>
 						{hasInp ? <CalendarInp 
 													selTimeVal={this.getSelTimeVal()}
 													dropHandle={this.dropHandle}

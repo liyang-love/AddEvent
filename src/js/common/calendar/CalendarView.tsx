@@ -174,8 +174,11 @@ export default class CalendarView extends React.PureComponent<calendarViewProps,
 		const {showTimeObj,showViewArr,lastYear} = this.state;
 
 		const curViewInde = showViewArr.findIndex(val=>val==="fadeIn");
-
 		const showMoveBtn = (curViewInde === calendarType.day || curViewInde === calendarType.year);
+
+		let duration = new Array(5).fill(0);
+
+					duration[curViewInde] = 300 ;
 
 
 			return (
@@ -201,7 +204,7 @@ export default class CalendarView extends React.PureComponent<calendarViewProps,
 								</div>
 							</div>
 							<div className="m-calendar-view">
-									<VelocityComponent animation={showViewArr.get(calendarType.day)!}>
+									<VelocityComponent animation={showViewArr.get(calendarType.day)!} duration={duration[calendarType.day]}>
 										<CalendarDayView
 												curTime={curTime} 
 											  selTimeObj={selTimeObj} 
@@ -212,7 +215,7 @@ export default class CalendarView extends React.PureComponent<calendarViewProps,
 											  viewIndex={viewIndex}
 											 />
 									</VelocityComponent>
-									<VelocityComponent animation={showViewArr.get(calendarType.year)!}>
+									<VelocityComponent animation={showViewArr.get(calendarType.year)!} duration={duration[calendarType.year]}>
 										 <CalendarYearView 
 										 	curTime={curTime} 
 										  selTimeObj={selTimeObj} 
@@ -222,7 +225,7 @@ export default class CalendarView extends React.PureComponent<calendarViewProps,
 										  lastYear={lastYear}
 										 />
 									</VelocityComponent>
-									<VelocityComponent animation={showViewArr.get(calendarType.month)!}>
+									<VelocityComponent animation={showViewArr.get(calendarType.month)!} duration={duration[calendarType.month]}>
 										 <CalendarMonthView 
 											 	curTime={curTime} 
 											  selTimeObj={selTimeObj} 
@@ -231,7 +234,7 @@ export default class CalendarView extends React.PureComponent<calendarViewProps,
 											  rotate={rotate}
 											 />
 									</VelocityComponent>
-									<VelocityComponent animation={showViewArr.get(calendarType.searson)!}>
+									<VelocityComponent animation={showViewArr.get(calendarType.searson)!} duration={duration[calendarType.searson]}>
 										  <CalendarSearsonView 
 											 	curTime={curTime} 
 											  selTimeObj={selTimeObj} 

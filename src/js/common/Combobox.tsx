@@ -16,6 +16,7 @@ type ItemComboProp = {
 		icon:string;
 		active:boolean;
 		clickFn:(id:string,text:String,active:boolean)=>void;
+		
 }
 
 type DropProp={
@@ -62,14 +63,18 @@ class DropCom extends React.PureComponent<DropProp,DropState>{
 
 }
 
-
+type node ={
+	id:string;
+	text:string;
+}
 
 
 type props = {
 			idField?:string;
 			textField?:string;
 			icon?:string;
-			clickCallback?:(node:itemObj)=>itemObj;
+			clickCallback?:(slecte:Readonly<node[]>,field:string,node?:Readonly<itemObj>,)=>void;
+			field?:string;
 			multiply?:boolean;
 			defaultVal?:string[];
 			width?:number;
@@ -80,7 +85,7 @@ type props = {
 
 type state = {
 	drop:boolean;
-	slected:Immutable.List<{id:string,text:string}>;
+	slected:Immutable.List<node>;
 
 }
 
@@ -90,9 +95,6 @@ export default class Combobox  extends React.PureComponent<props,state>{
 	 				idField:"id",
 					textField:"text",
 					icon:"",
-					clickCallback:function(node:itemObj){
-							return node ;
-					},
 					multiply:false,
 					defaultVal:[],
 					width:240,
@@ -126,6 +128,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 	  toggleDrop = ()=>{
 
+
 	  	this.setState(preState=>{
 
 	  		return {
@@ -150,11 +153,20 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 	  singleClickItem=(id:string,text:string,active:boolean):void=>{
 
-	  	  const {slected,drop} = this.state;
+	  		const {clickCallback,field} = this.props;
+	  	  !active ? this.setState(pre=>{
 
-	  	  !active ? this.setState({
-	  			slected:slected.clear().push({id,text}),
-	  			drop:!drop,
+	  	  	const node = this.props.data.find(val=>val.id==id) ;
+	  	  	const slected = pre.slected.clear().push({id,text});
+
+
+	  	  	clickCallback && clickCallback(slected.toJS(),field!,node!);
+
+	  	  	return {
+	  	  					slected,
+	  							drop:!pre.drop,
+	  						}
+	  		
 	  		}):null;
 
 	  }
@@ -175,6 +187,12 @@ export default class Combobox  extends React.PureComponent<props,state>{
 	  		}
 	  }
 
+	
+
+	 
+
+	 
+
 		render(){
 
 				const {drop,slected} = this.state;
@@ -185,7 +203,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 				const value = this.getValue();
 
-				return (<div className={"combobox "+(drop ? "active ":"")+ (!value?"no-fill":"")} style={{width}}>
+				return (<div className={"combobox "+(drop ? "active ":"")+ (!value?"no-fill":"")} style={{width}} >
 									
 									<ComboInp multiply={multiply!} toggleDrop={this.toggleDrop} value={value} drop={drop} hasSlideIcon={hasSlideIcon}/>
 									<VelocityComponent duration={300} animation={drop?"slideDown":"slideUp"}>

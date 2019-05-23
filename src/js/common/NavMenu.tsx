@@ -123,6 +123,7 @@ class SubMenu extends React.PureComponent<SubMenuProp,SubMenuState>{
 			  	 pathname: path,
 	       	 state: {
 	       	 	id,
+	       	 	text
 	       	 },
 			  };
 

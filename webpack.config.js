@@ -178,6 +178,7 @@ module.exports = env =>{
 				new CleanDistPlugin(),
 			  new webpack.HotModuleReplacementPlugin(),//模块的热替换
 	 		  new webpack.NamedModulesPlugin(), //热更新时显示更新的模块的名字，默认是模块的id
+	 		  new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
 
 		],
 		devServer: {
@@ -201,7 +202,7 @@ module.exports = env =>{
 		        },
 		        clientLogLevel: "none", // cancel console client log
 		        port: '8034', //设置端口号
-		        openPage:"login",//导航页面
+		        openPage:"index",//导航页面
 		        proxy: {
 		             '/AdvEvent': {
 		                target: 'http://localhost:8081',

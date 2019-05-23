@@ -1,4 +1,5 @@
 import * as React from "react";
+import Calendar from "@js/common/calendar/index";
 
 
 type ReportOpinionProp = {
@@ -24,7 +25,7 @@ class ReportOpinion extends React.PureComponent<ReportOpinionProp,ReportOpinionS
 											<label >职能科室：<input type="text"  className="inp" style={{width:"120px"}} /></label>
 								</span>
 								<span className="detail">	
-										<span>日期：</span><span>	</span>
+										<span>日期：</span><Calendar  width={140} />
 								</span>
 							</div>
 							</>
@@ -51,7 +52,7 @@ class ReportOrangeOpinion extends React.PureComponent<ReportOrangeOpinionProp,Re
 	render(){
 
 		return (<>
-							<p className="main-tit">医疗质量与安全管理委员会意见：：</p>
+							<p className="main-tit">医疗质量与安全管理委员会意见：</p>
 							<div className="main" style={{height: "120px"}}>
 									<textarea  className="txtInp" placeholder="填写内容..." maxLength={200}></textarea>
 								</div>
@@ -60,7 +61,7 @@ class ReportOrangeOpinion extends React.PureComponent<ReportOrangeOpinionProp,Re
 											<label >质控科：<input type="text"  className="inp" style={{width:"120px"}} /></label>
 								</span>
 								<span className="detail">	
-										<span>日期：</span><span>	</span>
+										<span>日期：</span><Calendar  width={140} />
 								</span>
 							</div>
 							</>)

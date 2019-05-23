@@ -2,9 +2,28 @@
 
 $borderColor:black;
 
+.page-report{
+	 display: flex;
+	 flex-direction: column;			
+	 box-sizing: border-box;
+	 height: 100%;
+	.g-theme{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding:10px 20px;
+		color:$themeColor;
+		border-bottom: 2px solid $themeColor;
+	}
+	.g-report{
+		flex: 1;
+		overflow: auto;
+	}
+}
+
 .report-article{
 	width: 790px;
-  margin: 2.5% auto;
+  margin: 20px auto;
   position: relative;
   .report-container{
 
@@ -33,7 +52,7 @@ $borderColor:black;
 }
 
  .report-content{
-		$h:24px;
+		$h:33px;
   	table{
 	    width: 100%;
 	    border:1px solid $borderColor;
@@ -53,11 +72,19 @@ $borderColor:black;
 			margin:4px;
 			display: inline-flex;
   	  align-items: center;
-  	  .m-combo-inp{
+  	  .m-combo-inp ,.s-inp{
   	  	border:none;
   	  	border-bottom: 1px solid $borderColor;
- 			 border-radius: 0;
+ 			 	border-radius: 0;
   	  }
+  	  .calendar-inpTxt{
+  	  	text-indent: .5em;
+  	  }
+  	  
+
+			.calendar-inp-icon{
+					display: none;
+			}
 		}
 	  .footer{
 			text-align: right;
@@ -76,14 +103,14 @@ $borderColor:black;
 		.inp{
 			border:none;
 			border-bottom: 1px solid $borderColor;
-			height: 30px;
+			height: $h;
 		}
 
 		
 		.select{
 			border: none;
 	    border-bottom: 1px solid $borderColor;
-	    height: 30px;
+	    height: $h;
 		}
 	 	.main-tit{
 	 		padding: 8px 0
@@ -92,6 +119,7 @@ $borderColor:black;
 			display: inline-block;
 			height: $h;
 			border-bottom: 1px solid $borderColor;
+			line-height: $h;
 		}
 		.btn{
 			text-align: center; 

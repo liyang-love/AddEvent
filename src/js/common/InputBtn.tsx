@@ -94,7 +94,7 @@ class  Checkbox extends React.PureComponent<checkProps,checkState>{
 
 type CominpProps={
 	multiply:boolean;
-	toggleDrop:()=>void;
+	toggleDrop:(e:React.MouseEvent<HTMLElement>)=>void;
 	value:string;
 	drop:boolean;
 	hasSlideIcon?:boolean;

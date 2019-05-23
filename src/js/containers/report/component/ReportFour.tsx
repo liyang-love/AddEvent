@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import Calendar  from "@js/common/calendar/index";
 
 type ReportSeasonProp = {
 
@@ -24,7 +24,7 @@ class ReportSeason extends React.PureComponent<ReportSeasonProp,ReportSeasonStat
 											<label >护士长：<input type="text"  className="inp" style={{width:"120px"}} /></label>
 								</div>
 								<div className="detail">	
-										<span>日期：</span><div  className="data">	</div>
+										<span>日期：</span><Calendar  width={140} />
 								</div>
 							</div>
 							</>
@@ -60,7 +60,7 @@ class ReportImproveMeasure extends React.PureComponent<ReportImproveMeasureProp,
 											<label >护士长：<input type="text"  className="inp" style={{width:"120px"}} /></label>
 								</div>
 								<div className="detail">	
-										<span>日期：</span><div  className="data">	</div>
+										<span>日期：</span><Calendar  width={140} />
 								</div>
 							</div>
 							</>)

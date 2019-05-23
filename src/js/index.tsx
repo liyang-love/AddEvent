@@ -1,6 +1,6 @@
 import * as React from "react" ;
 import {Switch} from "react-router";
-import {Route ,HashRouter} from "react-router-dom";
+import {Route ,HashRouter,BrowserRouter} from "react-router-dom";
 
 import Login from "./login";
 import SlideMenu from "@js/containers/SlideMenu";
@@ -10,6 +10,7 @@ import {connect,MapStateToProps,MapDispatchToProps} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {fetchPostLoginIfNeeded} from "@js/actions/index";
 
+HashRouter
 
 type indexProps = {
 	isLogin:boolean
@@ -54,7 +55,7 @@ class App extends React.PureComponent<appProps & ReduxStateProp & dispatchProp,a
 	render(){
 		const {isLogin,isFetching,login} = this.props;
 			return (
-					<HashRouter >
+					<BrowserRouter >
 							<Switch>
 										<Route path="/login">
 												<Login isLogin={isLogin} isFetching={isFetching} login={login}/>	
@@ -66,7 +67,7 @@ class App extends React.PureComponent<appProps & ReduxStateProp & dispatchProp,a
 												<IndexCom isLogin={isLogin}/>
 										</Route>
 							</Switch>
-					</HashRouter>
+					</BrowserRouter>
 					)
 		}
 	
