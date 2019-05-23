@@ -3,6 +3,7 @@ import "@css/report.scss" ;
 import {RouteComponentProps} from "react-router-dom";
 import  NurseReport from "./NurseReport";
 import {connect,MapStateToProps} from "react-redux";
+import axios from "@js/common/AxiosInstance";
 
 
 type ReportProp={
@@ -15,55 +16,19 @@ type ReportState={
 		totalPage:number;
 }
 
-interface ReportAPI {
-	getMethods:ReportSpace.getMethods;
-	params:{
-			upOrgId:string; //科室
-			patientOrgId:string;//患者所在科室
-			bedNumber:number;//床号
-			patientName:string;//姓名
-			sex:string;
-			age:number;
-			admissionTime:string; //入院时间
-			medicalRecordNumber:string;// 病历号
-			primaryDiagnosis:string;//主要诊断
-			rsaFall:string;//跌倒(相关风险评估)
-			rsaPressureSore:string;//压疮(相关风险评估)
-			rsaCareAbility :string;//自理能力(相关风险评估)
-			rsaNonPlanned:string;//非计划拔管(相关风险评估)
-			rsaOther:string;//其他(相关风险评估)
-			currentPeople:string;//当事人
-			cpProfession:string;//职称(当事人)
-			cpTopClass:string;//层级(当事人)
-			HappenTime:string;//发生时间(当事人)
-			discoverer:string;//发现人
-			dProfession:string;//职称(发现人)
-			dTopClass:string;//层级(发现人)
-			dDiscoveryTime:string;//发现时间(发现人)
-			reporter:string;//报告人
-			rProfession:string;//报告人(职称)
-			rTopClass:string;//层级(报告人)
-			ReportTime:string;//报告时间
-			incidentSceneId:string;//事发场景
-			dadIncidentSceneId:string;//事发场景父级id
-			dateType:string;//日期类型
-			reporterNumber:number;//上报科室人手机号
-			medicalType:string;//医疗类型 
-			incidentTime:string;//事发时段
-	}
-}
 
-type field = keyof ReportAPI["params"] ;
+type field = keyof ReportSpace.ReportAPI["params"] ;
 
-class Report extends React.PureComponent< RouteComponentProps<ReportProp> & reduxState,ReportState> implements ReportAPI  {
 
-	params = {
+class Report extends React.PureComponent< RouteComponentProps<ReportProp> & reduxState,ReportState> implements ReportSpace.ReportAPI  {
+
+	params:ReportSpace.ReportAPI["params"] = {
 		upOrgId:this.props.orgId,
-		patientOrgId:"",
-		bedNumber:0,
+		patientOrgId:this.props.orgId,
+		bedNumber:"",
 		patientName:"",
 		sex:"男",
-		age:0,
+		age:"",
 		admissionTime:"",
 		medicalRecordNumber:"",
 		primaryDiagnosis:"",
@@ -75,48 +40,98 @@ class Report extends React.PureComponent< RouteComponentProps<ReportProp> & redu
 		currentPeople:"",
 		cpProfession:"",
 		cpTopClass:"",
-		HappenTime:"",
+		happenTime:"",
 		discoverer:"",
 		dProfession:"",
 		dTopClass:"",
-		dDiscoveryTime:"",
+		discoveryTime:"",
 		reporter:"",
 		rProfession:"",
 		rTopClass:"",
-		ReportTime:"",
+		reportTime:"",
 		incidentSceneId:"",
 		dadIncidentSceneId:"",
 		dateType:"",
-		reporterNumber:0,
+		reporterNumber:"",
 		medicalType:"",
 		incidentTime:"",
+
+		passResult:"",
+   	pass:"",
+   	result:"",//处理结果
+   	psSignatory:"",//当事人(简要事件的经过及结果)
+   	psDate:"",//日期(简要事件的经过及结果)
+   	treatmentMeasures :"",//处理措施
+   	tmSignatory:"",//签字人(处理措施)
+   	tmDate :"",//日期(处理措施)
+   	analysisCauses :"",//原因分析
+ 	  acSignatory:"",//签字人(原因分析)
+ 	  acDate :"",//日期(原因分析)
+ 	  correctiveActions:"",//改进措施
+ 	  caSignatory :"",//签字人(改进措施)
+ 	  caDate :"",//日期(改进措施)
+
+ 	  orgRank :"",//科室定级
+ 	
+ 	  functionOrgRank:"",//职能科室定级
+    property :"",//不良事件性质界定：风险注册、系统错误、个人错误
+    propertyContent :"",//界定说明
+    frequency :"",//不良事件频率界定
+    frequencyContent:"",//界定说明
+    allotStatus :"",//分配的状态
+
+    man:"",//人(主要原因分析)
+    machine:"",//机(主要原因分析)
+    object:"",//物(主要原因分析)
+    law:"",//法(主要原因分析)
+    ring:"",//环(主要原因分析
+  	deleteSaveCommit:"1",//删除或保存或提交
+ 	  formType :this.props.location.state.id,//表单类型 
+ 	  // modifyStatus :"",//修改状态
 	}
+
 	state:ReportState={
 		curPage:0,
 		totalPage:1,
 	}
 
-	inputChange(e:React.ChangeEvent<HTMLInputElement>){
+	inputChange(e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
 			const field = e.currentTarget.name as field;
 			this.params[field] = e.target.value.trim();
 	}
 
-	setCalendarObj(setTimeArr:any[],field:string){
+	setCalendarObj(setTimeArr:Readonly<any[]> ,field:string){
 			this.params[field as field]= setTimeArr.join("");
 	}
 
-	setComboboxObj(selArr:any[],field:string){
+	setComboboxObj(selArr:Readonly<any[]>,field:string){
 
 			this.params[field as field] = selArr[0].id;
 	}
 
 	upReportHandle=()=>{
-
 			console.log(this.params);
+
+			
+			axios({
+				url:"/event/allReport",
+				method:"post",
+				headers:{
+						"Content-Type":"application/json",
+				},
+				data:this.params,
+			}).then(res=>{
+					console.log(res);
+				
+			});
 
 	}
 
-	getMethods=(methodsName:"inputChange" | "setCalendarObj" | "setComboboxObj")=>{
+	getParams(){
+		return this.params;
+	}
+
+	getMethods=<k extends ReportSpace.methodName >(methodsName:ReportSpace.methodName):ReportSpace.ReportAPI[k]=>{
 		return  this[methodsName].bind(this);
 
 	}

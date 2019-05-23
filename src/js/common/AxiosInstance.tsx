@@ -6,9 +6,10 @@ const instance = axions.create({
 
 instance.interceptors.response.use(function (response) {
 
-		if(response.status != 20000){
+		if(response.status == 200){
 			return response;
 		}else{// session过期，重新登录
+			console.log("请求出错")
 			 return Promise.reject();
 		}
     

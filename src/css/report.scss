@@ -19,6 +19,20 @@ $borderColor:black;
 		flex: 1;
 		overflow: auto;
 	}
+	.reportSeason-txtItem{
+		display: flex;
+		padding-left: 2em;
+		margin:  8px 0;
+		&>span{
+			padding-top: 3px;
+		}
+		.txtInp{
+			height: 60px;
+			flex: 1;
+			padding: 0;
+			text-indent:1em;
+		}	
+	}
 }
 
 .report-article{
@@ -133,3 +147,4 @@ $borderColor:black;
 			border-radius: 4px;
 		} 
   }
+

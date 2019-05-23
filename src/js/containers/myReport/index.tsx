@@ -1,15 +1,19 @@
 import * as React from "react";
-import Calendar from "@js/common/calendar/index";
-
+import Combobox from "@js/common/combobox/Combobox1"
 
 
 const GlobSearch = ()=>{
+
+	const fn=function(slected:any,field:string,node:any){
+
+			console.log(slected,field,node)
+	}
 
 	return (
 		
 			<div>
 				globSearch
-				<Calendar time={true}  />
+				<Combobox field="a"  data={[{id:"1",text:"e",name:"name"},{id:"2","text":"3",name:"eee"}]} multiply={true} inpShowField="name" clickCallback={fn} />
 			</div>
 			
 	)

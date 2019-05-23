@@ -4,7 +4,7 @@ import axios from "@js/common/AxiosInstance";
 
 type ReportSecondProp={
 		formType:string;
-		getMethods:ReportSpace.getMethods;
+		getMethods:ReportSpace.ReportAPI["getMethods"];
 }
 
 type node ={
@@ -64,7 +64,7 @@ class ReportSecond extends React.PureComponent<ReportSecondProp,ReportSecondStat
 				});
 		}
 
-		getMethods("setComboboxObj")(selectArr,field);
+		getMethods<"setComboboxObj">("setComboboxObj")(selectArr,field);
 
 	}
 	

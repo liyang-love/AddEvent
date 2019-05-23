@@ -4,13 +4,13 @@ import ReportSecond from "./component/ReportSecond";
 import {ReportResult,ReportMeasure} from "./component/ReportThree";
 import {ReportSeason,ReportImproveMeasure} from "./component/ReportFour";
 import {ReportOpinion,ReportOrangeOpinion} from "./component/ReportFive";
-
+import OrgDefineLevel from "./component/OrgDefineLevel";
 
 
 type NurseReportProps={
 		formType:string;
 		showPage:number;
-		getMethods:ReportSpace.getMethods;
+		getMethods:ReportSpace.ReportAPI["getMethods"];
 		upOrgName:string;
 }
 
@@ -30,7 +30,7 @@ export default class NurseReport extends React.PureComponent<NurseReportProps,Nu
 		let statusArr = new Array(2).fill("none"); 
 				statusArr[showPage] = "block";
 
-
+		const hospitalName		 = "中医院";
 
 		return (<>
 								
@@ -39,7 +39,7 @@ export default class NurseReport extends React.PureComponent<NurseReportProps,Nu
 												<tbody>
 													<tr>
 														<td>
-																<ReportHead formType={formType} getMethods={getMethods} upOrgName={upOrgName} />
+																<ReportHead formType={formType} hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
 														</td>
 													</tr>
 													<tr>
@@ -49,12 +49,12 @@ export default class NurseReport extends React.PureComponent<NurseReportProps,Nu
 													</tr>
 													<tr>
 														<td>
-																<ReportResult/>
+																<ReportResult hospitalName={hospitalName} getMethods={getMethods}/>
 														</td>
 													</tr>
 													<tr>
 														<td>
-																<ReportMeasure/>
+																<ReportMeasure getMethods={getMethods}/>
 														</td>
 													</tr>
 													</tbody>
@@ -64,48 +64,23 @@ export default class NurseReport extends React.PureComponent<NurseReportProps,Nu
 											<table >
 												<tbody>
 													<tr>
-														<td colSpan={2}>
-																<ReportSeason/>
+														<td >
+																<ReportSeason hospitalName={hospitalName} getMethods={getMethods} />
 														</td>
 													</tr>
 													<tr>
-														<td colSpan={2}>
-																<ReportImproveMeasure/>
+														<td >
+																<ReportImproveMeasure  getMethods={getMethods} />
 														</td>
 													</tr>
+													<OrgDefineLevel  getMethods={getMethods}/>
 													<tr>
-														<td style={{width: "120px"}}>
-															科室定级：
-														</td>
-														<td>
-															<select className="select" defaultValue={"1"}>
-																<option value="1" >Ⅰ</option>
-																<option value="2">Ⅱ</option>
-																<option value="3" >Ⅲ</option>
-																<option value="4">Ⅳ</option>
-															</select>
-														</td>
-													</tr>
-													<tr>
-														<td style={{width: "120px"}}>
-																职能科室定级：
-															</td>
-															<td>
-																<select className="select" defaultValue={"1"} >
-																	<option value="1" >Ⅰ</option>
-																	<option value="2">Ⅱ</option>
-																	<option value="3" >Ⅲ</option>
-																	<option value="4">Ⅳ</option>
-																</select>
-															</td>
-													</tr>
-													<tr>
-															<td colSpan={2}>
+															<td >
 																	<ReportOpinion/>
 															</td>
 														</tr>
 														<tr>
-															<td colSpan={2}>
+															<td >
 																	<ReportOrangeOpinion/>
 																	
 															</td>

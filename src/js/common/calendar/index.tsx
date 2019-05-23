@@ -51,10 +51,10 @@ type calendarProps={
 		style?:1 | 2,
 		time?:boolean, //可选择时间
 		hasInp?:boolean,
-		selTimeValArr?:string[];//最终显示的时间字符串
+		selTimeValArr?:string;//最终显示的时间字符串
 		width?:number;
 		clickBack?:(timeArr:Readonly<any[]>,field:string)=>void;
-		field?:string;
+		field:string;
 }
 
 type calendarState = {
@@ -71,7 +71,7 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 					style:1,
 					time:false,
 					hasInp:true,	
-					selTimeValArr:[],
+					selTimeValArr:"",
 					width:240,
 	}
 
@@ -170,11 +170,12 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 
 	timeValToTimeObj(){
 
-		const {style,selTimeValArr,rotate} = this.props;
+		const {style,selTimeValArr,rotate,time} = this.props;
 
-		const defaultTimeArr = selTimeValArr;
+		const defaultTimeArr = selTimeValArr!.split(",");
+
 		const curTimeArr = Array.from({length:style!},()=>Object.assign({},this.curTime)) ;
-		const has_defaultTime = !!selTimeValArr![0] ;
+		const has_defaultTime = !!selTimeValArr ;
 
 		const hour = this.curTime.hour;
 		const minute = this.curTime.minute;
@@ -182,19 +183,20 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 		const setTime = (item:string)=>{
 
 			
-					const arr = item.split("-");
+					const arr = !time ? item.split("-") : item.split(" ")[0].split("-");
 					const year = ~~arr[0];
 
 					switch (rotate) {
 							case calendarType.day:{
 									const month = ~~arr[1];
+									const timeArr = time ?  item.split(" ")[1].split(":") : null;
 									return {
 										year,
 										month,
 										searson:Math.ceil(month / 3),
 										day:~~arr[2],
-										hour,
-										minute,
+										hour:timeArr ? timeArr[0] : hour,
+										minute:timeArr ?  timeArr[1] :minute,
 									}
 							}
 							case calendarType.month:{
@@ -236,7 +238,7 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 
 
 		const selTimeArr = curTimeArr.map((val,index)=>{
-				return !has_defaultTime ? val : setTime(defaultTimeArr![index])!
+				return !has_defaultTime ? val : setTime(defaultTimeArr[index])!
 		});
 
 
@@ -263,8 +265,8 @@ class Calendar extends  React.PureComponent<calendarProps,calendarState> impleme
 
 											switch (rotate) {
 												case calendarType.day:
-													const timeStr = time ? (val.get("hour")+"").padStart(2,"0") + " : "+(val.get("minute")+"").padStart(2,"0") +" : 00": "";
-													return year + "-" + month + "-" + day + "  " +timeStr; 
+													const timeStr = time ? (val.get("hour")+"").padStart(2,"0") + ":"+(val.get("minute")+"").padStart(2,"0") +":00": "";
+													return year + "-" + month + "-" + day + " " +timeStr; 
 												case calendarType.searson:
 													return year + "-S" + searson; 
 												case calendarType.year:

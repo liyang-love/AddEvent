@@ -17,6 +17,7 @@ type ItemComboProp = {
 		active:boolean;
 		clickFn:(id:string,text:String,active:boolean)=>void;
 		
+
 }
 
 type DropProp={
@@ -27,6 +28,8 @@ type DropProp={
 	clickHande:ItemComboProp["clickFn"];
 	icon:string;
 	slected:state["slected"];
+	pannelWidth?:number;	
+	showTextField?:string;
 }
 
 type DropState={
@@ -46,9 +49,10 @@ class DropCom extends React.PureComponent<DropProp,DropState>{
 
 		render(){
 
-			const {data,maxHeight,idField,textField,clickHande,icon,slected} = this.props;
+			const {data,maxHeight,idField,textField,clickHande,icon,slected,pannelWidth} = this.props;
 
-			return (<ul style={{maxHeight}} className="m-drop" >
+
+			return (<ul style={{maxHeight,width:(pannelWidth ? pannelWidth : "100%")}} className="m-drop" >
 									{
 										data.map(val=>{
 													const id = val[idField!];
@@ -76,11 +80,15 @@ type props = {
 			clickCallback?:(slecte:Readonly<node[]>,field:string,node?:Readonly<itemObj>,)=>void;
 			field?:string;
 			multiply?:boolean;
-			defaultVal?:string[];
+			defaultVal?:string;
 			width?:number;
 			maxHeight?:number;
 			data:itemObj[];
 			hasSlideIcon?:boolean;
+			formatter?:(node:Readonly<any>)=>JSX.Element;
+			pannelWidth?:number;
+			showTextField?:string;
+
 }
 
 type state = {
@@ -96,11 +104,10 @@ export default class Combobox  extends React.PureComponent<props,state>{
 					textField:"text",
 					icon:"",
 					multiply:false,
-					defaultVal:[],
+					defaultVal:"",
 					width:240,
 					maxHeight:300,
 					hasSlideIcon:true,
-	 	
 	 }
 
 
@@ -110,7 +117,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 	  	const {defaultVal,data,idField,textField} = props;
 	  
-	  	const defaultNode = defaultVal!.map(val=>{
+	  	const defaultNode =!!defaultVal ? defaultVal.split(",").map(val=>{
 	  		const node = data.find(node=>(node[idField!]===val))!
 	  		return {
 	  			id:val,
@@ -118,7 +125,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 	  		}
 
 
-	  	})
+	  	}):[];
 	  	
 	  	this.state ={
 		  	drop:false,
@@ -140,7 +147,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 	  getValue(){
 
-			 const {slected} = this.state;
+			const {slected} = this.state;
 
 	  	const arr = slected.map(node=>{
 	  	 			return node!.text;
@@ -187,27 +194,23 @@ export default class Combobox  extends React.PureComponent<props,state>{
 	  		}
 	  }
 
-	
-
-	 
-
-	 
-
 		render(){
 
 				const {drop,slected} = this.state;
 
-				const {data,idField,textField,icon,multiply,width,maxHeight,hasSlideIcon} = this.props;
+				const {data,idField,textField,icon,multiply,width,maxHeight,hasSlideIcon,pannelWidth,showTextField} = this.props;
 
 				const clickFn = multiply ? this.multiplyClickItem : this.singleClickItem;
 
 				const value = this.getValue();
 
+			
+
 				return (<div className={"combobox "+(drop ? "active ":"")+ (!value?"no-fill":"")} style={{width}} >
 									
 									<ComboInp multiply={multiply!} toggleDrop={this.toggleDrop} value={value} drop={drop} hasSlideIcon={hasSlideIcon}/>
 									<VelocityComponent duration={300} animation={drop?"slideDown":"slideUp"}>
-											<DropCom icon={icon!} maxHeight={maxHeight!} data={data} idField={idField!} textField={textField!} clickHande={clickFn} slected={slected}/>
+											<DropCom icon={icon!} maxHeight={maxHeight!} pannelWidth={pannelWidth} data={data} idField={idField!} textField={textField!} clickHande={clickFn} showTextField={showTextField} slected={slected}/>
 									</VelocityComponent >
 								</div>);
 
