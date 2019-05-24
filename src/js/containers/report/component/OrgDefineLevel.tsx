@@ -1,6 +1,8 @@
 import * as React from "react";
-import Combobox from "@js/common/Combobox";
+import Combobox from "@js/common/combobox/index";
 import axios from "@js/common/AxiosInstance";
+
+
 
 type ReportOrgDefineProp={
 		getMethods:ReportSpace.ReportAPI["getMethods"];
@@ -58,7 +60,7 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 								<td>
 									<div className="detail">
 										<span>科室定级：</span>
-										<Combobox field="orgRank" hasSlideIcon={false} data={orgDefineLevel} clickCallback={setComboboxObj} defaultVal={orgRank} />
+										<Combobox field="orgRank" inpShowField="name" hasSlideIcon={false} data={orgDefineLevel} clickCallback={setComboboxObj} defaultVal={orgRank} width={80} pannelWidth={380} />
 									</div>
 								</td>
 							</tr>
@@ -66,7 +68,7 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 									<td>
 										<span>职能科室定级：</span>
 											<div className="detail">
-												<Combobox field="orgRank" hasSlideIcon={false} data={orgDefineLevel} clickCallback={setComboboxObj} defaultVal={functionOrgRank}  />
+												<Combobox field="orgRank" inpShowField="name" hasSlideIcon={false} data={orgDefineLevel} clickCallback={setComboboxObj} defaultVal={functionOrgRank} width={80} pannelWidth={380} />
 											</div>
 									</td>
 							</tr>

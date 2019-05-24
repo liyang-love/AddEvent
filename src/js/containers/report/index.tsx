@@ -95,16 +95,16 @@ class Report extends React.PureComponent< RouteComponentProps<ReportProp> & redu
 		totalPage:1,
 	}
 
-	inputChange(e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
+	inputChange=(e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{
 			const field = e.currentTarget.name as field;
 			this.params[field] = e.target.value.trim();
 	}
 
-	setCalendarObj(setTimeArr:Readonly<any[]> ,field:string){
+	setCalendarObj=(setTimeArr:Readonly<any[]> ,field:string)=>{
 			this.params[field as field]= setTimeArr.join("");
 	}
 
-	setComboboxObj(selArr:Readonly<any[]>,field:string){
+	setComboboxObj=(selArr:Readonly<any[]>,field:string)=>{
 
 			this.params[field as field] = selArr[0].id;
 	}
@@ -127,12 +127,12 @@ class Report extends React.PureComponent< RouteComponentProps<ReportProp> & redu
 
 	}
 
-	getParams(){
+	getParams=()=>{
 		return this.params;
 	}
 
 	getMethods=<k extends ReportSpace.methodName >(methodsName:ReportSpace.methodName):ReportSpace.ReportAPI[k]=>{
-		return  this[methodsName].bind(this);
+		return  this[methodsName];
 
 	}
 

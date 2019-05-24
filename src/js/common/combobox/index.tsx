@@ -52,36 +52,58 @@ export default class Combobox  extends React.PureComponent<props,state>{
 	  	super(props);
 
 	  	const {defaultVal,data,idField,textField} = props;
+
+	  	const _defaultVal = defaultVal+"";
 	  
-	  	const defaultNode =!!defaultVal ? defaultVal.split(",").map(val=>{
-	  		const node = data.find(node=>(node[idField!]==val))!
-	  		return  {
-	  			id:val,
-	  			text:node[textField!]
-	  		}  ;
-	  	}):[];
-
-
 	  	
+
+	  	let defaultNode:ComboboxSpace.comboboxAPI["slectedItem"][];
+
+	  	if(!!_defaultVal){
+	  		defaultNode = [];
+	  	}else{
+	  		const _defaultNode = _defaultVal.split(",").map(val=>{
+			  	
+			  		const node = data.find(node=>(node[idField!]==val))!
+			  		return  node ? {
+			  			id:val,
+			  			text:node[textField!]
+			  		} :null ;
+			  	}); 
+
+	  		defaultNode = _defaultNode.filter(val=>!!val) as ComboboxSpace.comboboxAPI["slectedItem"][];
+	  	}
+
+	  	const slected = Immutable.List(defaultNode);
+
 	  	this.state ={
 		  	drop:false,
-		  	slected: Immutable.List(defaultNode),
-		  	data:Immutable.fromJS(this.addField(data,)),
+		  	slected,
+		  	data:Immutable.fromJS(this.addField(data,slected)),
 		  }
 	  }
 
-	  addField(data:any[]):any[]{
+  	componentWillReceiveProps(nextProp:props){
 
-	  	const {defaultVal,idField,multiply} = this.props;
-			let slecteArr = defaultVal!.split(",");
+			//父组件
+			if(nextProp.data != this.props.data){
+					this.setState({
+						data:Immutable.fromJS(this.addField(nextProp.data,this.state.slected)),
+					})
+			}
 
-					!multiply && slecteArr.pop();
+			
+		}
+
+	  addField(data:any[],slecteArr:state["slected"]):any[]{
+
+	  	const {idField} = this.props;
 
 			return  JSON.parse(JSON.stringify(data),function(...args){
 
 									const [,val] = args
 				  				if(Object.prototype.toString.call(val)=== "[object Object]"){
-				  						val.active = slecteArr.includes(val[idField!]+"");
+				  						val.active = (slecteArr.findIndex(node=>node.id == val[idField!]) > -1)
 				  				}
 				  				return val;
 				  	});

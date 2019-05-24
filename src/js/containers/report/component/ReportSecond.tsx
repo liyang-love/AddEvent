@@ -1,5 +1,5 @@
 import * as React from "react";
-import Combobox from "@js/common/Combobox";
+import Combobox from "@js/common/combobox/index";
 import axios from "@js/common/AxiosInstance";
 
 type ReportSecondProp={
@@ -17,6 +17,7 @@ type ReportSecondState={
 						id:string;
 						text:string;
 						orgId:string;
+						orgName:string;
 						children:any[]
 				}[];
 	categoryLinkOrgLev2:ReportSecondState["categoryLinkOrg"];
@@ -60,7 +61,7 @@ class ReportSecond extends React.PureComponent<ReportSecondProp,ReportSecondStat
 				});
 		}else{
 				this.setState({
-					org:node.orgId
+					org:node.orgName
 				});
 		}
 

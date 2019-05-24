@@ -1,5 +1,6 @@
 import * as React from "react";
-import Combobox from "@js/common/Combobox";
+import Combobox from "@js/common/combobox/index";
+import ComTreebox from "@js/common/comtreeBox/index";
 import axios from "@js/common/AxiosInstance";
 import Calendar from "@js/common/calendar/index";
 
@@ -32,7 +33,11 @@ type ReportHeadState = {
 				medicalTypeArr:any[]; //医疗类型
 				incidentTimeArr:any[];//事发时段
 				dataTypeArr:any[];//日期类型
-				
+				anonymity:boolean;
+				orgArr:{
+					 id:string;
+          	name:string;
+				}[]
 }
 
 
@@ -52,6 +57,8 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 			medicalTypeArr:[],
 			incidentTimeArr:[],
 			dataTypeArr:[],
+			anonymity:false,
+			orgArr:[],
 	}
 
 	
@@ -68,10 +75,16 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 			url:"/event/medicalIncidentDate",
 		});		
 
-		Promise.all([getSceneCareerClass,getMedicalIncidentDate]).then(arr=>{
+		//科室
+		const listOrgTree = axios({
+			url:"/event/listOrgTree",
+		});	
+
+		Promise.all([getSceneCareerClass,getMedicalIncidentDate,listOrgTree]).then(arr=>{
 
 				const {profession, happenScene, topClass} = arr[0].data;
 				const [medicalTypeArr,incidentTime,dataType] = arr[1].data.data;
+				const orgArr = arr[2].data.data;
 
 				this.setState({
 					profession,
@@ -80,6 +93,7 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 					medicalTypeArr:medicalTypeArr.children,
 					incidentTimeArr:incidentTime.children,
 					dataTypeArr:dataType.children,
+					orgArr,
 				});
 		}).catch(error=>{
 			console.log(error);
@@ -93,9 +107,16 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 		this.getAllFormData(formType);
 
 	}
+	changeAnonymity=()=>{
+
+
+		this.setState(pre=>({
+			anonymity:!pre.anonymity
+		}))
+	}
 	render(){
 
-			const {profession,topClass,happenScene,dataTypeArr,incidentTimeArr,medicalTypeArr} = this.state;
+			const {profession,topClass,happenScene,dataTypeArr,incidentTimeArr,medicalTypeArr,anonymity,orgArr} = this.state;
 			const {getMethods,upOrgName,hospitalName} = this.props;
 
 			const inputChange = getMethods<"inputChange">("inputChange");
@@ -106,15 +127,17 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 			const {bedNumber,patientName,age,admissionTime,medicalRecordNumber,
 							primaryDiagnosis,medicalType,incidentTime ,rsaFall ,rsaPressureSore ,rsaCareAbility,
 							rsaNonPlanned,rsaOther,currentPeople ,cpProfession ,cpTopClass,dProfession,discoverer,dTopClass,
-							reporter,rProfession,rTopClass,dadIncidentSceneId,reporterNumber,incidentSceneId,happenTime,discoveryTime,reportTime
+							reporter,rProfession,rTopClass,dadIncidentSceneId,reporterNumber,incidentSceneId,happenTime,discoveryTime,reportTime,patientOrgId
 						} = getMethods<"getParams">("getParams")();
-
-
+				patientOrgId		
 			return (<>
 								<div className="item-tr">
 								
 									<span className="detail">
-										 <label >科室：<span className="underline" style={{width: "80px"}}>{upOrgName}</span></label>
+										 <span >科室：</span>
+										
+										 	<ComTreebox data={orgArr} textFiled="name" filed="patientOrgId" hasSlideIcon={false}  width={100} pannelWidth={300} />
+										 	
 									</span>
 									<span className="detail">
 										 <label >床号：<input type="text" defaultValue={bedNumber} name="bedNumber" className="inp" style={{width:"80px"}} onChange={inputChange} /> </label>
@@ -247,10 +270,13 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 								 			<Combobox data={happenScene} width={140} hasSlideIcon={false} defaultVal={incidentSceneId} clickCallback={setComboboxObj} field="incidentSceneId"/>
 									 		&nbsp;&nbsp;<input type="text" name="dadIncidentSceneId" defaultValue={dadIncidentSceneId} onChange={inputChange} className="inp" style={{width:"300px"}} placeholder="例如：内五病区501病房阳台"/>
 									 </span>	
-									
 									 <span className="detail">
-									 		<label >手机号：</label><input type="text" name="reporterNumber" defaultValue={reporterNumber} onChange={inputChange} className="inp" style={{width:"100px"}}/>
-									 </span>
+								 			<label className="m-label m-lab-checkbox" style={{display:"inline"}}><input type="checkbox" checked={anonymity} name="anonymity" style={{verticalAlign:-2}} onChange={this.changeAnonymity} /><span >匿名</span></label>
+								 		
+								 	 </span>
+									{!anonymity ? ( <span className="detail">
+																											 		<label >手机号：</label><input type="text" name="reporterNumber" defaultValue={reporterNumber} onChange={inputChange} className="inp" style={{width:"100px"}}/>
+																											 </span>) :null }
 							</div>
 
 							</>)

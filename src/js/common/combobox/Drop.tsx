@@ -24,6 +24,27 @@ type DropState={
 
 
 
+class ItemCombo extends React.PureComponent<ItemComboProp>{
+
+	render(){
+
+
+					const {node,getPropFieldVal,clickFn,index} = this.props;
+		
+					const active = node.get("active");
+					const icon = getPropFieldVal("icon");
+					const textField = getPropFieldVal("textField") as any;
+					const text = node.get(textField);
+
+					return (<li onClick={clickFn}  data-index={index} className={"m-combo-item " + (active ? "active" : "")}>
+									{ icon ? <span className={icon}></span>:""}
+									 <span>{text}</span>
+								 </li>)
+	}
+}
+
+
+
 export default class DropCom extends React.PureComponent<DropProp,DropState>{
 
 		static ItemCombo:React.SFC<ItemComboProp> = ({getPropFieldVal,clickFn,node,index})=>{
@@ -50,7 +71,7 @@ export default class DropCom extends React.PureComponent<DropProp,DropState>{
 									{
 										data.map((val,index)=>{
 													const id = val.get(idField);
-													return <DropCom.ItemCombo node={val} index={index} getPropFieldVal={getPropFieldVal}   clickFn={clickHande} key={id}/>
+													return <ItemCombo node={val} index={index} getPropFieldVal={getPropFieldVal}   clickFn={clickHande} key={id}/>
 										})
 									}
 							</>)

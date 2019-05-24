@@ -109,7 +109,7 @@ class ComboInp extends React.PureComponent<CominpProps,CominpState>{
 
 	render(){
 
-		const {multiply,toggleDrop,value,drop,hasSlideIcon=true} = this.props;
+		const {multiply,toggleDrop,value,drop,hasSlideIcon} = this.props;
 
 		return (<div className="m-combo-inp" onClick={toggleDrop}>
 												{ !multiply ?	<input type="text" className="m-inp" readOnly value={value} placeholder="单选"/>: (<textarea value={value} className="m-inp" readOnly  placeholder="多选"/>)

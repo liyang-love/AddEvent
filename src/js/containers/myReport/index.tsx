@@ -1,5 +1,5 @@
 import * as React from "react";
-import Combobox from "@js/common/combobox/Combobox1"
+import Combobox from "@js/common/combobox/index"
 
 
 const GlobSearch = ()=>{
