@@ -21,6 +21,29 @@
 	
 	border-color:$error;
 }
+.require{
+	&:before{
+		content:"*";
+		color:red;
+
+	}
+}
+
+.input-file-m{
+	position: relative;
+	input{
+		position: absolute;
+		left: 0;
+		width: 80px;
+		opacity: 0;
+	}
+	span{
+		color: red;
+		padding:4px;
+		border-bottom: 1px solid red;
+	}
+	
+}
 
 
 %inpbox{

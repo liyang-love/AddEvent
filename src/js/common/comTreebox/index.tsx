@@ -67,7 +67,7 @@ export default class ComTreeBox extends React.PureComponent<props,states> implem
 		 		treeData
 	 	}
 	 	
-	 	this.getInitPath(this.props.data,this.props.defaultSel![0]);
+	 	this.getInitPath(this.props.data,this.props.defaultSel!);
  	}
 
 	
@@ -120,10 +120,15 @@ export default class ComTreeBox extends React.PureComponent<props,states> implem
 
 			//父组件
 			if(nextProp.data != this.props.data){
-					const treeData = this.addStaTusField(nextProp.data,nextProp.defaultSel!.split(","),this.state.selected.map(val=>val!.id).toArray());
+					const initSlectedArr:any[] = [];
+					const treeData = this.addStaTusField(nextProp.data,nextProp.defaultSel!.split(","),initSlectedArr);
 					this.setState({
 						treeData,
-					})
+						selected:Immutable.List(initSlectedArr)
+					});
+
+					this.getInitPath(nextProp.data,nextProp.defaultSel!);
+
 			}
 
 			
@@ -624,11 +629,6 @@ export default class ComTreeBox extends React.PureComponent<props,states> implem
 		const {drop,treeData} = this.state;
 		const {checkbox,width,maxHeight,hasSlideIcon,pannelWidth} = this.props;
 		const value = this.getValue();
-
-		const a = this.getCommonMethod<"clickItem">("clickItem");
-		const b = this.getCommonMethod<"clickItem">("clickItem");
-
-		console.log(a === b);
 
 
 		return (<div className={"comTreeBox "+(drop ? "active ":"") + (!value?"no-fill":"")} style={{width:width+"px"}}>

@@ -2,7 +2,7 @@
 
 
 
-	export type methodName = "inputChange" | "setCalendarObj" | "setComboboxObj" | "getParams";
+	export type methodName = "inputChange" | "setCalendarObj" | "setComboboxObj" | "getParams" | "upFileHandle";
 	export type hospitalName = "三院" | "中医院";
 
 	 export interface ReportAPI {
@@ -79,10 +79,11 @@
 
 			}
 			
-			inputChange(e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>):void;
+			inputChange(e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>):void;
 			setCalendarObj( setTimeArr:Readonly<any[]> ,field:string):void;
 			setComboboxObj(selArr:Readonly<any[]> ,field:string):void;
 			getParams():ReportAPI["params"];
+			upFileHandle(file:FileList):void;
 		}
 
 

@@ -87,8 +87,21 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 			//父组件
 			if(nextProp.data != this.props.data){
+						const _defaultVal = nextProp.defaultVal+"";
+						const _defaultNode = _defaultVal.split(",").map(val=>{
+					  		const node = nextProp.data.find(node=>(node[nextProp.idField!]==val))!
+					  		return  node ? {
+					  			id:val,
+					  			text:node[nextProp.textField!]
+					  		} :null ;
+					  	}); 
+
+	  			const	slected = Immutable.List(_defaultNode.filter(val=>!!val) as ComboboxSpace.comboboxAPI["slectedItem"][]);
+
+
 					this.setState({
-						data:Immutable.fromJS(this.addField(nextProp.data,this.state.slected)),
+						data:Immutable.fromJS(this.addField(nextProp.data,slected)),
+						slected,
 					})
 			}
 

@@ -48,7 +48,7 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 		const {orgDefineLevel} = this.state;
 		const {getMethods} = this.props;
 
-		const {orgRank,functionOrgRank} = getMethods<"getParams">("getParams")()
+		const {orgRank} = getMethods<"getParams">("getParams")()
 
 		const setComboboxObj = getMethods<"setComboboxObj">("setComboboxObj");
 
@@ -59,6 +59,14 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 							<tr>
 								<td>
 									<div className="detail">
+										<span>造成病人的损害程度：</span>
+										<Combobox field="orgRank" inpShowField="name" hasSlideIcon={false} data={orgDefineLevel} clickCallback={setComboboxObj} defaultVal={orgRank} width={80} pannelWidth={380} />
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div className="detail">
 										<span>科室定级：</span>
 										<Combobox field="orgRank" inpShowField="name" hasSlideIcon={false} data={orgDefineLevel} clickCallback={setComboboxObj} defaultVal={orgRank} width={80} pannelWidth={380} />
 									</div>
@@ -66,10 +74,8 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 							</tr>
 							<tr>
 									<td>
-										<span>职能科室定级：</span>
-											<div className="detail">
-												<Combobox field="orgRank" inpShowField="name" hasSlideIcon={false} data={orgDefineLevel} clickCallback={setComboboxObj} defaultVal={functionOrgRank} width={80} pannelWidth={380} />
-											</div>
+										<span>护理安全管理小组定级：</span>
+										<span className="underline" style={{width: "80px"}}></span>
 									</td>
 							</tr>
 

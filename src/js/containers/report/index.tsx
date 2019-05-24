@@ -14,6 +14,7 @@ type ReportProp={
 type ReportState={
 		curPage:number;
 		totalPage:number;
+		
 }
 
 
@@ -95,7 +96,9 @@ class Report extends React.PureComponent< RouteComponentProps<ReportProp> & redu
 		totalPage:1,
 	}
 
-	inputChange=(e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{
+
+
+	inputChange=(e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement |HTMLSelectElement>)=>{
 			const field = e.currentTarget.name as field;
 			this.params[field] = e.target.value.trim();
 	}
@@ -109,9 +112,11 @@ class Report extends React.PureComponent< RouteComponentProps<ReportProp> & redu
 			this.params[field as field] = selArr[0].id;
 	}
 
-	upReportHandle=()=>{
+	upReportHandle=(e:React.MouseEvent<HTMLElement>)=>{
 			console.log(this.params);
 
+			const type = e.currentTarget.dataset.type! ;
+			this.params.deleteSaveCommit = type ;
 			
 			axios({
 				url:"/event/allReport",
@@ -124,6 +129,12 @@ class Report extends React.PureComponent< RouteComponentProps<ReportProp> & redu
 					console.log(res);
 				
 			});
+	}
+
+	upFileHandle=(file:FileList)=>{
+
+
+		console.log(file);
 
 	}
 
@@ -157,16 +168,17 @@ class Report extends React.PureComponent< RouteComponentProps<ReportProp> & redu
 		return (
 				<div className="page-report">
 					<div className="g-theme">
-						<span ><b style={{fontSize:18}}>{text}</b><span>&nbsp;&nbsp;第 {curPage + 1} 页</span></span>
+						<span ><b style={{fontSize:18}}>{text}</b><span>&nbsp;&nbsp;第 {curPage + 1} 页</span>&nbsp;&nbsp;&nbsp;<span className="require">（必填项）</span></span>
+
 						<span>
 									<button className="s-btn normal-btn" onClick={this.changePage}>{is_first ?"上" :"下"}一页</button>&nbsp;
-									<button className="s-btn normal-btn" onClick={this.upReportHandle}>上报</button>&nbsp;
-									<button className="s-btn normal-btn">关闭</button>
+									<button className="s-btn normal-btn" data-type="1" onClick={this.upReportHandle}>提交</button>&nbsp;
+									<button className="s-btn normal-btn" data-type="0" onClick={this.upReportHandle}>保存</button>&nbsp;
 						</span>
 					</div>
 					<div className="g-report">
 						<div className="report-article">
-									<NurseReport formType={id} showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+									<NurseReport formType={id} showPage={curPage}  getMethods={this.getMethods} upOrgName={orgName} />
 						</div>
 					</div>
 				</div>

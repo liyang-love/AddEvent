@@ -6,17 +6,34 @@ import Calendar from "@js/common/calendar/index";
 type ReportResultProp={
 	hospitalName:ReportSpace.hospitalName; // 医院名称
 	getMethods:ReportSpace.ReportAPI["getMethods"];
+	
 }
 
 type ReportResultState={
-	
+	fileName:string;
 }
 
 
 class ReportResult extends React.PureComponent<ReportResultProp,ReportResultState> {
+	state={
+		fileName:""
+	}
 
+	upFile=(e:React.ChangeEvent<HTMLInputElement>)=>{
+
+			const file = e.currentTarget.files!
+
+			this.setState({
+				fileName:file[0].name
+			})
+		
+		this.props.getMethods<"upFileHandle">("upFileHandle")(file);
+
+	}
 	render(){
 			const {hospitalName,getMethods} = this.props;
+			const {fileName} = this.state;
+
 
 			const inputChange = getMethods<"inputChange">("inputChange");
 			const setCalendarObj = getMethods<"setCalendarObj">("setCalendarObj");
@@ -34,16 +51,23 @@ class ReportResult extends React.PureComponent<ReportResultProp,ReportResultStat
 																						</div>
 																					</>) : 
 							(<>
-								<p className="main-tit">事件的经过：</p>
-								<div className="main" style={{height: "100px" }}>
+								<p className="main-tit">事件经过及处理结果描述：</p>
+								<p className="main-tit-2">事件的经过：</p>
+								<div className="main" style={{height: "120px" }}>
 										<textarea name="pass" defaultValue={pass} className="txtInp" placeholder="填写内容（以时间为节点）..." maxLength={200}></textarea>
 								</div>
-								<p className="main-tit">事件的结果：</p>
+								<p className="main-tit-2">事件的结果：</p>
 								<div className="main" style={{height: "120px" }}>
 										<textarea name="result" defaultValue={result} className="txtInp" placeholder="填写内容（以时间为节点）..." maxLength={200}></textarea>
 								</div>
 								</>)
 						}
+
+							<p className="input-file-m">
+								<span >附加材料：</span>
+								<span >{fileName}</span>
+								<input type="file" onChange={this.upFile} />
+							</p>
 
 							<div className="footer">
 								<div className="detail">	

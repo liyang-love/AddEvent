@@ -49,7 +49,7 @@ export default class NurseReport extends React.PureComponent<NurseReportProps,Nu
 													</tr>
 													<tr>
 														<td>
-																<ReportResult hospitalName={hospitalName} getMethods={getMethods}/>
+																<ReportResult hospitalName={hospitalName}  getMethods={getMethods}/>
 														</td>
 													</tr>
 													<tr>

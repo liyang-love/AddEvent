@@ -129,14 +129,14 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 							rsaNonPlanned,rsaOther,currentPeople ,cpProfession ,cpTopClass,dProfession,discoverer,dTopClass,
 							reporter,rProfession,rTopClass,dadIncidentSceneId,reporterNumber,incidentSceneId,happenTime,discoveryTime,reportTime,patientOrgId
 						} = getMethods<"getParams">("getParams")();
-				patientOrgId		
+						
 			return (<>
 								<div className="item-tr">
 								
 									<span className="detail">
-										 <span >科室：</span>
+										 <span className="require">科室：</span>
 										
-										 	<ComTreebox data={orgArr} textFiled="name" filed="patientOrgId" hasSlideIcon={false}  width={100} pannelWidth={300} />
+										 	<ComTreebox data={orgArr}  textFiled="name" defaultSel={patientOrgId+""}  filed="patientOrgId" hasSlideIcon={false}  width={130} pannelWidth={300} />
 										 	
 									</span>
 									<span className="detail">
@@ -148,7 +148,8 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 			
 									<span className="detail">
 										 	<span>性别：</span>
-											<select className="select" defaultValue={"1"}>
+
+											<select className="select" defaultValue={"1"} name="sex"  onChange={inputChange} >
 												<option value="1" >男</option>
 												<option value="2">女</option>
 											</select>
@@ -158,7 +159,7 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 									</span>
 									<span className="detail">
 										<span>入院时间：</span>
-										<Calendar  width={120}  clickBack={setCalendarObj} field="admissionTime" selTimeValArr={admissionTime} />
+										<Calendar  width={90}  clickBack={setCalendarObj} field="admissionTime" selTimeValArr={admissionTime} />
 									</span>
 							</div>	
 							<div className="item-tr">
@@ -218,6 +219,7 @@ class ReportHead extends React.PureComponent<ReportHeadProp,ReportHeadState> imp
 									 </span>
 									 <span className="detail">
 									 		<span>职称：</span>
+
 								 			<Combobox data={profession} width={120} hasSlideIcon={false} defaultVal={cpProfession} clickCallback={setComboboxObj} field="cpProfession" />
 									 </span>
 									 <span className="detail">
