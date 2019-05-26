@@ -48,7 +48,7 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 		const {orgDefineLevel} = this.state;
 		const {getMethods} = this.props;
 
-		const {orgRank} = getMethods<"getParams">("getParams")()
+		const {orgRank,damageDegree} = getMethods<"getParams">("getParams")()
 
 		const setComboboxObj = getMethods<"setComboboxObj">("setComboboxObj");
 
@@ -60,7 +60,7 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 								<td>
 									<div className="detail">
 										<span>造成病人的损害程度：</span>
-										<Combobox field="orgRank" inpShowField="name" hasSlideIcon={false} data={orgDefineLevel} clickCallback={setComboboxObj} defaultVal={orgRank} width={80} pannelWidth={380} />
+										<Combobox field="orgRank" inpShowField="name" hasSlideIcon={false} data={orgDefineLevel} clickCallback={setComboboxObj} defaultVal={damageDegree} width={80} pannelWidth={380} />
 									</div>
 								</td>
 							</tr>

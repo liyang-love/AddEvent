@@ -114,10 +114,16 @@ $borderColor:black;
 	    resize: none;
 			box-sizing: border-box;
 		}
+		.txtInp.no-fill{
+			border:1px solid $error;
+		}
 		.inp{
 			border:none;
 			border-bottom: 1px solid $borderColor;
 			height: $h;
+		}
+		.inp.no-fill{
+			border-color: $error;
 		}
 
 		

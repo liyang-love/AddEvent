@@ -1,7 +1,7 @@
 import * as  React from "react";
 import ReportHead from "./component/ReportHead";
 import ReportSecond from "./component/ReportSecond";
-import {ReportResult,ReportMeasure} from "./component/ReportThree";
+import {ReportResult} from "./component/ReportThree";
 import {ReportSeason,ReportImproveMeasure} from "./component/ReportFour";
 import {ReportOpinion,ReportOrangeOpinion} from "./component/ReportFive";
 import OrgDefineLevel from "./component/OrgDefineLevel";
@@ -53,8 +53,8 @@ export default class NurseReport extends React.PureComponent<NurseReportProps,Nu
 														</td>
 													</tr>
 													<tr>
-														<td>
-																<ReportMeasure getMethods={getMethods}/>
+														<td >
+																<ReportSeason hospitalName={hospitalName} getMethods={getMethods} />
 														</td>
 													</tr>
 													</tbody>
@@ -63,11 +63,7 @@ export default class NurseReport extends React.PureComponent<NurseReportProps,Nu
 									<div className="report-content" style={{display:statusArr[1]}}>
 											<table >
 												<tbody>
-													<tr>
-														<td >
-																<ReportSeason hospitalName={hospitalName} getMethods={getMethods} />
-														</td>
-													</tr>
+													
 													<tr>
 														<td >
 																<ReportImproveMeasure  getMethods={getMethods} />

@@ -45,11 +45,11 @@ class ReportResult extends React.PureComponent<ReportResultProp,ReportResultStat
 
 
 							{hospitalName !== "中医院" ? (<>
-																						<p className="main-tit">简要事件的经过及结果：</p>
-																						<div className="main" style={{height: "220px" }}>
-																								<textarea defaultValue={passResult} name="passResult " className="txtInp" placeholder="填写内容（以时间为节点）..." maxLength={400} onChange={inputChange}></textarea>
-																						</div>
-																					</>) : 
+								<p className="main-tit">简要事件的经过及结果：</p>
+								<div className="main" style={{height: "220px" }}>
+										<textarea defaultValue={passResult} name="passResult " className="txtInp" placeholder="填写内容（以时间为节点）..." maxLength={400} onChange={inputChange}></textarea>
+								</div>
+							</>) : 
 							(<>
 								<p className="main-tit">事件经过及处理结果描述：</p>
 								<p className="main-tit-2">事件的经过：</p>
@@ -108,9 +108,9 @@ class ReportMeasure extends React.PureComponent<ReportMeasureProp,ReportMeasureS
 
 			return(
 						<>
-							<p className="main-tit">处理措施：</p>
+							<p className="main-tit require">处理措施：</p>
 							<div className="main" style={{height: "220px"}}>
-									<textarea name="treatmentMeasures"  className="txtInp" defaultValue={treatmentMeasures}  placeholder="填写内容..." maxLength={400} onChange={inputChange} ></textarea>
+									<textarea name="treatmentMeasures" required className="txtInp" defaultValue={treatmentMeasures}  placeholder="填写内容..." maxLength={400} onChange={inputChange} ></textarea>
 								</div>
 							<div className="footer">
 								<div className="detail">	

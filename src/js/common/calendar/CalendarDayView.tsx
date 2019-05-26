@@ -57,17 +57,8 @@ export default class CalendarDayView extends React.PureComponent<DayViewProp,Day
 		changeTime:CalendarSpace.CalendarApi["changeTime"];
 		viewIndex:0|1;
 	}>=({selTimeObj,changeTime,viewIndex})=>{
-
-
-
-		
-
 		const hour = selTimeObj.get("hour") ,
 					minute = selTimeObj.get("minute") ;
-
-
-	
-	
 
 		return 	(<div className="m-time">
 					<div>

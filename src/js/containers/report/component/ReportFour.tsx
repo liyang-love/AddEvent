@@ -130,9 +130,9 @@ class ReportImproveMeasure extends React.PureComponent<ReportImproveMeasureProp,
 			const {caSignatory,correctiveActions,caDate} = getMethods<"getParams">("getParams")();
 
 		return (<>
-							<p className="main-tit">改进措施：</p>
+							<p className="main-tit require">改进措施：</p>
 							<div className="main" style={{height: "160px"}}>
-									<textarea name="correctiveActions" defaultValue={correctiveActions} onChange={inputChange} className="txtInp" placeholder="填写内容..." maxLength={280}></textarea>
+									<textarea name="correctiveActions" required defaultValue={correctiveActions} onChange={inputChange} className={correctiveActions ? "txtInp" :"txtInp no-fill"} placeholder="填写内容..." maxLength={280}></textarea>
 								</div>
 							<div className="footer">
 								<div className="detail">	

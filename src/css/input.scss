@@ -21,6 +21,7 @@
 	
 	border-color:$error;
 }
+
 .require{
 	&:before{
 		content:"*";
@@ -31,6 +32,7 @@
 
 .input-file-m{
 	position: relative;
+	margin-top:10px;
 	input{
 		position: absolute;
 		left: 0;

@@ -78,13 +78,13 @@ class ReportSecond extends React.PureComponent<ReportSecondProp,ReportSecondStat
 					<div className="item">
 										
 								 <span className="detail">
-								 		<span>类别：</span>
+								 		<span className="require">类别：</span>
 								 			<Combobox data={categoryLinkOrg}  width={140} field="categoryId" hasSlideIcon={false} clickCallback={this.setCategoryLinkOrgLev2} />
 								 			&nbsp;&nbsp;
 								 			<Combobox data={categoryLinkOrgLev2}  width={240} hasSlideIcon={false} field="dadCategoryId" clickCallback={this.setCategoryLinkOrgLev2} />
 								 </span>
 								 <span className="detail">
-								 			<span>分配科室：</span><span className="underline" style={{width:"180px" }} >{org}</span>
+								 			<span className="require">分配科室：</span><span className="underline" style={{width:"180px" }} >{org}</span>
 								 </span>
 							
 						</div>

@@ -21,6 +21,7 @@ type props = {
 			formatter?:(node:Readonly<any>)=>JSX.Element;
 			pannelWidth?:number;
 			inpShowField?:string;
+			require?:boolean;
 }
 
 
@@ -42,6 +43,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 					width:240,
 					maxHeight:300,
 					hasSlideIcon:true,
+					require:true,
 	 }
 
 
@@ -201,16 +203,17 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 				const {drop,data} = this.state;
 
-				const {multiply,width,maxHeight,hasSlideIcon,pannelWidth} = this.props;
+				const {multiply,width,maxHeight,hasSlideIcon,pannelWidth,require} = this.props;
 
 
 				const value = this.getValue();
 
 			
 
-				return (<div className={"combobox "+(drop ? "active ":"")+ (!value?"no-fill":"")} style={{width}} >
+				return (<div className={"combobox "+(drop ? "active ":"")+ ((!value && require)?"no-fill":"")} style={{width}} >
 									
-									<ComboInp multiply={multiply!} toggleDrop={this.toggleDrop} value={value} drop={drop} hasSlideIcon={hasSlideIcon}/>
+									<ComboInp multiply={multiply!} toggleDrop={this.toggleDrop} value={value} drop={drop} hasSlideIcon={hasSlideIcon}
+									/>
 									<VelocityComponent duration={300} animation={drop?"slideDown":"slideUp"}>
 											<ul style={{maxHeight,width:(pannelWidth ?pannelWidth:"100%")}} className="m-drop" >
 												

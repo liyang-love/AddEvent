@@ -1,12 +1,9 @@
 import * as React from "react";
 
-
 type ReportOpinionProp = {
-
 }
 
 type ReportOpinionState = {
-
 }
 
 class ReportOpinion extends React.PureComponent<ReportOpinionProp,ReportOpinionState>{
