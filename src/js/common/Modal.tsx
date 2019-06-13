@@ -1,11 +1,12 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
-
+import {Icon} from "@js/common/Button";
+import {VelocityComponent} from "velocity-react";
 
 type ModalProps = {
 		ableMove?:boolean;
 		shadeTransparent?:boolean; //遮罩层透明
-		container:HTMLDivElement;
+		container:HTMLElement;
 		tit:string;
 		className?:string;
 		confirmName:string;
@@ -13,6 +14,7 @@ type ModalProps = {
 		onCancel:()=>void;
 		onSure:()=>void;
 		show:boolean;
+		type?:"tip"|"question";
 }
 
 type ModalState = {
@@ -37,11 +39,7 @@ export default class Modal extends React.PureComponent<ModalProps,ModalState>{
 
 	ModalDom:React.RefObject<HTMLDivElement> = React.createRef();
 
-	componentDidMount(){
-
-		console.log(this.ModalDom,"dom")
-	}
-
+	
 	headMouseDown=(e:React.MouseEvent)=>{
 			const modalDom = (this.ModalDom.current)!;
 			const {pointY,pointX} = this.state;
@@ -62,48 +60,58 @@ export default class Modal extends React.PureComponent<ModalProps,ModalState>{
 			(this.ModalDom.current)!.onmousemove = null ;
 	}
 
+	sureHandle=()=>{
+		const {onSure} = this.props;
+		onSure();
+	}
+
 	render(){
 
 
 
-		const {children,container,tit,confirmName,cancelName,onCancel,onSure,show,className} = this.props;
+		const {children,container,tit,confirmName,cancelName,onCancel,show,className,type} = this.props;
 		let flag = container;
 
 		const {pointX,pointY} = this.state;
 		
 
 		return ReactDom.createPortal((
-				<div className={"g-modal " +className }
-							ref={this.ModalDom} 
-							style={{display:(show ? "flex":"none")}}
-							onMouseUp={this.headMouseUp}
-				>
-					<div className="m-Mask" />
-
-					<div className="m-Modal" style={{transform:`translate(${pointX}px , ${pointY}px)`}}>
-						<div className="m-Mtit"
-									onMouseDown={this.headMouseDown} 
-									
-						>
-							<span className="tit-name">{tit}</span>
-							<span className="m-Mclose" onClick={onCancel}>
-									<i className="fa fa-times fa-2x"></i>
-							</span>
-						</div>
+				<VelocityComponent runOnMount={true} animation = {show?"transition.bounceDownIn":"transition.bounceDownOut"} > 
+					<div className={"g-modal " +className }
+						ref={this.ModalDom} 
+						onMouseUp={this.headMouseUp}
+					>
 						
-						<div className="m-Mbody">
-							{children}
+						<div className="m-Mwrap">
+							<div className="m-Mask" />
+							<div className="m-Modal" style={{transform:`translate(${pointX}px , ${pointY}px)`}}>
+								<div className="m-Mtit"
+											onMouseDown={this.headMouseDown} 
+											
+								>
+									<span className="tit-name">{type?<Icon styleType={type=="tip"?"fa-exclamation-circle fa-lg":"fa-question-circle fa-lg"}/>:null}{tit}</span>
+									<span className="m-Mclose" onClick={onCancel}>
+											<i className="fa fa-times fa-2x"></i>
+									</span>
+								</div>
+							
+								<div className="m-Mbody">
+									{children}
+								</div>
+								<div className="m-Mfooter">
+										<button className="s-btn line-btn green" onClick={onCancel}>
+											{cancelName}
+										</button>
+										<button className="s-btn normal-btn primary" onClick={this.sureHandle}>
+											{confirmName}
+										</button>
+										
+								</div>
+							</div>
 						</div>
-						<div className="m-Mfooter">
-								<button className="s-btn normal-btn" onClick={onSure}>
-									{confirmName}
-								</button>
-								<button className="s-btn normal-btn" onClick={onCancel}>
-									{cancelName}
-								</button>
-						</div>
-					</div>
-				</div>
+					
+					</div>	
+				</VelocityComponent>
 			),flag);
 	}
 }

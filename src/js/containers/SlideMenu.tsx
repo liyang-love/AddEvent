@@ -2,13 +2,12 @@ import * as React from "react";
 import MenuNav from "@js/common/NavMenu";
 import ErrorBoundary from "@js/common/ErrorBoundary";
 import * as Velocity from "velocity-react";
-import axios from "@js/common/AxiosInstance";
 import {connect,MapStateToProps} from "react-redux";
-
+import  Api from "@api/main";
+import {SvgIcon} from "@js/common/Button"
 
 type slideMenu={
 	expand:boolean;
-	isFetch:boolean;
 	data:any[];
 };
 
@@ -26,39 +25,31 @@ class SlideMenu extends React.PureComponent< SlideMenuProp & reduxProp,SlideMenu
 
 	state:slideMenu = {
 		expand:true,
-		isFetch:false,
 		data:[],
 	}
   
 
-	getMenu(){
+	getMenu(role_id:string){
 
-		this.setState({
-				isFetch:true,
-		});
+		
+		Api.getMenu(role_id).then(res=>{
 
-		const {roleId}  = this.props;
-
-		axios({
-			url:"/main/getLeftMenu",
-			 params:{roleId},
-		}).then(res=>{
-			console.log(res);
-			const data = res.data;
-			if(data && data.data.length){
-				this.setState({
-							data:data.data,
-							isFetch:false,
-					});
-			}else{
-				alert("获取不到菜单");
-			}
+			this.setState({
+						data:res.data,
+			});
+			
 		})
 		
 	}
 
 	componentDidMount(){
-			this.getMenu();
+			this.getMenu(this.props.roleId);
+	}
+	componentWillReceiveProps(nextProps:reduxProp){
+		if(nextProps.roleId!=this.props.roleId){
+			this.getMenu(nextProps.roleId);
+		}
+			
 	}
 	expandHandle=()=>{
 
@@ -81,7 +72,7 @@ class SlideMenu extends React.PureComponent< SlideMenuProp & reduxProp,SlideMenu
 											<div className="g-logo">
 													<span className="m-logo"></span>
 													<span className="j-slideBar" onClick={this.expandHandle}>
-														 <i className="fa fa-bars fa-2x"></i>
+														<SvgIcon styleType={expand?"menu-expand":"menu-shrink"} size="size2"/>
 													</span>	
 											</div>
 											<ErrorBoundary>
@@ -101,10 +92,10 @@ type reduxProp ={
 
 const mapStateToProp:MapStateToProps<reduxProp,SlideMenuProp,appStore>=({app})=>{
 
-
+	const roleId = app.get("roleId")[app.get("roleIndex")];
 	return {
 
-		roleId:(app.get("userInfo").roleId)![0],
+		roleId,
 
 	}
 }

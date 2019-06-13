@@ -223,10 +223,11 @@ type reduxState = {
 
 const mapStateToProps: MapStateToProps<reduxState, RouteComponentProps<ReportProp>, appStore> = ({ app }) => {
 
+	const index = app.get("roleIndex");
 
 	return {
-		orgName: app.get("userInfo").orgName![0],
-		orgId: app.get("userInfo").orgId![0],
+		orgName: app.get("orgName")[index],
+		orgId: app.get("orgId")[index],
 	}
 }
 

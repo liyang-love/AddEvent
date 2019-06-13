@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "07cdf96c-6067-4de5-8946-e1c2249ed3a9",
-		"name": "AddEvent copy",
+		"_postman_id": "8c49bae7-7129-4ae0-82e1-7a2007c6dbef",
+		"name": "AddEvent",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -48,6 +48,118 @@
 						}
 					},
 					"response": [
+						{
+							"name": "类别联动科室",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8081/AdvEvent/event/categoryLinkOrg?formType=7022",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"AdvEvent",
+										"event",
+										"categoryLinkOrg"
+									],
+									"query": [
+										{
+											"key": "formType",
+											"value": "7022"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 16 May 2019 09:39:54 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"text\": \" 信息传递有误\",\n            \"parId\": -2,\n            \"formType\": 7022,\n            \"orgId\": null,\n            \"name\": null,\n            \"children\": [\n                {\n                    \"id\": 2,\n                    \"text\": \"药品管理\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": 207,\n                    \"name\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 3,\n                    \"text\": \"输血\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": 207,\n                    \"name\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 4,\n                    \"text\": \"手术\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"name\": null,\n                    \"children\": []\n                }\n            ]\n        }\n    ]\n}"
+						},
+						{
+							"name": "类别联动科室",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8081/AdvEvent/event/categoryLinkOrg?formType=-2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"AdvEvent",
+										"event",
+										"categoryLinkOrg"
+									],
+									"query": [
+										{
+											"key": "formType",
+											"value": "-2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 03 Jun 2019 06:59:30 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 2,\n            \"text\": \"药品管理\",\n            \"parId\": -2,\n            \"formType\": 7022,\n            \"orgId\": 207,\n            \"orgName\": \"护理部\",\n            \"children\": [\n                {\n                    \"id\": 8,\n                    \"text\": \"导管插入\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 9,\n                    \"text\": \"急救处置\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 20,\n                    \"text\": \"护理\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 21,\n                    \"text\": \"进食\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 22,\n                    \"text\": \"其他情况\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 23,\n                    \"text\": \"诊疗记录文件\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 25,\n                    \"text\": \"医院感染\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 1,\n            \"text\": \" 信息传递有误\",\n            \"parId\": -2,\n            \"formType\": 7022,\n            \"orgId\": null,\n            \"orgName\": null,\n            \"children\": [\n                {\n                    \"id\": 3,\n                    \"text\": \"输血\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": 207,\n                    \"orgName\": \"护理部\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 4,\n                    \"text\": \"手术\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 5,\n                    \"text\": \"其他\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 7,\n                    \"text\": \"其他处置\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                }\n            ]\n        }\n    ]\n}"
+						},
 						{
 							"name": "类别联动科室",
 							"originalRequest": {
@@ -153,118 +265,6 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"text\": \" 信息传递有误\",\n            \"parId\": -2,\n            \"formType\": 7022,\n            \"orgId\": null,\n            \"orgName\": null,\n            \"children\": [\n                {\n                    \"id\": 2,\n                    \"text\": \"药品管理\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": 207,\n                    \"orgName\": \"护理部\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 3,\n                    \"text\": \"输血\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": 207,\n                    \"orgName\": \"护理部\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 4,\n                    \"text\": \"手术\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                }\n            ]\n        }\n    ]\n}"
-						},
-						{
-							"name": "类别联动科室",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "http://localhost:8081/AdvEvent/event/categoryLinkOrg?formType=-2",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"AdvEvent",
-										"event",
-										"categoryLinkOrg"
-									],
-									"query": [
-										{
-											"key": "formType",
-											"value": "-2"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json;charset=UTF-8"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 03 Jun 2019 06:59:30 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"data\": [\n        {\n            \"id\": 2,\n            \"text\": \"药品管理\",\n            \"parId\": -2,\n            \"formType\": 7022,\n            \"orgId\": 207,\n            \"orgName\": \"护理部\",\n            \"children\": [\n                {\n                    \"id\": 8,\n                    \"text\": \"导管插入\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 9,\n                    \"text\": \"急救处置\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 20,\n                    \"text\": \"护理\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 21,\n                    \"text\": \"进食\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 22,\n                    \"text\": \"其他情况\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 23,\n                    \"text\": \"诊疗记录文件\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 25,\n                    \"text\": \"医院感染\",\n                    \"parId\": 2,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                }\n            ]\n        },\n        {\n            \"id\": 1,\n            \"text\": \" 信息传递有误\",\n            \"parId\": -2,\n            \"formType\": 7022,\n            \"orgId\": null,\n            \"orgName\": null,\n            \"children\": [\n                {\n                    \"id\": 3,\n                    \"text\": \"输血\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": 207,\n                    \"orgName\": \"护理部\",\n                    \"children\": []\n                },\n                {\n                    \"id\": 4,\n                    \"text\": \"手术\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 5,\n                    \"text\": \"其他\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 7,\n                    \"text\": \"其他处置\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"orgName\": null,\n                    \"children\": []\n                }\n            ]\n        }\n    ]\n}"
-						},
-						{
-							"name": "类别联动科室",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "http://localhost:8081/AdvEvent/event/categoryLinkOrg?formType=7022",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"AdvEvent",
-										"event",
-										"categoryLinkOrg"
-									],
-									"query": [
-										{
-											"key": "formType",
-											"value": "7022"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json;charset=UTF-8"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 16 May 2019 09:39:54 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"text\": \" 信息传递有误\",\n            \"parId\": -2,\n            \"formType\": 7022,\n            \"orgId\": null,\n            \"name\": null,\n            \"children\": [\n                {\n                    \"id\": 2,\n                    \"text\": \"药品管理\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": 207,\n                    \"name\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 3,\n                    \"text\": \"输血\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": 207,\n                    \"name\": null,\n                    \"children\": []\n                },\n                {\n                    \"id\": 4,\n                    \"text\": \"手术\",\n                    \"parId\": 1,\n                    \"formType\": 7022,\n                    \"orgId\": null,\n                    \"name\": null,\n                    \"children\": []\n                }\n            ]\n        }\n    ]\n}"
 						}
 					]
 				},
@@ -1477,7 +1477,8 @@
 										},
 										{
 											"key": "orgId",
-											"value": "208"
+											"value": "208",
+											"description": "科室的id科室是多选 208,209,301"
 										}
 									]
 								}
@@ -1530,8 +1531,7 @@
 										},
 										{
 											"key": "orgId",
-											"value": "208",
-											"description": "科室的id科室是多选 208,209,301"
+											"value": "208"
 										}
 									]
 								}
@@ -1643,6 +1643,216 @@
 							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": {\n        \"status\": true\n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "职能科室处理事件显示栏",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8081/AdvEvent/handle/functionOrgHandle?orgId=207&orgStatus=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"AdvEvent",
+								"handle",
+								"functionOrgHandle"
+							],
+							"query": [
+								{
+									"key": "orgId",
+									"value": "207"
+								},
+								{
+									"key": "orgStatus",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "职能科室处理事件显示栏",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8081/AdvEvent/handle/functionOrgHandle?orgId=207&orgStatus=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"AdvEvent",
+										"handle",
+										"functionOrgHandle"
+									],
+									"query": [
+										{
+											"key": "orgId",
+											"value": "207"
+										},
+										{
+											"key": "orgStatus",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2019 01:38:16 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": []\n}"
+						},
+						{
+							"name": "职能科室处理事件显示栏",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8081/AdvEvent/handle/functionOrgHandle?orgId=207&orgStatus=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"AdvEvent",
+										"handle",
+										"functionOrgHandle"
+									],
+									"query": [
+										{
+											"key": "orgId",
+											"value": "207"
+										},
+										{
+											"key": "orgStatus",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jun 2019 01:38:16 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": []\n}"
+						},
+						{
+							"name": "职能科室处理事件显示栏",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8081/AdvEvent/handle/functionOrgHandle?orgId=207&orgStatus=0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"AdvEvent",
+										"handle",
+										"functionOrgHandle"
+									],
+									"query": [
+										{
+											"key": "orgId",
+											"value": "207"
+										},
+										{
+											"key": "orgStatus",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 10 Jun 2019 09:17:13 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": [\n        {\n            \"id\": 43,\n            \"orgName\": \"护理部\",\n            \"allotStatus\": 0,\n            \"defineName\": \"Ⅱ\",\n            \"categoryName\": \"输血\",\n            \"modifyStatus\": 0,\n            \"happenTime\": \"2019-05-23 17:23:00\",\n            \"reportTime\": \"2019-05-23 17:23:00\",\n            \"reporter\": \"报\"\n        },\n        {\n            \"id\": 44,\n            \"orgName\": \"护理部\",\n            \"allotStatus\": 0,\n            \"defineName\": \"Ⅱ\",\n            \"categoryName\": \"输血\",\n            \"modifyStatus\": 0,\n            \"happenTime\": \"2019-05-23 17:23:00\",\n            \"reportTime\": \"2019-05-23 17:23:00\",\n            \"reporter\": \"报\"\n        },\n        {\n            \"id\": 45,\n            \"orgName\": \"护理部\",\n            \"allotStatus\": 0,\n            \"defineName\": \"Ⅱ\",\n            \"categoryName\": \"输血\",\n            \"modifyStatus\": 0,\n            \"happenTime\": \"2019-05-23 17:23:00\",\n            \"reportTime\": \"2019-05-23 17:23:00\",\n            \"reporter\": \"报\"\n        },\n        {\n            \"id\": 46,\n            \"orgName\": \"护理部\",\n            \"allotStatus\": 0,\n            \"defineName\": \"Ⅱ\",\n            \"categoryName\": \"输血\",\n            \"modifyStatus\": 0,\n            \"happenTime\": \"2019-05-23 17:23:00\",\n            \"reportTime\": \"2019-05-23 17:23:00\",\n            \"reporter\": \"报\"\n        },\n        {\n            \"id\": 47,\n            \"orgName\": \"护理部\",\n            \"allotStatus\": 1,\n            \"defineName\": \"Ⅱ\",\n            \"categoryName\": \"输血\",\n            \"modifyStatus\": 0,\n            \"happenTime\": \"2019-05-23 17:23:00\",\n            \"reportTime\": \"2019-05-23 17:23:00\",\n            \"reporter\": \"报\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "上报科室 处理事件 显示栏",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1828,56 +2038,6 @@
 							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": {\n        \"code\": 20,\n        \"message\": \"修改密码成功\"\n    }\n}"
 						},
 						{
-							"name": "修改密码",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "http://localhost:8081/AdvEvent/login/changePwd",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"AdvEvent",
-										"login",
-										"changePwd"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json;charset=UTF-8"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 15 May 2019 08:19:39 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": true\n}"
-						},
-						{
 							"name": "修改密码和旧密码",
 							"originalRequest": {
 								"method": "POST",
@@ -1926,6 +2086,56 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": {\n        \"code\": 20,\n        \"message\": \"修改密码成功\"\n    }\n}"
+						},
+						{
+							"name": "修改密码",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8081/AdvEvent/login/changePwd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"AdvEvent",
+										"login",
+										"changePwd"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 May 2019 08:19:39 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": true\n}"
 						}
 					]
 				},
@@ -2381,56 +2591,6 @@
 					},
 					"response": [
 						{
-							"name": "增加一级类别",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"text\":\"1212\",\n\t\"parId\":\"-2\",\n\t\"formType\":\"7022\"\n\t\n}"
-								},
-								"url": {
-									"raw": "http://localhost:8081/AdvEvent/apply/addOneCategory",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"AdvEvent",
-										"apply",
-										"addOneCategory"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json;charset=UTF-8"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 31 May 2019 09:19:11 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": {\n        \"status\": true\n    }\n}"
-						},
-						{
 							"name": "增加一级二级类别",
 							"originalRequest": {
 								"method": "POST",
@@ -2525,6 +2685,56 @@
 								{
 									"key": "Date",
 									"value": "Fri, 31 May 2019 09:25:30 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": {\n        \"status\": true\n    }\n}"
+						},
+						{
+							"name": "增加一级类别",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"text\":\"1212\",\n\t\"parId\":\"-2\",\n\t\"formType\":\"7022\"\n\t\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8081/AdvEvent/apply/addOneCategory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"AdvEvent",
+										"apply",
+										"addOneCategory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 May 2019 09:19:11 GMT"
 								}
 							],
 							"cookie": [],
@@ -2834,114 +3044,6 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\n\t\"userName\":\"质控科\",\n\t\"password\":\"F59BD65F7EDAFB087A81D4DCA06C4910\"\n\t\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8081/AdvEvent/login/logVal",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"AdvEvent",
-								"login",
-								"logVal"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Set-Cookie",
-							"value": "JSESSIONID=27B796307E10076C613F49B8BD08C9F3; Path=/AdvEvent; HttpOnly"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json;charset=UTF-8"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Wed, 15 May 2019 07:22:49 GMT"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": {\n        \"id\": 108,\n        \"workNumber\": null,\n        \"userName\": null,\n        \"password\": null,\n        \"npwd\": null,\n        \"trueName\": null,\n        \"roleId\": [\n            30\n        ],\n        \"roleIndex\": 0,\n        \"roleName\": [\n            \"质控科(不良事件)\"\n        ],\n        \"orgId\": [\n            206\n        ],\n        \"orgName\": [\n            \"质控科\"\n        ],\n        \"orgName2\": null,\n        \"telphone\": null,\n        \"remarks\": null,\n        \"lastLoginTime\": null,\n        \"status\": null,\n        \"email\": null,\n        \"phone\": null\n    }\n}"
-				},
-				{
-					"name": "登录",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\n\t\"userName\":\"质控科\",\n\t\"password\":\"F59BD65F7EDAFB087A81D4DCA06C4910\"\n\t\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8081/AdvEvent/login/logVal",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"AdvEvent",
-								"login",
-								"logVal"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Set-Cookie",
-							"value": "JSESSIONID=27B796307E10076C613F49B8BD08C9F3; Path=/AdvEvent; HttpOnly"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json;charset=UTF-8"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Wed, 15 May 2019 07:22:49 GMT"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": {\n        \"id\": 108,\n        \"workNumber\": null,\n        \"userName\": null,\n        \"password\": null,\n        \"npwd\": null,\n        \"trueName\": null,\n        \"roleId\": [\n            30\n        ],\n        \"roleIndex\": 0,\n        \"roleName\": [\n            \"质控科(不良事件)\"\n        ],\n        \"orgId\": [\n            206\n        ],\n        \"orgName\": [\n            \"质控科\"\n        ],\n        \"orgName2\": null,\n        \"telphone\": null,\n        \"remarks\": null,\n        \"lastLoginTime\": null,\n        \"status\": null,\n        \"email\": null,\n        \"phone\": null\n    }\n}"
-				},
-				{
-					"name": "登录",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
 							"raw": "{\n\t\"id\":\"108\",\n\t\"userName\":\"质控科\",\n\t\"password\":\"F59BD65F7EDAFB087A81D4DCA06C4910\"\n\t\n}"
 						},
 						"url": {
@@ -2977,6 +3079,114 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": 1\n}"
+				},
+				{
+					"name": "登录",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n\t\"userName\":\"质控科\",\n\t\"password\":\"F59BD65F7EDAFB087A81D4DCA06C4910\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/AdvEvent/login/logVal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"AdvEvent",
+								"login",
+								"logVal"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=27B796307E10076C613F49B8BD08C9F3; Path=/AdvEvent; HttpOnly"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 May 2019 07:22:49 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": {\n        \"id\": 108,\n        \"workNumber\": null,\n        \"userName\": null,\n        \"password\": null,\n        \"npwd\": null,\n        \"trueName\": null,\n        \"roleId\": [\n            30\n        ],\n        \"roleIndex\": 0,\n        \"roleName\": [\n            \"质控科(不良事件)\"\n        ],\n        \"orgId\": [\n            206\n        ],\n        \"orgName\": [\n            \"质控科\"\n        ],\n        \"orgName2\": null,\n        \"telphone\": null,\n        \"remarks\": null,\n        \"lastLoginTime\": null,\n        \"status\": null,\n        \"email\": null,\n        \"phone\": null\n    }\n}"
+				},
+				{
+					"name": "登录",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n\t\"userName\":\"质控科\",\n\t\"password\":\"F59BD65F7EDAFB087A81D4DCA06C4910\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/AdvEvent/login/logVal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"AdvEvent",
+								"login",
+								"logVal"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=27B796307E10076C613F49B8BD08C9F3; Path=/AdvEvent; HttpOnly"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 May 2019 07:22:49 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"SUCCESS\",\n    \"data\": {\n        \"id\": 108,\n        \"workNumber\": null,\n        \"userName\": null,\n        \"password\": null,\n        \"npwd\": null,\n        \"trueName\": null,\n        \"roleId\": [\n            30\n        ],\n        \"roleIndex\": 0,\n        \"roleName\": [\n            \"质控科(不良事件)\"\n        ],\n        \"orgId\": [\n            206\n        ],\n        \"orgName\": [\n            \"质控科\"\n        ],\n        \"orgName2\": null,\n        \"telphone\": null,\n        \"remarks\": null,\n        \"lastLoginTime\": null,\n        \"status\": null,\n        \"email\": null,\n        \"phone\": null\n    }\n}"
 				}
 			]
 		}

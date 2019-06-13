@@ -1,5 +1,5 @@
 {
-  "name": "MyTs",
+  "name": "AddEvent",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/html2canvas": "^0.0.35",
     "@types/node": "^11.11.6",
+    "@types/qs": "^6.5.3",
     "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.2",
     "@types/react-loadable": "^5.5.1",
@@ -43,11 +45,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bizcharts": "^3.5.2",
-    "braft-editor": "^2.2.10",
+    "html2canvas": "^1.0.0-rc.3",
     "immutable": "^4.0.0-rc.11",
-    "jquery": "^3.3.1",
-    "md5": "^2.2.1",
+    "qs": "^6.7.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-loadable": "^5.5.0",
@@ -57,6 +57,6 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "velocity-react": "^1.4.1"
+    "velocity-react": "^1.4.3"
   }
 }

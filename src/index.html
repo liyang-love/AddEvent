@@ -4,14 +4,40 @@
 	<meta charset="UTF-8">
 	<title>	</title>
 	<link rel="stylesheet" href="./assert/font/font-awesome-4.7.0/css/font-awesome.min.css">
-	<script type="text/javascript" src="./assert/js/md5.js"></script> 
+	<script type="text/javascript" src="./assert/font/font-iconfont/iconfont.js"></script> 
 	<script>
 		
 		 window.getSession = (
 			function(){
 				const session = {
-					getPath:"http://localhost:8034/AdvEvent",
-					getSession:{}
+					getPath:"/AdvEvent/",
+					getUser:{
+						"workNumber": null,
+						"userName": null,
+						"password": null,
+						"newPassword": null,
+						"trueName": null,
+						"roleId": [
+							29
+						],
+						"roleIndex": 0,
+						"roleName": [
+							"普通科室(不良事件)"
+						],
+						"orgId": [
+							207
+						],
+						"orgName": [
+							"护理部"
+						],
+						"orgName2": null,
+						"telphone": null,
+						"remarks": null,
+						"lastLoginTime": null,
+						"status": null,
+						"email": null,
+						"phone": null
+					}
 				};
 
 				return function(key){

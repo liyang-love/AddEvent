@@ -17,6 +17,7 @@
          "declaration": false,
          "paths": {
               "@js/*": ["./src/js/*"],
+              "@api/*": ["./src/api/*"],
               "@css/*": ["./src/css/*"]
          },
         "lib": ["es2015","dom","dom.iterable"],
