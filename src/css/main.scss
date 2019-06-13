@@ -1,151 +1,16 @@
-#test{
-	background:   url(../img/favicon.png);
-}
+@import "./normalize.css" ,"./common.scss";
 
-$themeColor:#535be9;
-$slideW:250px;
-$bg_slide:#535be9;
-$Head:70px;
-body,html{
-	width: 100%;
-	height: 100%;
-}
-
-.page{
-	height: 100%;
-	box-sizing: border-box;
-	display: flex;
-	.g-slideMenu{
-		width: $slideW;
-		background-color: #ffffff;
-		box-shadow: 0px 0px 12px 0px 
-			rgba(51, 51, 51, 0.3);
-		@at-root{
-			.g-logo{
-				background: $bg_slide;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				height: $Head;	
-				padding-right:16px;
-				color:white;
-				.m-logo{
-						flex: auto;
-						display: flex;
-						height: 100%;	
-						justify-content: center;
-					}
-					.j-slideBar{
-						padding:0 6px;
-						cursor: pointer;
-					}
-				}
-		}
-	}
-	.g-content{
-		flex:auto;
-		@at-root{
-			.g-head{
-				display: flex;
-				height:$Head;
-				background: #6f77fc;
-				color: white;
-				align-items: center;
-				.m-theme{
-					padding-left: 20px;
-					font:{
-						size:24px;
-						weight:bolder;
-					}
-				}
-			}
-			.g-sys_set{
-				font-size: 20px;
-				display: flex;
-				flex: auto;
-				justify-content: flex-end;
-		    align-items: center;
-				&>div{
-					margin: 0 20px;
-					padding-right: 10px;
-				}
-				.g-userOpt{
-					position: relative;
-					padding: 20px;
-					cursor: pointer;
-					&:hover{
-						.m-userOpt{
-							display: block;
-						}
-					}
-				}
-				.m-userOpt{
-					
-					font-size: 14px;
-					color: black;
-					position: absolute;
-					width: 100px;
-					padding: 10px;
-					text-align: center;
-					right: 0;
-					border-radius: 4px;
-					display: none;
-					background-color: white;
-					box-shadow: 0px 0px 12px 0px 
-						rgba(51, 51, 51, 0.3);
-					&:hover{
-						color: $themeColor;
-					}
-				}
-			}
-		}
+.m-sysOpt{
+	&>li{
+		padding: 4px 0;
 	}
 }
 
-.g-slideMenu.collapsed{
-		.g-menu{
-			li{
-				position: relative;
-			}
-		}
-		.m-logo{
-			display: none;
-		}
-		.g-logo{
-			padding-right: 0;
-	    justify-content: center;
-		}
-		.menu-par{
-		    justify-content: center;
-		    padding-left:0;
-	  	  padding-right: 0;
-		    .j-nav{
-						display: none
-				}
-				.j-slide_menu{
-						display: none;
-				}
-		}	
-		.par-icon{
-	    margin-left:0;
-		}
-		.li-par:hover .child-ul{
-			
-			display: block;
-			position:absolute;
-			top:0;
-			left: 50px;
-			width: 120px;
-			background-color: #ffffff;
-			box-shadow: 0px 3px 6px 0px 
-			rgba(0, 0, 0, 0.16);
-		
-		}
-		.menu-par + .child-ul{
-			display: none;
-		}
-		
+.pwd-M{
+	.item-inp{
+		padding:10px;
 
+	}
 }
 
 

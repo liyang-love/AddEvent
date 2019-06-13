@@ -1,6 +1,10 @@
-var hexcase = 1;  
+(function(W){
+
+  var hexcase = 1;  
 var b64pad  = ""; 
 var chrsz   = 8;  
+
+
 function hex_md5(s){ return binl2hex(core_md5(str2binl(s), s.length * chrsz));}
 function b64_md5(s){ return binl2b64(core_md5(str2binl(s), s.length * chrsz));}
 function hex_hmac_md5(key, data) { return binl2hex(core_hmac_md5(key, data)); }
@@ -189,3 +193,11 @@ function binl2b64(binarray)
   }
   return str;
 }
+
+W.hex_md5 = hex_md5;
+  
+})(window)
+
+
+
+

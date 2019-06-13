@@ -1,0 +1,133 @@
+@import "./scss/variables";
+
+.s-inp{
+	height: $inpHeight;
+	//width: $inpWidth;
+	text-indent:.5em;
+	border:0;
+	outline:0;
+	//box-sizing:border-box;
+}
+
+.normal{
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 4px;
+    border-color: #e3e3e3;
+    background-color: #ffffff;
+}
+
+.s-inp.no-fill{
+	
+	border-color:$error;
+}
+
+.require{
+	&:before{
+		content:"*";
+		color:red;
+
+	}
+}
+
+.input-file-m{
+	position: relative;
+	margin-top:10px;
+	input{
+		position: absolute;
+		left: 0;
+		width: 80px;
+		opacity: 0;
+	}
+	span{
+		color: red;
+		padding:4px;
+		border-bottom: 1px solid red;
+	}
+	
+}
+
+
+%inpbox{
+	height: $inpHeight;
+	display: flex;
+	align-items: center;
+	.m-label{
+		margin: 0 6px;
+	}
+}
+.m-label{
+		
+		display: inline-flex;
+		align-items: center;
+		cursor: pointer;	
+	  input[type="radio"], input[type="checkbox"]{
+	    position: relative;
+	    -webkit-appearance: none;
+    	-moz-appearance: none;
+   		 appearance: none;
+	    width: 1em;
+	    margin: 0;
+	    outline: none;
+	    font: normal normal normal 18px/1 FontAwesome;
+	    color: $themeColor;
+	    transition: 300ms ease-out;
+	    cursor: pointer;	
+	    &:after {
+	      display: inline-block;
+	      text-align: center;
+	      width: 1em;
+	    }
+	  
+	    &:active {
+	      transform: scale(.6);
+	    }
+	  }
+}
+.lab-tit{
+	padding: 0 6px;
+}
+
+.m-lab-radio{
+	input{
+		&:after {
+	      content: '\f10c'; // circle
+    }
+    &:checked:after {
+       content: '\f28e'; // circle
+    }
+	}
+}
+
+.m-lab-checkbox{
+	input{
+		&:after {
+	      content: '\f096'; // circle
+    }
+    &:checked:after {
+       content: '\f046'; // circle
+    }
+	}
+	input.has-check{
+		&:after {
+	      content: '\f192'; // circle- dot
+    }
+	}
+
+}
+
+/* radio */
+.m-radio{
+	@extend %inpbox;
+}
+
+.m-checkbox{
+	@extend %inpbox;
+	
+}
+
+
+
+
+
+
