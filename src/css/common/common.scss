@@ -1,6 +1,5 @@
 @import "./input.scss" ,"./btn.scss" ,"./modal.scss","./alertInfo.scss";
-@import "./scss/unit.scss";
-
+@import "../scss/unit","../scss/variables";
 $themeColor:#535be9;
 $bg_slide:#535be9;
 $Head:70px;
@@ -229,5 +228,16 @@ background: none;
 	}
 }
 
+// 下拉框布局
+.item-inp{
+	display: flex;
+	align-items: center;
+	.m-inp-tit{
+		padding-right: 8px;
+		&:after{
+			content:"："
+		}
+	}
+}
 
 

@@ -1,7 +1,6 @@
 import * as React from "react";
 import Combobox from "@js/common/combobox/index";
-import axios from "@js/common/AxiosInstance";
-
+import Api from "@api/report";
 type ReportSecondProp={
 		formType:string;
 		getMethods:ReportSpace.ReportAPI["getMethods"];
@@ -38,13 +37,10 @@ class ReportSecond extends React.PureComponent<ReportSecondProp,ReportSecondStat
 	componentDidMount(){
 		//类别联动科室
 		const {formType} = this.props;
-		 axios({
-							url:"/event/categoryLinkOrg",
-							params:{formType}
-			}).then(res=>{
+		Api.categoryLinkOrg(formType).then(res=>{
 
 					this.setState({
-						categoryLinkOrg:res.data.data,
+						categoryLinkOrg:res.data,
 					});
 			});
 

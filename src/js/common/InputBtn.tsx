@@ -160,8 +160,9 @@ class InpBox extends React.PureComponent<InpBoxProp, InpBoxState>{
 
 		return (
 			<div className="item-inp">
-				<span className="m-inp-tit">{title}: </span>
+				<span className="m-inp-tit">{title} </span>
 				<input type={type} className={"s-inp " + fillStatus + styleType} value={value} onChange={this.changeHandle} />
+				
 			</div>
 		)
 

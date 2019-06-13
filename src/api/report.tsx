@@ -1,5 +1,5 @@
 import axios from "@js/common/AxiosInstance";
-import * as qs from "qs";
+//import * as qs from "qs";
 
 
 export default {
@@ -55,25 +55,7 @@ export default {
         })
 
     },
-    upSummaryCaseError:function(id:string,errMessages:string){//报错不翻译
-        return axios.post("/summary/upSummaryCaseError",qs.stringify({id,errMessages}))
-    },
-    passEnSummaryCase:function(id:string){//通过
-
-        return axios.post("summary/passEnSummaryCase",{id},{
-            headers:{
-                "Content-Type":"application/json"
-            }
-        })
-    },
-    returnSummaryCase:function(id:string,descr:string){//驳回
-
-        return axios.post("/summary/returnSummaryCase",qs.stringify({id,descr}))
-    },
-    getAllOrg(){
-        return axios.get("/summary/getAllOrg")
-    },
-    
+   
 
 
 }

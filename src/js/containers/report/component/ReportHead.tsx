@@ -1,7 +1,7 @@
 import * as React from "react";
 import Combobox from "@js/common/combobox/index";
 import ComTreebox from "@js/common/comtreeBox/index";
-import axios from "@js/common/AxiosInstance";
+import Api from "@api/report";
 import Calendar from "@js/common/calendar/index";
 
 
@@ -68,25 +68,21 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 	getAllFormData(formType: string) {
 
 		//事发场景职称层级
-		const getSceneCareerClass = axios({
-			url: "/event/sceneCareerClass",
-			params: { formType }
-		});
+		const getSceneCareerClass =Api.sceneCareerClass(formType);
 		//日期类型事发时段医疗类别
-		const getMedicalIncidentDate = axios({
-			url: "/event/medicalIncidentDate",
-		});
-
+		const getMedicalIncidentDate =Api.medicalIncidentDate();
 		//科室
-		const listOrgTree = axios({
-			url: "/event/listOrgTree",
-		});
+		const listOrgTree =Api.listOrgTree();
 
 		Promise.all([getSceneCareerClass, getMedicalIncidentDate, listOrgTree]).then(arr => {
 
+
+
+
+
 			const { profession, happenScene, topClass } = arr[0].data;
-			const [medicalTypeArr, , dataType] = arr[1].data.data;
-			const orgArr = arr[2].data.data;
+			const [medicalTypeArr, , dataType] = arr[1].data;
+			const orgArr = arr[2].data;
 
 			const {getMethods} = this.props;
 			const parmas = getMethods<"getParams">("getParams")();

@@ -3,7 +3,7 @@ import ReportHead from "./component/ReportHead";
 import ReportSecond from "./component/ReportSecond";
 import {ReportResult} from "./component/ReportThree";
 import {ReportSeason,ReportImproveMeasure} from "./component/ReportFour";
-import {ReportOpinion,ReportOrangeOpinion} from "./component/ReportFive";
+import Opinion from "./component/Opinion";
 import OrgDefineLevel from "./component/OrgDefineLevel";
 
 
@@ -69,18 +69,8 @@ export default class NurseReport extends React.PureComponent<NurseReportProps,Nu
 																<ReportImproveMeasure  getMethods={getMethods} />
 														</td>
 													</tr>
-													<OrgDefineLevel  getMethods={getMethods}/>
-													<tr>
-															<td >
-																	<ReportOpinion/>
-															</td>
-														</tr>
-														<tr>
-															<td >
-																	<ReportOrangeOpinion/>
-																	
-															</td>
-														</tr>
+													<OrgDefineLevel  formType={formType} hospitalName={"center"} getMethods={getMethods}/>
+													<Opinion formType={formType} hospitalName={"center"} />
 													</tbody>
 												</table>
 									</div>

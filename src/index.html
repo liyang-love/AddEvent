@@ -12,11 +12,7 @@
 				const session = {
 					getPath:"/AdvEvent/",
 					getUser:{
-						"workNumber": null,
 						"userName": null,
-						"password": null,
-						"newPassword": null,
-						"trueName": null,
 						"roleId": [
 							29
 						],
@@ -30,19 +26,11 @@
 						"orgName": [
 							"护理部"
 						],
-						"orgName2": null,
-						"telphone": null,
-						"remarks": null,
-						"lastLoginTime": null,
-						"status": null,
-						"email": null,
-						"phone": null
-					}
+					},
+					hospitalName:"三院"
 				};
 
 				return function(key){
-
-
 					return session[key]
 				}
 			}

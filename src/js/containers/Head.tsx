@@ -7,7 +7,7 @@ import {changeRole} from "@js/actions/appAction";
 import {SvgIcon} from "@js/common/Button";
 import Api from "@api/main";
 import {Notification} from "@js/common/toast/index";
-import SocketNews from "./Socket";
+//import SocketNews from "./Socket";
 
  const LoginUrl = window.getSession("getPath")+"login.html";
 
@@ -118,6 +118,9 @@ class Head extends React.PureComponent<RouteComponentProps<HeadProp> & reduxStat
 
 		const role_id = role_ids[role_index];
 
+		user_id
+		role_id
+
 		const rootModalDom = document.getElementById("modal_root") as HTMLDivElement;
 
 		return (<div className="g-head">
@@ -171,7 +174,7 @@ class Head extends React.PureComponent<RouteComponentProps<HeadProp> & reduxStat
 					</ul>
 				</div>
 				<div className="m-mail">
-					 <SocketNews  user_id={user_id} role_id={role_id}/>
+					 {/* <SocketNews  user_id={user_id} role_id={role_id}/> */}
 				</div>
 				<div className="g-user-opt" >
 					<div style={{ padding: "20px 10px" }}>

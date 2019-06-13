@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import NurseReport from "./NurseReport";
 import { connect, MapStateToProps } from "react-redux";
 import axios from "@js/common/AxiosInstance";
-
+import { SvgIcon, Button, Icon } from "@js/common/Button";
 
 type ReportProp = {
 
@@ -89,10 +89,10 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 		deleteSaveCommit: "1",//删除或保存或提交
 		formType: this.props.location.state.id,//表单类型 
 
-		admissionNumber:"",//住院号
-		similarIncidentOne:"",//发生过类似的事件1
-		similarIncidentTwo:"",//发生的类似事件2
-		damageDegree:"",
+		admissionNumber: "",//住院号
+		similarIncidentOne: "",//发生过类似的事件1
+		similarIncidentTwo: "",//发生的类似事件2
+		damageDegree: "",
 		// modifyStatus :"",//修改状态
 	}
 
@@ -116,7 +116,7 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 
 	setCalendarObj = (setTimeArr: Readonly<any[]>, field: string) => {
 		this.params[field as field] = setTimeArr.join("");
-		
+
 	}
 
 	setComboboxObj = (selArr: Readonly<any[]>, field: string) => {
@@ -124,7 +124,7 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 		this.params[field as field] = selArr[0].id;
 	}
 
-	upReportHandle = (e: React.MouseEvent<HTMLElement>) => {
+	upReportHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
 		console.log(this.params);
 
 		const noFill = document.querySelectorAll("#gReport .no-fill");
@@ -134,7 +134,7 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 			return;
 		}
 
-		const type = e.currentTarget.dataset.type!;
+		const type = e.currentTarget.name;
 		this.params.deleteSaveCommit = type;
 
 		axios({
@@ -171,7 +171,7 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 	}
 
 	getMethods = <k extends ReportSpace.methodName>(methodsName: ReportSpace.methodName): ReportSpace.ReportAPI[k] => {
-		return this[methodsName];
+		return this[methodsName as k];
 
 	}
 
@@ -197,12 +197,19 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 			<div className="page-report">
 				<div className="g-theme">
 					<span ><b style={{ fontSize: 18 }}>{text}</b><span>&nbsp;&nbsp;第 {curPage + 1} 页</span>&nbsp;&nbsp;&nbsp;<span className="require">（必填项）</span></span>
-
-					<span>
-						<button className="s-btn normal-btn" onClick={this.changePage}>{is_first ? "上" : "下"}一页</button>&nbsp;
-									<button className="s-btn normal-btn" data-type="1" onClick={this.upReportHandle}>提交</button>&nbsp;
-									<button className="s-btn normal-btn" data-type="0" onClick={this.upReportHandle}>保存</button>&nbsp;
-						</span>
+					<span className="m-optBtn">
+						<Button handle={this.changePage}>
+							{is_first ? "上" : "下"}一页
+						</Button>
+						<Button handle={this.upReportHandle} field="1">
+							<SvgIcon styleType="submit"/>
+							提交
+						</Button>
+						<Button handle={this.upReportHandle}>
+							<Icon styleType="fa-save"/>
+							保存
+						</Button>
+					</span>
 				</div>
 				<div className="g-report" id="gReport">
 					<div className="report-article">

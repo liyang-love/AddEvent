@@ -1,11 +1,12 @@
 import * as React from "react";
 import Combobox from "@js/common/combobox/index";
-import axios from "@js/common/AxiosInstance";
-
-
+import Api from "@api/report";
+import config from "../config";
 
 type ReportOrgDefineProp = {
 	getMethods: ReportSpace.ReportAPI["getMethods"];
+    formType:string;
+    hospitalName:"center"|"three";
 }
 
 
@@ -31,22 +32,17 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 
 	componentDidMount() {
 		//类别联动科室
-		const orgDel = axios({
-			url: "/event/orgDefineLevel",
-		});
+		const orgDel =Api.orgDefineLevel();
 
-		const damage = axios({
-			url:"/event/causeDamageDegree"
-		});
-
+		const damage =Api.causeDamageDegree(); 
 
 		Promise.all([orgDel,damage]).then(arr=>{
 
 			const [org,damage] =arr;
 
 			this.setState({
-				causeDamageDegree:damage.data.data,
-				orgDefineLevel:org.data.data,
+				causeDamageDegree:damage.data,
+				orgDefineLevel:org.data,
 			});
 
 		});
@@ -59,8 +55,9 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 	render() {
 
 		const { orgDefineLevel ,causeDamageDegree} = this.state;
-		const { getMethods } = this.props;
-
+		const { getMethods ,formType,hospitalName} = this.props;
+        
+        const data = (config as any)[hospitalName][formType];
 		const { orgRank, damageDegree } = getMethods<"getParams">("getParams")()
 
 		const setComboboxObj = getMethods<"setComboboxObj">("setComboboxObj");
@@ -72,7 +69,7 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 				<tr>
 					<td>
 						<div className="detail">
-							<span>造成病人的损害程度：</span>
+							<span>造成损害程度：</span>
 							<Combobox field="orgRank"  hasSlideIcon={false} data={causeDamageDegree} clickCallback={setComboboxObj} defaultVal={damageDegree} width={600}  />
 						</div>
 					</td>
@@ -87,7 +84,7 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 				</tr>
 				<tr>
 					<td>
-						<span>护理安全管理小组定级：</span>
+						<span>{data.defineLevTit}：</span>
 						<span className="underline" style={{ width: "80px" }}></span>
 					</td>
 				</tr>

@@ -25,10 +25,10 @@ class Login extends React.PureComponent<LoginProp, LoginState>{
 
     loginHandle = () => {
 
-        const name = (this.userDom.current!).value;
-        const pwd = (this.psdDom.current!).value;
+        const userName = (this.userDom.current!).value;
+        const password = (this.psdDom.current!).value;
 
-        if(!name || !pwd){
+        if(!userName || !password){
             this.setState({
                 warnTxt:"填写用户名和密码！"
             })
@@ -44,7 +44,7 @@ class Login extends React.PureComponent<LoginProp, LoginState>{
         axions({
             url:"login/logVal",
             method:"post",
-            data:{name,pwd:window.hex_md5(window.hex_md5(pwd))},
+            data:{userName,password:window.hex_md5(window.hex_md5(password))},
             headers:{
                 "Content-Type":"application/json",
             }
@@ -82,7 +82,7 @@ class Login extends React.PureComponent<LoginProp, LoginState>{
                     <div className="login-title">
                         <svg style={{ width: "100%", height: "100%" }}>
                             <polygon points="20,0 280,0 300,40 280,80 20,80 0,40" fill="#00a0e9"></polygon>
-                            <text x="150" y="50" fill="white" textAnchor="middle">出院小结管理系统</text>
+                            <text x="150" y="50" fill="white" textAnchor="middle">不良事件上报系统</text>
                         </svg>
                     </div>
                     <div className="login-content">

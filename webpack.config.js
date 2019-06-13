@@ -219,7 +219,7 @@ module.exports = env => {
 			},
 			clientLogLevel: "none", // cancel console client log
 			port: '8034', //设置端口号
-			openPage: "index",//导航页面
+			openPage: "login.html",//导航页面
 			proxy: {
 				'/AdvEvent': {
 					target: 'http://localhost:8081',
