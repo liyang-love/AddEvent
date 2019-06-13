@@ -98,10 +98,7 @@ const fetchPostsLoginOut = (): ThunkAction<void, appStore, null, Action<string>>
  			
  		dispatch(requestPostLogin());
 
-		fetch(GET_LOGIN_OUT_URL)
-	 	.then(res=>{
-					return res.json()
-	 	})
+		axios({url:GET_LOGIN_OUT_URL})
 	 	.then(json=>{
 	 			console.log(json,"退出");
 	 			dispatch(receivePostLoginOut())

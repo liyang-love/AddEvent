@@ -192,7 +192,8 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 	  			this.setState({
 	  					data:$data,
-  						slected:slected.clear().push({id,text}),
+						slected:slected.clear().push({id,text}),
+						drop:false
 	  			})
 
 	  		};
@@ -205,6 +206,7 @@ export default class Combobox  extends React.PureComponent<props,state>{
 
 				const {multiply,width,maxHeight,hasSlideIcon,pannelWidth,require} = this.props;
 
+			
 
 				const value = this.getValue();
 

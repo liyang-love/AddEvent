@@ -21,11 +21,19 @@ class ReportResult extends React.PureComponent<ReportResultProp,ReportResultStat
 
 	upFile=(e:React.ChangeEvent<HTMLInputElement>)=>{
 
-			const file = e.currentTarget.files!
+			const file = e.currentTarget.files!;
+
+		
+
+			let nameArr= Array.from(file).map(val=>val.name);
+
+			
+
+			
 
 			this.setState({
-				fileName:file[0].name
-			})
+				fileName:nameArr.join(" ，")
+			});
 		
 		this.props.getMethods<"upFileHandle">("upFileHandle")(file);
 
@@ -66,7 +74,7 @@ class ReportResult extends React.PureComponent<ReportResultProp,ReportResultStat
 							<p className="input-file-m">
 								<span >附加材料：</span>
 								<span >{fileName}</span>
-								<input type="file" onChange={this.upFile} />
+								<input type="file"  multiple onChange={this.upFile} />
 							</p>
 
 							<div className="footer">

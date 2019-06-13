@@ -142,7 +142,7 @@ export default class CalendarDayView extends React.PureComponent<DayViewProp,Day
 							
 						case  dayArrleg-1: {//最后一排，可能包含下个月的日期
 						
-							 const startDayNum = 7*index+1 - MonFirstDayToWeek ;
+							 const startDayNum = 7*index - MonFirstDayToWeek ;
 
 							 const count = (days+MonFirstDayToWeek) % 7 || 7;
 
@@ -181,7 +181,7 @@ export default class CalendarDayView extends React.PureComponent<DayViewProp,Day
 						}
 						default :{
 
-							 const startDayNum = 7*index+1 - MonFirstDayToWeek ;
+							 const startDayNum = 7*index - MonFirstDayToWeek ;
 						
 								const  MonDayArr = Array.from({length:7},(...args)=>args[1]+1).map((val)=>{
 																const day = val + startDayNum; 

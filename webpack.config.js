@@ -114,7 +114,7 @@ module.exports = env =>{
 		        },
 		},
 		optimization: {
-			minimize: false,
+			//minimize: false,
 		  namedModules: true,
 			namedChunks: true,
 			chunkIds: 'named',

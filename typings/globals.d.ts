@@ -3,7 +3,8 @@
 
 interface Window{
 	__REDUX_DEVTOOLS_EXTENSION__:any;
-	hex_md5:(s:string)=>string;
+    hex_md5:(s:string)=>string;
+    getSession(key:"getPath"|"getSession"):any;
 }
 
 

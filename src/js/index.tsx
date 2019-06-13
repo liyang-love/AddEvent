@@ -11,7 +11,7 @@ import {Redirect} from "react-router-dom";
 import {fetchPostLoginIfNeeded} from "@js/actions/index";
 
 
-HashRouter
+BrowserRouter
 
 type indexProps = {
 	isLogin:boolean
@@ -56,7 +56,7 @@ class App extends React.PureComponent<appProps & ReduxStateProp & dispatchProp,a
 	render(){
 		const {isLogin,isFetching,login} = this.props;
 			return (
-					<BrowserRouter >
+					<HashRouter >
 							<Switch>
 										<Route path="/login">
 												<Login isLogin={isLogin} isFetching={isFetching} login={login}/>	
@@ -68,7 +68,7 @@ class App extends React.PureComponent<appProps & ReduxStateProp & dispatchProp,a
 												<IndexCom isLogin={isLogin}/>
 										</Route>
 							</Switch>
-					</BrowserRouter>
+					</HashRouter>
 					)
 		}
 	

@@ -1,7 +1,7 @@
 import axions from "axios";
 
 const instance = axions.create({
-									baseURL:"http://localhost:8034/AdvEvent",
+		baseURL:window.getSession("getPath"),
 });
 
 instance.interceptors.response.use(function (response) {

@@ -116,6 +116,7 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 
 	setCalendarObj = (setTimeArr: Readonly<any[]>, field: string) => {
 		this.params[field as field] = setTimeArr.join("");
+		
 	}
 
 	setComboboxObj = (selArr: Readonly<any[]>, field: string) => {
@@ -153,6 +154,15 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 
 
 		console.log(file);
+
+		//const formData = new FormData();
+
+		//formData.set("eventId","1");
+
+
+		//formData.set("files",file);
+
+
 
 	}
 
