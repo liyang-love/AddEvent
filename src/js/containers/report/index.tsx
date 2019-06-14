@@ -1,10 +1,23 @@
 import * as React from "react";
 import "@css/report.scss";
 import { RouteComponentProps } from "react-router-dom";
-import NurseReport from "./NurseReport";
 import { connect, MapStateToProps } from "react-redux";
 import axios from "@js/common/AxiosInstance";
 import { SvgIcon, Button, Icon } from "@js/common/Button";
+import {Notification} from "@js/common/toast/index";
+
+import NurseReport from "./nurseReport/index";
+import Medical from "./medical/index";
+
+enum ReportType {
+	accident="",//意外
+	drug="7023",//药品
+	infection="7033",//院感
+	logistics="7031",//后勤
+	medical="7021",//医疗
+	medicalDevice="7024",//医疗器械
+	nurseReport="7022"//护理
+}
 
 type ReportProp = {
 
@@ -56,6 +69,8 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 		reporterNumber: "",
 		medicalType: "",
 		incidentTime: "",
+		workYear:"",
+		orgWorkYear:"",
 
 		passResult: "",
 		pass: "",
@@ -101,7 +116,7 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 		totalPage: 1,
 	}
 
-
+	notificationRef:React.RefObject<Notification>=React.createRef();
 
 	inputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
 
@@ -128,9 +143,9 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 		console.log(this.params);
 
 		const noFill = document.querySelectorAll("#gReport .no-fill");
-
+		const Notification = this.notificationRef.current!;
 		if (noFill.length) {
-			alert("有必填项没填完！")
+			Notification.addNotice("填写完整！","warn")
 			return;
 		}
 
@@ -183,7 +198,35 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 		})
 	}
 
+	getReport(id:string,curPage:number,orgName:string){
 
+		switch(id+""){
+			case ReportType.nurseReport :
+				return <NurseReport formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+				
+			case ReportType.accident:
+
+				return <NurseReport formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+			case ReportType.drug:
+
+				return <NurseReport formType={id}  hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+			case ReportType.infection:
+
+				return <NurseReport formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+			case ReportType.medical:
+
+				return <Medical formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+			case ReportType.medicalDevice:
+
+				return <NurseReport formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+			case ReportType.logistics:
+
+				return <NurseReport formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+
+
+		}
+
+	}
 
 
 	render() {
@@ -195,8 +238,11 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 
 		return (
 			<div className="page-report">
+
+				<Notification ref={this.notificationRef}/>
+
 				<div className="g-theme">
-					<span ><b style={{ fontSize: 18 }}>{text}</b><span>&nbsp;&nbsp;第 {curPage + 1} 页</span>&nbsp;&nbsp;&nbsp;<span className="require">（必填项）</span></span>
+					<span ><b style={{ fontSize: 18 }}>{text}</b><span>&nbsp;&nbsp;第 {curPage + 1} 页</span>&nbsp;&nbsp;&nbsp;<span className="require">（非必填项）</span></span>
 					<span className="m-optBtn">
 						<Button handle={this.changePage}>
 							{is_first ? "上" : "下"}一页
@@ -213,7 +259,7 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 				</div>
 				<div className="g-report" id="gReport">
 					<div className="report-article">
-						<NurseReport formType={id} showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+						{this.getReport(id,curPage,orgName)}	
 					</div>
 				</div>
 			</div>

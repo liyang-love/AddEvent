@@ -20,7 +20,9 @@ $bg:#ffffff;
 		border-color: $normal;
 		align-items: center;
 		background-color:$bg;
-
+		.m-inp-wrap{
+			flex: 1;
+		}
 	  .m-inp{
 	  	width: 100%;
 	  	box-sizing: border-box;

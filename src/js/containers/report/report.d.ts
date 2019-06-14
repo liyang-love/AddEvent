@@ -1,6 +1,12 @@
 declare namespace ReportSpace {
 
-
+	export	interface ReportProps {
+		formType: string;
+		showPage: number;
+		getMethods:ReportAPI["getMethods"];
+		upOrgName: string;
+		hospitalName:hospitalName;
+	}
 
 	export type methodName = "inputChange" | "setCalendarObj" | "setComboboxObj" | "getParams" | "upFileHandle";
 	export type hospitalName = "三院" | "中医院";
@@ -40,6 +46,8 @@ declare namespace ReportSpace {
 			reporterNumber: string;//上报科室人手机号
 			medicalType: string;//医疗类型 
 			incidentTime: string;//事发时段
+			workYear:string;//工作年资
+			orgWorkYear:string;//该科室工作年资
 
 			passResult: string;//简要事情的经过及结果
 			pass: string;//事件经过
@@ -72,12 +80,12 @@ declare namespace ReportSpace {
 			ring: string;//环(主要原因分析
 			deleteSaveCommit: string;//删除或保存或提交
 			formType: string;//表单类型
-			damageDegree:string;//造成病人的损害程度
-			admissionNumber:string,//住院号
-			similarIncidentOne :string;//发生过类似的事件
-			similarIncidentTwo:string;//发生过类似的事件2
+			damageDegree: string;//造成病人的损害程度
+			admissionNumber: string,//住院号
+			similarIncidentOne: string;//发生过类似的事件
+			similarIncidentTwo: string;//发生过类似的事件2
 
-		
+
 
 			//	 	 	 modifyStatus :string;//修改状态
 			// viewReminder :string;//查看提醒
