@@ -42,52 +42,37 @@ class Radio extends React.PureComponent<props>{
 }
 
 
-type itemCheckObj = {
-	tit?: string;
-	changeHandle: () => void;
-	checked: boolean;
-	value?: string;
-	hasChecked?: boolean
-}
+
 
 
 type checkProps = {
-	changeHandle: () => void;
-	data: Pick<itemCheckObj, "tit" | "checked" | "value">[];
+	changeHandle: (e:React.ChangeEvent<HTMLInputElement>) => void;
+	tit?:string;
+	checked:boolean;
+	value?:string;
 	nameFiled: string;
+	hasChecked?:boolean;
+	type?:"checkbox"|"radio";
 }
 
 type checkState = {
-	/*checked:boolean;
-	hasChecked:boolean;*/
+
 }
 
 class Checkbox extends React.PureComponent<checkProps, checkState>{
 
-
-
-	static Item: React.SFC<itemCheckObj & { nameFiled: string }> = ({ tit, nameFiled, changeHandle, checked, hasChecked }) => {
-
-		return (<label className="m-label m-lab-checkbox" >
-			<input type="checkbox" className={hasChecked ? "has-check" : ""} name={nameFiled} checked={checked} onChange={changeHandle!} />
-			{tit ? (<span className="lab-tit">{tit}</span>) : null}
-		</label>)
-	}
+	static defaultProps={
+		type:"checkbox"
+	}	
 
 	render() {
 
-		const { data, nameFiled, changeHandle } = this.props;
+		const { tit,checked,value, nameFiled, changeHandle,hasChecked,type } = this.props;
 
-		return (<span className="m-checkbox">
-
-			{
-				data.map(({ value, tit, checked }) => {
-
-					return <Checkbox.Item checked={checked} key={value} tit={tit} nameFiled={nameFiled} changeHandle={changeHandle} />
-
-				})
-			}
-		</span>)
+		return  (<label className={`m-label m-lab-${type}`} >
+			<input type={type} className={hasChecked ? "ha-check" :""}  name={nameFiled} checked={checked} value={value} onChange={changeHandle!} />
+			{tit ? (<span className="lab-tit">{tit}</span>) : null}
+		</label>)
 	}
 
 }

@@ -7,8 +7,9 @@ export default {
 
         return  axios.get("main/getLeftMenu",{
                 params:{roleId}
+        }).then(res=>{
+            return res.data
         });
-
 
     },
    

@@ -48,6 +48,30 @@ declare namespace ReportSpace {
 			incidentTime: string;//事发时段
 			workYear:string;//工作年资
 			orgWorkYear:string;//该科室工作年资
+			beforeAccident:string;//事发前病人状态
+			patientNumber:string;//病人手机号
+			weight:string;//体重
+			liveDoorNumber:string;//住院号/门诊号
+			birthDate:string;//出生日期
+			anamnesis:string;//既往病史
+			productName:string;//产品名称
+			registerNo:string;//注册证编号
+			modelNumber:string;//型号
+			standard:string;//规格
+			batchNumber:string;//产品批号
+			UDI:string;//UDI
+			manufactureDate:string;//生产日期
+			effectiveDate:string;//有效日期
+			productCode:string;//产品编码
+			instrumentDate:string;//器械使用日期
+			qxReasonDescribe:string;//事件原因分析描述
+			qxAnalyseReason:string;//事件原因分析
+			hurtRank:string;//伤害等级
+			hurtPerform:string;//伤害表现
+			kindEquipment:string;//何种器材
+			degreeRisk:string;//程度和危险度;
+			pollutantSource:string;//污染物来源
+
 
 			passResult: string;//简要事情的经过及结果
 			pass: string;//事件经过

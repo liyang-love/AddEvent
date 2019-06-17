@@ -77,8 +77,8 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 		Promise.all([getSceneCareerClass, getMedicalIncidentDate, listOrgTree]).then(arr => {
 
 			const { profession, happenScene, topClass } = arr[0].data;
-			const [medicalTypeArr, , dataType] = arr[1].data;
-			const orgArr = arr[2].data;
+			const [medicalTypeArr, , dataType] = arr[1].data.data;
+			const orgArr = arr[2].data.data;
 
 			const {getMethods} = this.props;
 			const parmas = getMethods<"getParams">("getParams")();

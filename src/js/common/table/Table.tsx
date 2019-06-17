@@ -45,7 +45,7 @@ type TBodyTrProps = {
 	idField: string;
 	index: number;
 	startIndex: number;
-	changeHandle: (index: number) => void;
+	changeHandle: (e:React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 type TBodyTrState = {
@@ -174,13 +174,14 @@ export default class Table extends React.PureComponent<TableProps, TableState>{
 		checkbox: false,
 	}
 
-	static CheckBoxFn = (order: string, checked: boolean, index: number, changeHandle: (index: number) => void) => {
+	static CheckBoxFn = (order: string, checked: boolean, index: number, changeHandle:  Table["checkItem"]) => {
 
-		return <Checkbox.Item
-			changeHandle={() => { changeHandle(index) }}
-			checked={checked}
-			nameFiled="user"
-			tit={order}
+		return <Checkbox
+					changeHandle={changeHandle}
+					checked={checked}
+					value={index+""}
+					nameFiled="user"
+					tit={order}
 		/>
 	};
 
@@ -265,7 +266,9 @@ export default class Table extends React.PureComponent<TableProps, TableState>{
 		return { hasChecked, isAllChecked }
 
 	}
-	checkItem = (index: number) => {
+	checkItem = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+		const index = +e.currentTarget!.value;
 		const { curPage } = this.state;
 		this.setState(preState => {
 
@@ -330,14 +333,14 @@ export default class Table extends React.PureComponent<TableProps, TableState>{
 						<tr>
 							<th >
 
-								{checkbox ? <Checkbox.Item
-									changeHandle={() => this.checkAll(checkAllStataus.isAllChecked)}
-									checked={checkAllStataus.isAllChecked}
-									nameFiled="user"
-									tit="序号"
-									hasChecked={checkAllStataus.hasChecked}
+								{checkbox ? <Checkbox
+												changeHandle={() => this.checkAll(checkAllStataus.isAllChecked)}
+												checked={checkAllStataus.isAllChecked}
+												nameFiled="user"
+												tit="序号"
+												hasChecked={checkAllStataus.hasChecked}
 
-								/> : "序号"}
+											/> : "序号"}
 							</th>
 							{
 								column.map(({ text, field }) => {

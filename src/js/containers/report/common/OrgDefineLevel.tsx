@@ -40,7 +40,7 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 			const [org,damage] =arr;
 
 			this.setState({
-				causeDamageDegree:damage.data,
+				causeDamageDegree:damage.data.data,
 				orgDefineLevel:org.data,
 			});
 

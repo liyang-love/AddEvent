@@ -8,6 +8,11 @@ import {Notification} from "@js/common/toast/index";
 
 import NurseReport from "./nurseReport/index";
 import Medical from "./medical/index";
+import MedicalDevice from "./medicalDevice/index";
+import Drug from "./drug/index";
+import Accident from "./accident/index";
+import Logistics from "./logistics/index";
+import Infection from "./infection/index";
 
 enum ReportType {
 	accident="",//意外
@@ -69,8 +74,31 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 		reporterNumber: "",
 		medicalType: "",
 		incidentTime: "",
-		workYear:"",
-		orgWorkYear:"",
+		workYear: "",
+		orgWorkYear: "",
+		beforeAccident: "",
+		patientNumber: "",
+		weight: "",
+		liveDoorNumber: "",
+		birthDate: "",
+		anamnesis: "",
+		productName: "",
+		registerNo: "",
+		modelNumber: "",
+		standard: "",
+		instrumentDate: "",
+		batchNumber: "",
+		UDI: "",
+		manufactureDate: "",
+		effectiveDate: "",
+		productCode: "",
+		qxReasonDescribe:"",
+		qxAnalyseReason: "",
+		hurtRank: "",
+		hurtPerform: "",
+		kindEquipment:"",
+		degreeRisk: "",
+		pollutantSource: "",
 
 		passResult: "",
 		pass: "",
@@ -206,22 +234,22 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 				
 			case ReportType.accident:
 
-				return <NurseReport formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+				return <Accident formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
 			case ReportType.drug:
 
-				return <NurseReport formType={id}  hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+				return <Drug formType={id}  hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
 			case ReportType.infection:
 
-				return <NurseReport formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+				return <Infection formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
 			case ReportType.medical:
 
 				return <Medical formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
 			case ReportType.medicalDevice:
 
-				return <NurseReport formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+				return <MedicalDevice formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
 			case ReportType.logistics:
 
-				return <NurseReport formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+				return <Logistics formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
 
 
 		}

@@ -1,6 +1,7 @@
 import * as React from "react";
 import  Calendar from "@js/common/calendar/index"
 
+type fieldKey = keyof ReportSpace.ReportAPI["params"];
 
 type textProps={
     getMethods:ReportSpace.ReportAPI["getMethods"];
@@ -8,9 +9,9 @@ type textProps={
     nameSigin:string;
     placeholder:string;
     maxLength:number;
-    fieldInp:string;
-    fieldDate:string;
-    fieldSigin:string;
+    fieldInp:fieldKey;
+    fieldDate:fieldKey;
+    fieldSigin:fieldKey;
     height:number;
 }
 
@@ -31,14 +32,14 @@ export default class extends React.PureComponent<textProps>{
 
 		const paramObj = getMethods<"getParams">("getParams")();
 		
-		const  nameSiginVal = paramObj[fieldSigin as "caSignatory"],
-			   txtVal = paramObj[fieldSigin as "correctiveActions"], 
-			   dateVal  = paramObj[fieldSigin as "caDate"];
+		const  nameSiginVal = paramObj[fieldSigin],
+			   txtVal = paramObj[fieldInp], 
+			   dateVal  = paramObj[fieldDate];
 
 
 
 		return (<>
-			<p className="main-tit require">{tit}：</p>
+			<p className="main-tit">{tit}：</p>
 			<div className="main" style={{ height}}>
 				<textarea name={fieldInp} required defaultValue={txtVal} onChange={inputChange} className={txtVal ? "txtInp" : "txtInp no-fill"} placeholder={placeholder} maxLength={maxLength}></textarea>
 			</div>

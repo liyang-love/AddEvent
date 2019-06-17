@@ -24,10 +24,6 @@ type ReportHeadState = {
 		parId: string;
 		children: ReportHeadState["happenScene"];
 	}[];
-	topClass: { //层级
-		id: string;
-		text: string;
-	}[];
 	medicalTypeArr: any[]; //医疗类型
 	dataTypeArr: any[];//日期类型
 	anonymity: boolean;
@@ -53,7 +49,6 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 	state: ReportHeadState = {
 		profession: [],
 		happenScene: [],
-		topClass: [],
 		medicalTypeArr: [],
 		dataTypeArr: [],
 		anonymity: false,
@@ -76,7 +71,13 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 
 		Promise.all([getSceneCareerClass, getMedicalIncidentDate, listOrgTree]).then(arr => {
 
-			const { profession, happenScene, topClass } = arr[0].data;
+
+			if(arr.some((val:AxiosInterfaceResponse)=>val.code!==200)){
+
+				return ;
+			}
+
+			const { profession, happenScene } = arr[0].data;
 			const [medicalTypeArr, , dataType] = arr[1].data;
 			const orgArr = arr[2].data;
 
@@ -90,7 +91,6 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 			this.setState({
 				profession,
 				happenScene,
-				topClass,
 				medicalTypeArr: medicalTypeArr.children,
 				dataTypeArr: dataType.children,
 				orgArr,
@@ -209,8 +209,8 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 
 
 
-		const { bedNumber, patientName, age, medicalRecordNumber,
-			 medicalType, 
+		const { patientName, age, medicalRecordNumber,
+			 medicalType, beforeAccident,
 			 currentPeople, cpProfession,  dProfession, discoverer, 
 			reporter, rProfession,  dadIncidentSceneId, reporterNumber, incidentSceneId, happenTime, discoveryTime, reportTime, patientOrgId, 
 		} = parmas;
@@ -247,7 +247,8 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 					<ComTreebox data={orgArr} textFiled="name" defaultSel={patientOrgId + ""} filed="patientOrgId" hasSlideIcon={false} width={130} pannelWidth={300} />
 				</span>
 				<span className="detail">
-					<label >事发前病人状态：<input  required type="text" defaultValue={bedNumber} name="bedNumber" className={bedNumber ? "inp" : "inp no-fill"} style={{ width: "80px" }} onChange={inputChange} /> </label>
+					{/* todo:还不确定是用下拉框还是输入 */}
+					<label >事发前病人状态：<input  required type="text" defaultValue={beforeAccident} name="beforeAccident" className={beforeAccident ? "inp" : "inp no-fill"} style={{ width: "80px" }} onChange={inputChange} /> </label>
 				</span>
 				
 			</div>

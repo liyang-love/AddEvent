@@ -37,12 +37,19 @@ class ReportSecond extends React.PureComponent<ReportSecondProp,ReportSecondStat
 	componentDidMount(){
 		//类别联动科室
 		const {formType} = this.props;
-		Api.categoryLinkOrg(formType).then(res=>{
+		Api.categoryLinkOrg(formType).then((res:AxiosInterfaceResponse)=>{
 
-					this.setState({
-						categoryLinkOrg:res.data,
-					});
-			});
+			if(res.code==200){
+				this.setState({
+							categoryLinkOrg:res.data.data,
+				});
+			}else{
+				console.log(res.message)
+			}
+
+		
+
+		});
 
 
 	}
