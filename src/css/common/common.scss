@@ -173,33 +173,26 @@ body,html{
     
 	}
 }
-/*容器样式  */
+/*子菜单容器样式  */
 .g-layout{
 	display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-sizing: border-box;
-}
-.g-result{
-	@extend %shadow;
-	flex: auto;
-	padding: 16px;
-	overflow: hidden;
-	.m-search{
-		width: 440px;
+	flex-direction: column;
+	height: 100%;
+	box-sizing: border-box;
+	
+	.g-layout-article{
+		@extend %shadow;
+		flex: auto;
+		padding: 16px;
+		overflow: hidden;
+		
 	}
-}
-.g-illtype-head{	
-	@extend %shadow;
-	position: relative;
-	z-index: 2;
-	padding: 16px;
-	margin-bottom: 16px;
-	.g-condition{	
-		margin-top: 10px;
-		display: flex;
-		justify-content: space-between;
-		flex-wrap: wrap;	
+	.g-layout-head{	
+		@extend %shadow;
+		position: relative;
+		z-index: 2;
+		padding: 16px;
+		margin-bottom: 16px;
 	}
 }
 
@@ -210,8 +203,8 @@ body,html{
 	height: 100%;
 	top:0;
 	left: 0;
-//	background: rgba(#000, .3);
-background: none;
+	//background: rgba(#000, .3);
+	background: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;

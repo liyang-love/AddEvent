@@ -86,7 +86,7 @@ export default class SearchCom extends React.PureComponent<props, state>{
 					<span className="m-search-close" onClick={this.closeSearch}><i className="fa fa-times fa-lg"></i></span>
 				</VelocityComponent>
 			</span>
-			{hasBtn ? (<button className="s-btn normal-btn" onClick={this.toggleSearch}>
+			{hasBtn ? (<button className="s-btn normal-btn primary" onClick={this.toggleSearch}>
 				<span className="fa fa-search"></span>
 			</button>):null}
 		</div>)

@@ -45,7 +45,7 @@ declare namespace ReportSpace {
 			dateType: string;//日期类型
 			reporterNumber: string;//上报科室人手机号
 			medicalType: string;//医疗类型 
-			incidentTime: string;//事发时段
+			//incidentTime: string;//事发时段
 			workYear:string;//工作年资
 			orgWorkYear:string;//该科室工作年资
 			beforeAccident:string;//事发前病人状态

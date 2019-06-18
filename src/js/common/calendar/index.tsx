@@ -390,7 +390,7 @@ class Calendar extends React.PureComponent<calendarProps, calendarState> impleme
 
 			switch (rotate) {
 				case calendarType.day:
-					const timeStr = time ? +" "+(val.get("hour") + "").padStart(2, "0") + ":" + (val.get("minute") + "").padStart(2, "0") + ":00" : "";
+					const timeStr = time ? " "+(val.get("hour") + "").padStart(2, "0") + ":" + (val.get("minute") + "").padStart(2, "0") + ":00" : "";
 					return year + "-" + month + "-" + day  + timeStr;
 				case calendarType.searson:
 					return year + "-S" + searson;

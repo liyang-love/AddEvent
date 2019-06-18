@@ -6,7 +6,7 @@ import Head from "@js/containers/Head";
 import MainRouter from "@js/Router" ;
 
 
-BrowserRouter
+MemoryRouter
 
 type indexProps = {
 }
@@ -48,11 +48,11 @@ class App extends React.PureComponent<appProps ,appState>{
 
 	render(){
 			return (
-					<MemoryRouter>
+					<BrowserRouter>
 							<Switch>
 									 	<Route  path="/"   component={IndexCom} />		
 							</Switch>
-					</MemoryRouter>
+					</BrowserRouter>
 					)
 		}
 	

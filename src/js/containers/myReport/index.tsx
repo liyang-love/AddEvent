@@ -1,25 +1,67 @@
 import * as React from "react";
-import Combobox from "@js/common/combobox/index"
+import {connect,MapStateToProps} from "react-redux";
+import Api from "@api/myReport";
+import TableWrap from "./ReportTable";
 
 
-const GlobSearch = ()=>{
 
-	const fn=function(slected:any,field:string,node:any){
+type MyReportProps={
+	
+}
+type MyReportState={
+	data: any[] | null;
 
-			console.log(slected,field,node)
+}
+
+
+class MyReport extends React.PureComponent<MyReportProps & reduxProps,MyReportState>{
+
+	state:MyReportState={
+		data:null
+	}
+	componentDidMount(){
+
+		const {orgId} = this.props;
+		Api.upOrgShowBar(orgId).then((res:AxiosInterfaceResponse)=>{
+			this.setState({
+				data:res.data
+			})
+		})
 	}
 
-	return (
-		
-			<div>
-				globSearch
-				<Combobox field="a"  data={[{id:"1",text:"e",name:"name"},{id:"2","text":"3",name:"eee"}]} multiply={true} inpShowField="name" clickCallback={fn} />
+    render(){
+		const {data} = this.state;
+        return(<div className="g-layout g-padding">
+				<div className="g-layout-article">
+					{data ? <TableWrap data={data} /> : null}
+				</div>
+				
 			</div>
-			
-	)
-};
+		)
+    }
+
+
+
+}
+
+type reduxProps={
+    orgId:string;
+}
+
+const mapStateToProps:MapStateToProps<reduxProps,MyReportProps,appStore>=({app})=>{
+
+    const index = app.get("roleIndex");
+    const orgId = app.get("orgId")[index]
+    return {
+        orgId,
+
+    }
+
+}
+
+export default connect(mapStateToProps)(MyReport)
 
 
 
 
-export default GlobSearch;
+

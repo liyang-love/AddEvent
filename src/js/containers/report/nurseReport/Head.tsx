@@ -347,7 +347,7 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 
 				<span className="detail">
 					<label >报告人：</label>
-					{anonymity ? (<span className="underline" style={{ width: "80px" }}>匿名</span>) : <input type="text" required name="reporter" placeholder="可匿名非必填" onChange={inputChange} defaultValue={reporter} className={reporter ? "inp" : "inp no-fill"} style={{ width: "90px" }} />}
+					{anonymity ? (<span className="underline" style={{ width: "80px" }}>匿名</span>) : <input type="text" name="reporter" placeholder="可匿名非必填" onChange={inputChange} defaultValue={reporter} className={"inp"} style={{ width: "90px" }} />}
 
 				</span>
 				<span className="detail">
@@ -380,7 +380,7 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 			</div>
 			<div className="item-tr">
 				<span className="detail">
-					<span >科室发生过类似的事件：近2年共计&nbsp;&nbsp;<input type="text" name="dadIncidentSceneId" defaultValue={similarIncidentOne} onChange={inputChange} className={dadIncidentSceneId ? "inp" : "inp no-fill"} style={{ width: 30 }} />次，本年度共计&nbsp;&nbsp;<input type="text" name="dadIncidentSceneId" defaultValue={dadIncidentSceneId} onChange={inputChange} className={similarIncidentTwo ? "inp" : "inp no-fill"} style={{ width: 30 }} />次。</span>
+					<span >科室发生过类似的事件：近2年共计&nbsp;&nbsp;<input type="text" name="similarIncidentOne" defaultValue={similarIncidentOne} onChange={inputChange} className={similarIncidentOne? "inp" : "inp no-fill"} style={{ width: 30 }} />次，本年度共计&nbsp;&nbsp;<input type="text" name="similarIncidentTwo " defaultValue={similarIncidentTwo} onChange={inputChange} className={similarIncidentTwo ? "inp" : "inp no-fill"} style={{ width: 30 }} />次。</span>
 				</span>
 			</div>
 

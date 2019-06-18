@@ -157,4 +157,8 @@
 		margin-right:0;
 	}
 }
-
+.g-btn-layout{
+	&>*{
+		margin-right:6px;
+	}
+}

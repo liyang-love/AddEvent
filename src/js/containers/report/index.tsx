@@ -2,7 +2,7 @@ import * as React from "react";
 import "@css/report.scss";
 import { RouteComponentProps } from "react-router-dom";
 import { connect, MapStateToProps } from "react-redux";
-import axios from "@js/common/AxiosInstance";
+import Api from "@api/report";
 import { SvgIcon, Button, Icon } from "@js/common/Button";
 import {Notification} from "@js/common/toast/index";
 
@@ -73,7 +73,7 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 		dateType: "",
 		reporterNumber: "",
 		medicalType: "",
-		incidentTime: "",
+	//	incidentTime: "",
 		workYear: "",
 		orgWorkYear: "",
 		beforeAccident: "",
@@ -168,7 +168,10 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 	}
 
 	upReportHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
+		
 		console.log(this.params);
+
+		console.log(JSON.stringify(this.params,null,"\t"))
 
 		const noFill = document.querySelectorAll("#gReport .no-fill");
 		const Notification = this.notificationRef.current!;
@@ -180,17 +183,12 @@ class Report extends React.PureComponent<RouteComponentProps<ReportProp> & redux
 		const type = e.currentTarget.name;
 		this.params.deleteSaveCommit = type;
 
-		axios({
-			url: "/event/allReport",
-			method: "post",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			data: this.params,
-		}).then(res => {
+		Api.allReport(this.params).then(res => {
 			console.log(res);
 
 		});
+
+	
 	}
 
 	upFileHandle = (file: FileList) => {

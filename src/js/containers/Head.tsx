@@ -154,7 +154,7 @@ class Head extends React.PureComponent<RouteComponentProps<HeadProp> & reduxStat
 
 
 			</Modal>) : null}
-			<span className="m-theme">出院小结管理</span>
+			<span className="m-theme">不良事件上报</span>
 			<div className="g-sys_set">
 				<div className="g-role-sys">
 					<div style={{ padding: "20px 10px"}}>

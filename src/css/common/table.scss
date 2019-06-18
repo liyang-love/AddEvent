@@ -1,8 +1,7 @@
 @import "../scss/unit","../scss/variables";
 .g-table{
-	//height: 100%;
-  flex:auto;
-	margin-top: 20px;
+	height: 100%;
+	flex:auto;
 	table{
 		width: 100%;
 		table-layout: fixed;
