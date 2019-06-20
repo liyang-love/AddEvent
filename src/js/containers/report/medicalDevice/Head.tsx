@@ -226,7 +226,7 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 		const { patientName, age, medicalRecordNumber,
 			 medicalType,reportTime,birthDate,anamnesis,productName,standard,registerNo,modelNumber,
 			reporter, rProfession,  dadIncidentSceneId,rTopClass, reporterNumber, incidentSceneId, happenTime, patientOrgId, 
-			UDI,batchNumber,productCode,manufactureDate,effectiveDate,instrumentDate,qxReasonDescribe,hurtPerform
+			udi,batchNumber,productCode,manufactureDate,effectiveDate,instrumentDate,qxReasonDescribe,hurtPerform
 		} = parmas;
 
 
@@ -346,7 +346,7 @@ class ReportHead extends React.PureComponent<ReportHeadProp, ReportHeadState> im
 				</span>
 				<span className="detail">
 					<label >UDI：</label>
-					<input type="text" required name="UDI"  onChange={inputChange} defaultValue={UDI} className={UDI ? "inp" : "inp no-fill"} style={{ width: "90px" }} />
+					<input type="text" required name="udi"  onChange={inputChange} defaultValue={udi} className={udi ? "inp" : "inp no-fill"} style={{ width: "90px" }} />
 
 				</span>
 			</div>

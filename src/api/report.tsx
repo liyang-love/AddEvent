@@ -8,9 +8,9 @@ export default {
     categoryLinkOrg:function (formType:string) {
         return axios.get("event/categoryLinkOrg?formType="+formType)
     },
-    sceneCareerClass:function(formType:string){
-       
-        return axios.get("event/sceneCareerClass?formType="+formType)
+    sceneCareerClass:function(id?:string){
+       console.log(id)
+        return axios.get("event/sceneCareerClass?formType=")
     },
     submitAllotOrg:function(eventId:string){
        
@@ -20,9 +20,13 @@ export default {
        
         return axios.get("event/getAllEvent?id="+id)
     },
-    updateAllEvent:function(){
+    updateAllEvent:function(data:any){
        
-        return axios.get("event/updateAllEvent")
+        return axios.post("event/updateAllEvent",data,{
+            headers:{
+                "Content-Type":"application/json"
+            }
+        })
     },
     medicalIncidentDate:function(){
        

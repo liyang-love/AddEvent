@@ -24,6 +24,7 @@ type props = {
 	require?: boolean;
 	placeholder?: string;
 	dirctionUp?:boolean;
+	renderClick?:boolean;//是否在初始化的时候调用点击的回调函数
 }
 
 
@@ -56,23 +57,25 @@ export default class Combobox extends React.PureComponent<props, state>{
 
 		super(props);
 
-		const { defaultVal, data, idField, textField } = props;
+		const { defaultVal, data, idField, textField ,inpShowField,clickCallback,field,renderClick} = props;
 
 		const _defaultVal = defaultVal + "";
 
 
 
 		let defaultNode: ComboboxSpace.comboboxAPI["slectedItem"][];
+		let _node = undefined ;
 
 		if (!_defaultVal) {
 			defaultNode = [];
 		} else {
 			const _defaultNode = _defaultVal.split(",").map(val => {
 
-				const node = data.find(node => (node[idField!] == val))!
+				const node = data.find(node => (node[idField!] == val))!;
+				_node = node ;
 				return node ? {
 					id: val,
-					text: node[textField!]
+					text: inpShowField?node[inpShowField]: node[textField!]
 				} : null;
 			});
 
@@ -85,20 +88,30 @@ export default class Combobox extends React.PureComponent<props, state>{
 			drop: false,
 			slected,
 			data: Immutable.fromJS(this.addField(data, slected)),
+		};
+		// 有默认值的时候，触发点击的回调事件
+		if(renderClick){
+			const seleteNode:Readonly<any> | undefined = _node  ;
+			clickCallback && defaultNode.length && clickCallback(defaultNode,field,seleteNode);
 		}
+		
+
 	}
 
 	componentWillReceiveProps(nextProp: props) {
 
 		//父组件
 		if (nextProp.data != this.props.data || nextProp.defaultVal !=this.props.defaultVal) {
+			
+			let _node = undefined ;
 			const _defaultVal = nextProp.defaultVal + "";
 			const _defaultNode = _defaultVal.split(",").map(val => {
-				const node = nextProp.data.find(node => (node[nextProp.idField!] == val))!
+				const node = nextProp.data.find(node => (node[nextProp.idField!] == val))!;
+				_node = node ;
 				return node ? {
 					id: val,
-					text: node[nextProp.textField!]
-				} : null;
+					text:nextProp.inpShowField ? node[nextProp.inpShowField]: node[nextProp.textField!]
+				}  : null;
 			});
 
 			const slected = Immutable.List(_defaultNode.filter(val => !!val) as ComboboxSpace.comboboxAPI["slectedItem"][]);
@@ -107,7 +120,15 @@ export default class Combobox extends React.PureComponent<props, state>{
 			this.setState({
 				data: Immutable.fromJS(this.addField(nextProp.data, slected)),
 				slected,
-			})
+			});
+			const {clickCallback ,field,renderClick} = nextProp;
+
+			if(renderClick){
+				const slecteArr = slected.toJS();
+				const slecteNode = _node;
+				clickCallback && slecteArr.length && clickCallback(slecteArr,field,slecteNode);
+			}
+		
 		}
 
 

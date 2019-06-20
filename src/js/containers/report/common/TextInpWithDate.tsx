@@ -1,7 +1,7 @@
 import * as React from "react";
 import  Calendar from "@js/common/calendar/index"
 
-type fieldKey = keyof ReportSpace.ReportAPI["params"];
+type fieldKey = keyof ReportSpace.params;
 
 type textProps={
     getMethods:ReportSpace.ReportAPI["getMethods"];

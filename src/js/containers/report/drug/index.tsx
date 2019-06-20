@@ -7,14 +7,8 @@ import ReportHead from "./Head";
 import TextWithUpFile from "../common/TextWithUpFile";
 import TextInpWithData from "../common/TextInpWithDate";
 import Combobox from "@js/common/combobox/index";
+import {influenceArray} from "../config";
 
-const influenceArray = [
-    {id:"1",text:"1、不明显"},
-    {id:"2",text:"2、病程延长"},
-    {id:"3",text:"3、病情加重"},
-    {id:"4",text:"4、导致后遗症"},
-    {id:'5',text:"5、导致死亡"},
-];
 
 export default class extends React.PureComponent<ReportSpace.ReportProps>{
 
@@ -23,7 +17,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
 
         const { formType, getMethods, hospitalName, upOrgName ,showPage} = this.props;
 
-        const {pass,result} = getMethods<"getParams">("getParams")();
+        const {pass,result,relateHandle} = getMethods<"getParams">("getParams")();
         const inputChange = getMethods<"inputChange">("inputChange");
 
         let statusArr = new Array(2).fill("none"); 
@@ -36,7 +30,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                     <tbody>
                         <tr>
                             <td>
-                                <ReportHead formType={formType} hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
+                                <ReportHead  hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
                             </td>
                         </tr>
                         <tr>
@@ -57,7 +51,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                                     </div>
                                     <p className="main-tit-2">2、事件相关处理：</p>
                                     <div className="main" style={{ height: "120px" }}>
-                                        <textarea name="result" required defaultValue={result} onChange={inputChange} className={result?"txtInp" :"txtInp no-fill"} placeholder="填写内容（以时间为节点）..." maxLength={200}></textarea>
+                                        <textarea name="relateHandle" required defaultValue={relateHandle} onChange={inputChange} className={relateHandle?"txtInp" :"txtInp no-fill"} placeholder="填写内容（以时间为节点）..." maxLength={200}></textarea>
                                     </div>
                                     <p className="main-tit-2">3、处理结果：</p>
                                     <div className="main" style={{ height: "120px" }}>
@@ -75,6 +69,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                                             data={influenceArray}
                                             field=""
                                             width={300}
+                                            dirctionUp={true}
                                             
                                          />
                                     </div>

@@ -118,7 +118,7 @@ export default class ReportOrgDefine extends React.PureComponent<ReportOrgDefine
 					</td>
 					<td>
 						<div className="detail">
-							<Combobox field="orgRank"  hasSlideIcon={false} data={causeDamageDegree} clickCallback={this.damageDegreeToOrgLev} defaultVal={damageDegree} width={580}  />
+							<Combobox field="damageDegree"  hasSlideIcon={false} data={causeDamageDegree} clickCallback={this.damageDegreeToOrgLev} defaultVal={damageDegree} width={580}  />
 						</div>
 						
 					</td>

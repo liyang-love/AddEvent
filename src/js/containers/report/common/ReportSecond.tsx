@@ -76,15 +76,17 @@ class ReportSecond extends React.PureComponent<ReportSecondProp,ReportSecondStat
 
 		const {categoryLinkOrg,categoryLinkOrgLev2,org} = this.state;
 
+		const {categoryId,dadCategoryId} = this.props.getMethods<"getParams">("getParams")();
+
 			return(
 
 					<div className="item">
 										
 								 <span className="detail">
 								 		<span >类别：</span>
-											<Combobox data={categoryLinkOrg}  width={140} field="categoryId" hasSlideIcon={false} clickCallback={this.setCategoryLinkOrgLev2} />
+											<Combobox data={categoryLinkOrg} renderClick={true} defaultVal={categoryId} pannelWidth={180} width={140} field="categoryId" hasSlideIcon={false} clickCallback={this.setCategoryLinkOrgLev2} />
 								 			&nbsp;&nbsp;
-								 			<Combobox data={categoryLinkOrgLev2}  width={240} hasSlideIcon={false} field="dadCategoryId" clickCallback={this.setCategoryLinkOrgLev2} />
+								 			<Combobox data={categoryLinkOrgLev2} defaultVal={dadCategoryId} width={240} hasSlideIcon={false} field="dadCategoryId" clickCallback={this.setCategoryLinkOrgLev2} />
 								 </span>
 								 <span className="detail">
 								 			<span >分配科室：</span><span className="underline" style={{width:"180px" }} >{org}</span>

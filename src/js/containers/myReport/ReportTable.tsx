@@ -18,6 +18,15 @@ type tableItem = {
 }
 
 
+const ReportName ={
+	"7023":"药品不良事件",
+	"7033":"院感不良事件",
+	"7031":"后勤不良事件",
+	"7021":"医疗不良事件",
+	"7024":"医疗器械不良事件",
+	"7022":"护理不良事件"
+}
+
 
 type tableWrapProps={
     data:tableItem[];
@@ -75,18 +84,27 @@ class TableWrap extends React.PureComponent<tableWrapProps ,tableWrapState>{
             width: 180,
             formatter: (node:any)=>{
 
-                const pathObj = {
-                    pathname:"/",
+                const pathObjUpdate = {
+                    pathname:"/index/report",
                     state:{
-                        id:node.id,
-                        formType:node.formType
+                        eventId:node.id,
+                        id:node.formType,
+                        text:(ReportName as any)[node.formType]+"修改"
+                    }
+                }
+                
+                const pathObjDetail = {
+                    pathname:"/index/",
+                    state:{
+                        eventId:node.id,
+                        id:node.formType,
+                        text:(ReportName as any)[node.formType]+"详情"
                     }
                 }
                 return (<div className="g-btn-layout">
-                        <NavLink to={pathObj} ><button className="s-btn normal-btn primary" >修改</button></NavLink>
-                        &nbsp;
+                        <NavLink to={pathObjUpdate} ><button className="s-btn normal-btn primary" >修改</button></NavLink>
                         <Button type="danger" field={node.id}  handle={this.delItem}>删除</Button>
-                        <Button type="green" field={node.id}  handle={this.delItem}>详情</Button>
+                        <NavLink to={pathObjDetail} ><button className="s-btn normal-btn primary" >详情</button></NavLink>
                         </div>
                         )
             }

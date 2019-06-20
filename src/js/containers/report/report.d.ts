@@ -1,19 +1,35 @@
 declare namespace ReportSpace {
 
-	export	interface ReportProps {
+	export interface ReportProps {
 		formType: string;
 		showPage: number;
-		getMethods:ReportAPI["getMethods"];
+		getMethods: ReportAPI["getMethods"];
 		upOrgName: string;
-		hospitalName:hospitalName;
+		hospitalName: hospitalName;
+	}
+	type item = {
+		id:string|number;
+		text:string;
+	}
+	export interface  HeadWrapProp  {
+		getMethods:ReportAPI["getMethods"];
+		upOrgName:string;
+		hospitalName:hospitalName; 
+	}
+	export interface HeadHQ {
+  		arrConfig : { profession:item[], medicalTypeArr:item[], topClass:item[],orgArr:any, happenScene:any, happenSceneSon:any };
+		anonymity:boolean;
+		reportDateType:string;
+		changeReportDayType(selTimeArr: Readonly<any[]>, field: string):void;
+		changeAnonymity():void;
+		changeHappenceSon(slecteArr: Readonly<any[]>, filed: string, node: any):void;
 	}
 
-	export type methodName = "inputChange" | "setCalendarObj" | "setComboboxObj" | "getParams" | "upFileHandle";
+	export type methodName = "inputChange" | "setCalendarObj" | "setComboboxObj" | "getParams" | "upFileHandle" | "changeDateType";
 	export type hospitalName = "三院" | "中医院";
-
-	export interface ReportAPI {
-		getMethods<k extends methodName>(mthodName: methodName): ReportAPI[k];
-		params: {
+IDBCursor
+	export interface params{
+			id?:string;//事件id
 			upOrgId: string; //科室
 			patientOrgId: string;//患者所在科室
 			bedNumber: string;//床号
@@ -46,32 +62,34 @@ declare namespace ReportSpace {
 			reporterNumber: string;//上报科室人手机号
 			medicalType: string;//医疗类型 
 			//incidentTime: string;//事发时段
-			workYear:string;//工作年资
-			orgWorkYear:string;//该科室工作年资
-			beforeAccident:string;//事发前病人状态
-			patientNumber:string;//病人手机号
-			weight:string;//体重
-			liveDoorNumber:string;//住院号/门诊号
-			birthDate:string;//出生日期
-			anamnesis:string;//既往病史
-			productName:string;//产品名称
-			registerNo:string;//注册证编号
-			modelNumber:string;//型号
-			standard:string;//规格
-			batchNumber:string;//产品批号
-			UDI:string;//UDI
-			manufactureDate:string;//生产日期
-			effectiveDate:string;//有效日期
-			productCode:string;//产品编码
-			instrumentDate:string;//器械使用日期
-			qxReasonDescribe:string;//事件原因分析描述
-			qxAnalyseReason:string;//事件原因分析
-			hurtRank:string;//伤害等级
-			hurtPerform:string;//伤害表现
-			kindEquipment:string;//何种器材
-			degreeRisk:string;//程度和危险度;
-			pollutantSource:string;//污染物来源
-
+			workYear: string;//工作年资
+			orgWorkYear: string;//该科室工作年资
+			beforeAccident: string;//事发前病人状态
+			patientNumber: string;//病人手机号
+			weight: string;//体重
+			liveDoorNumber: string;//住院号/门诊号
+			birthDate: string;//出生日期
+			anamnesis: string;//既往病史
+			productName: string;//产品名称
+			registerNo: string;//注册证编号
+			modelNumber: string;//型号
+			standard: string;//规格
+			batchNumber: string;//产品批号
+			udi: string;//UDI
+			manufactureDate: string;//生产日期
+			effectiveDate: string;//有效日期
+			productCode: string;//产品编码
+			instrumentDate: string;//器械使用日期
+			qxReasonDescribe: string;//事件原因分析描述
+			qxAnalyseReason: string;//事件原因分析
+			hurtRank: string;//伤害等级
+			hurtPerform: string;//伤害表现
+			kindEquipment: string;//何种器材
+			degreeRisk: string;//程度和危险度;
+			pollutantSource: string;//污染物来源
+			relateHandle:string;//事件相关处理
+			categoryId: string;//事件类别
+			dadCategoryId:string; //事件类别父id
 
 			passResult: string;//简要事情的经过及结果
 			pass: string;//事件经过
@@ -102,25 +120,26 @@ declare namespace ReportSpace {
 			object: string;//物(主要原因分析)
 			law: string;//法(主要原因分析)
 			ring: string;//环(主要原因分析
-			deleteSaveCommit: string;//删除或保存或提交
+			deleteSaveCommit: "-1" | "0" |"1"|"2";// 删除或保存或提交:-1 删除 0保存,1提交  2 事件关闭 
 			formType: string;//表单类型
 			damageDegree: string;//造成病人的损害程度
 			admissionNumber: string,//住院号
 			similarIncidentOne: string;//发生过类似的事件
 			similarIncidentTwo: string;//发生过类似的事件2
-
-
-
-			//	 	 	 modifyStatus :string;//修改状态
+			modifyStatus: string;//修改状态
 			// viewReminder :string;//查看提醒
 			// limitTime :string;//时间限制 多少天必须完成
 
-		}
+	}
 
+
+	export interface ReportAPI {
+		getMethods<k extends methodName>(mthodName: methodName): ReportAPI[k];
 		inputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void;
 		setCalendarObj(setTimeArr: Readonly<any[]>, field: string): void;
 		setComboboxObj(selArr: Readonly<any[]>, field: string): void;
-		getParams(): ReportAPI["params"];
+		changeDateType(id:string):void;
+		getParams(): params;
 		upFileHandle(file: FileList): void;
 	}
 
