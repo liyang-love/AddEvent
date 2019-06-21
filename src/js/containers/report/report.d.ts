@@ -132,6 +132,8 @@ declare namespace ReportSpace {
 			similarIncidentOne: string;//发生过类似的事件
 			similarIncidentTwo: string;//发生过类似的事件2
 			modifyStatus: string;//修改状态
+			uniqueFile:string;// 院感独有的文件 ，用Json格式的字符串
+
 			// viewReminder :string;//查看提醒
 			// limitTime :string;//时间限制 多少天必须完成
 

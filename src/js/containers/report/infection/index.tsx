@@ -28,7 +28,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                     <tbody>
                         <tr>
                             <td>
-                                <ReportHead formType={formType} hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
+                                <ReportHead  hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
                             </td>
                         </tr>
                         <tr>

@@ -384,6 +384,7 @@ class Container extends React.PureComponent<RouteComponentProps<containerProps> 
 		ring: "",//环(主要原因分析
 		deleteSaveCommit: "1",//删除或保存或提交
 		formType: this.props.location.state.id,//表单类型 
+		uniqueFile:"",
 
 		admissionNumber: "",//住院号
 		similarIncidentOne: "",//发生过类似的事件1
