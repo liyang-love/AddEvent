@@ -1,129 +1,129 @@
 import * as React from "react";
 import * as Immutable from "immutable";
-import {VelocityComponent} from "velocity-react";
+import { VelocityComponent } from "velocity-react";
 
-type Parprops={
-	itemObj:Immutable.Map<string,any>;
-	lev:number;
-	oIndex:string;
-} & Pick<DropProps,Exclude<keyof DropProps,"data">>
+type Parprops = {
+	itemObj: Immutable.Map<string, any>;
+	lev: number;
+	oIndex: string;
+} & Pick<DropProps, Exclude<keyof DropProps, "data">>
 
 
-enum CheckStatus{
-	checked="checked",
-	hasCheck="hasCheck",
-	uncheck="uncheck",
+enum CheckStatus {
+	checked = "checked",
+	hasCheck = "hasCheck",
+	uncheck = "uncheck",
 }
 
 
-type Parstates={
+type Parstates = {
 
-	
+
 };
 
 class ChildCom extends React.PureComponent<Parprops>{
 
-	render(){
-			const {lev,itemObj,oIndex,getFieldVal,getCommonMethod} = this.props;
+	render() {
+		const { lev, itemObj, oIndex, getFieldVal, getCommonMethod } = this.props;
 
-			const textFiled = getFieldVal("textFiled");
-			const icon = getFieldVal("icon");
+		const textFiled = getFieldVal("textFiled");
+		const icon = getFieldVal("icon");
 
 
-			const text = itemObj.get(textFiled);
-			const checkStatus = itemObj.get("checkStatus");
+		const text = itemObj.get(textFiled);
+		const checkStatus = itemObj.get("checkStatus");
 
-			const checkCom = getCommonMethod<"getCheckBox">("getCheckBox")(checkStatus,oIndex,false);
+		const checkCom = getCommonMethod<"getCheckBox">("getCheckBox")(checkStatus, oIndex, false);
 
-			const activeName = !checkCom && checkStatus == CheckStatus["checked"]? "active"  : "" ;
+		const activeName = !checkCom && checkStatus == CheckStatus["checked"] ? "active" : "";
 
-			const clickFn = !!checkCom ?undefined :  getCommonMethod<"clickItem">("clickItem");
-			
+		const clickFn = !!checkCom ? undefined : getCommonMethod<"clickItem">("clickItem");
 
-			return (<li>
-								<div  className={"m-combo-item " + activeName} data-index={oIndex} onClick={clickFn}>
-									 <span className="g-item-text" style={{paddingLeft:lev+"em"}}>
-							 				 {checkCom}
-											 {icon &&	<i className={icon}>&nbsp;</i> || null}
-											 	<span>{text}</span>
-									 </span>
-						  </div>
-					</li>) 
+
+		return (<li>
+			<div className={"m-combo-item " + activeName} data-index={oIndex} onClick={clickFn}>
+				<span className="g-item-text" style={{ paddingLeft: lev + "em" }}>
+					{checkCom}
+					{icon && <i className={icon}>&nbsp;</i> || null}
+					<span>{text}</span>
+				</span>
+			</div>
+		</li>)
 	}
 }
 
-class ParCom extends React.PureComponent<Parprops,Parstates>{
+class ParCom extends React.PureComponent<Parprops, Parstates>{
 
-	render(){
+	render() {
 
-			const {itemObj,lev,oIndex,getFieldVal,getCommonMethod} =this.props;
-			
-			let _lev = lev;
-					_lev++ ;
+		const { itemObj, lev, oIndex, getFieldVal, getCommonMethod } = this.props;
 
-			const textFiled = getFieldVal("textFiled");
-			const childField = getFieldVal("childField");
-			const idField = getFieldVal("idField");
+		let _lev = lev;
+		_lev++;
 
-
-
-			const text = itemObj.get(textFiled);
-			const expand  = itemObj.get("state");
-			const checkStatus = itemObj.get("checkStatus");
+		const textFiled = getFieldVal("textFiled");
+		const childField = getFieldVal("childField");
+		const idField = getFieldVal("idField");
 
 
 
-			const checkCom = getCommonMethod<"getCheckBox">("getCheckBox")(checkStatus,oIndex,true);
-			const expandToggle = getCommonMethod<"expandToggle">("expandToggle");
+		const text = itemObj.get(textFiled);
+		const expand = itemObj.get("state");
+		const checkStatus = itemObj.get("checkStatus");
 
-			const activeName = !checkCom && checkStatus !== CheckStatus["uncheck"]? "activeClick"  : "" ;
+
+
+		const checkCom = getCommonMethod<"getCheckBox">("getCheckBox")(checkStatus, oIndex, true);
+		const expandToggle = getCommonMethod<"expandToggle">("expandToggle");
+
+		const activeName = !checkCom && checkStatus !== CheckStatus["uncheck"] ? "activeClick" : "";
 
 		return (<li >
-								  <div  className={"m-combo-item " + activeName} >
-										 <span className="g-item-text" style={{paddingLeft:lev+"em"}}>
-										 			{checkCom}
-												 	<span className={!expand ? "fa fa-folder-o ": "fa fa-folder-open-o"}>&nbsp;</span>
-												 	<span>{text}</span>
-										 </span>
-										 <span className="j-slide"  data-path={oIndex} onClick={expandToggle}>
-													<i className={"fa " + (expand ? "fa-chevron-up":"fa-chevron-down")}></i>
-										 </span>
-								  </div>
-								  <VelocityComponent animation={(expand ? "slideDown" :"slideUp")} duration={300}>
-									  	 <ul>
-											  	{
+			<div className={"m-combo-item " + activeName} >
+				<span className="g-item-text" style={{ paddingLeft: lev + "em" }}>
+					{checkCom}
+					<span className={!expand ? "fa fa-folder-o " : "fa fa-folder-open-o"}>&nbsp;</span>
+					<span>{text}</span>
+				</span>
+				<span className="j-slide" data-path={oIndex} onClick={expandToggle}>
+					<i className={"fa " + (expand ? "fa-chevron-up" : "fa-chevron-down")}></i>
+				</span>
+			</div>
+			<VelocityComponent animation={(expand ? "slideDown" : "slideUp")} duration={300}>
+				<ul>
+					{
 
-											  		itemObj.get(childField).map((val:Immutable.Map<string,any>,index:number)=>{
+						itemObj.get(childField).map((val: Immutable.Map<string, any>, index: number) => {
 
-											  				const sub = val.get(childField) as Immutable.List<Immutable.Map<string,any>>;
+							const sub = val.get(childField) as Immutable.List<Immutable.Map<string, any>>;
 
-											  				if(sub.size){
-											  					return <ParCom 			
-												  										key={val.get(idField)}
-																							itemObj={val} 
-																							oIndex={oIndex!+"@"+index}
-																							lev={_lev}
-																							getFieldVal={getFieldVal}
-																							getCommonMethod={getCommonMethod}
-																					 />
-																											
-											  				}else{
+							if (sub.size) {
+								return <ParCom
+									key={val.get(idField)}
+									itemObj={val}
+									oIndex={oIndex! + "@" + index}
+									lev={_lev}
+									getFieldVal={getFieldVal}
+									getCommonMethod={getCommonMethod}
+								/>
 
-											  					return <ChildCom 		
-											  										key={val.get(idField)}
-																						itemObj={val} 
-																						lev={_lev}
-																						oIndex={oIndex!+"@"+index}
-																						getFieldVal={getFieldVal}
-																						getCommonMethod={getCommonMethod}
-									  										/>
-											  				}
-											  		})
-											  	}
-									  	</ul>
-								  </VelocityComponent>
-								 
-						</li>)
+							} else {
+
+								return <ChildCom
+									key={val.get(idField)}
+									itemObj={val}
+									lev={_lev}
+									oIndex={oIndex! + "@" + index}
+									getFieldVal={getFieldVal}
+									getCommonMethod={getCommonMethod}
+								/>
+							}
+						})
+					}
+				</ul>
+			</VelocityComponent>
+
+		</li>)
 	}
 }
 
@@ -133,9 +133,9 @@ class ParCom extends React.PureComponent<Parprops,Parstates>{
 
 type DropProps = {
 
-	data:Immutable.List<Immutable.Map<string,any>>;
-	getFieldVal:ComTreeboxSpace.comTreeboxAPI["getFieldVal"];
-	getCommonMethod:ComTreeboxSpace.comTreeboxAPI["getCommonMethod"];
+	data: Immutable.List<Immutable.Map<string, any>>;
+	getFieldVal: ComTreeboxSpace.comTreeboxAPI["getFieldVal"];
+	getCommonMethod: ComTreeboxSpace.comTreeboxAPI["getCommonMethod"];
 }
 
 type DropState = {
@@ -147,31 +147,31 @@ type DropState = {
 
 
 
- export default class Drop  extends  React.PureComponent<DropProps,DropState>{
+export default class Drop extends React.PureComponent<DropProps, DropState>{
 
-	render(){
+	render() {
 
-		const {data,getFieldVal,getCommonMethod} = this.props;
+		const { data, getFieldVal, getCommonMethod } = this.props;
 
 		const childField = getFieldVal("childField");
 		const idField = getFieldVal("idField");
 
 
 		return (<>
-									{
-										data.map((val,index)=>{
-													if(val.get(childField!).size){
-															return <ParCom 	key={val.get(idField)}
-																							itemObj={val} 
-																							lev={0}
-																							oIndex={index+""}
-																							getFieldVal={getFieldVal}
-																							getCommonMethod={getCommonMethod}
-																			 />
-													}
-										})
-									}
-						</>)
+			{
+				data.map((val, index) => {
+					if (val.get(childField!).size) {
+						return <ParCom key={val.get(idField)}
+							itemObj={val}
+							lev={0}
+							oIndex={index + ""}
+							getFieldVal={getFieldVal}
+							getCommonMethod={getCommonMethod}
+						/>
+					}
+				})
+			}
+		</>)
 	}
 
 }

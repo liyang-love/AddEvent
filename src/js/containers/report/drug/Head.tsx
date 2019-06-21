@@ -57,10 +57,10 @@ class ReportHead extends React.PureComponent<ReportSpace.HeadHQ & ReportSpace.He
 					</select>
 				</span>
 				<span className="detail">
-					<label >年龄：<input type="text" name="age" onChange={inputChange} required defaultValue={age} className={!!age ? "inp" : "inp no-fill"} style={{ width: "60px" }} /></label>
+					<label >年龄：<input type="number" name="age" onChange={inputChange} required defaultValue={age} className={!!age ? "inp" : "inp no-fill"} style={{ width: "60px" }} /></label>
 				</span>
 				<span className="detail">
-					<label >体重：<input required type="text" name="weight" defaultValue={weight} onChange={inputChange} className={weight? "inp" :"inp no-fill"} style={{ width: "120px" }} /></label>
+					<label className="required">体重：<input  type="number" name="weight" defaultValue={weight} onChange={inputChange} className="inp"placeholder="非必填" style={{ width: 70 }} /></label>
 				</span>
                 <span className="detail">
 					<label className="require" >手机号：<input  type="number" placeholder="非必填" name="patientNumber" defaultValue={patientNumber} onChange={inputChange} className="inp" style={{ width: 120 }} /></label>
@@ -71,7 +71,7 @@ class ReportHead extends React.PureComponent<ReportSpace.HeadHQ & ReportSpace.He
 				
 				<span className="detail">
 					<span >患者所在科室：</span>
-					<ComTreebox data={orgArr} textFiled="name" defaultSel={patientOrgId + ""} filed="patientOrgId" hasSlideIcon={false} width={130} pannelWidth={300} />
+					<ComTreebox data={orgArr} textFiled="name" clickCallback={setComboboxObj} defaultSel={patientOrgId + ""} filed="patientOrgId" hasSlideIcon={false} width={130} pannelWidth={300} />
 				</span>
 				<span className="detail">
 					<label >住院号/门诊号：<input  required type="text" defaultValue={liveDoorNumber} name="liveDoorNumber" className={liveDoorNumber ? "inp" : "inp no-fill"} style={{ width: "80px" }} onChange={inputChange} /> </label>
@@ -80,7 +80,7 @@ class ReportHead extends React.PureComponent<ReportSpace.HeadHQ & ReportSpace.He
 			</div>
 			<div className="item-tr">
 				<span className="detail">
-					<label >主要诊断：<input type="text" name="primaryDiagnosis" defaultValue={primaryDiagnosis} onChange={inputChange} required className={primaryDiagnosis ? "inp":"inp no-fill"} style={{ width: "450px" }} /></label>
+					<label >主要诊断：<input type="text" name="primaryDiagnosis" defaultValue={primaryDiagnosis} onChange={inputChange} required className={primaryDiagnosis ? "inp":"inp no-fill"} style={{ width: 450 }} /></label>
 				</span>
 			</div>
 
@@ -136,9 +136,9 @@ class ReportHead extends React.PureComponent<ReportSpace.HeadHQ & ReportSpace.He
 				
 				<span className="detail">
 					<span >事发场所：</span>
-					<Combobox data={happenScene} width={140} hasSlideIcon={false} defaultVal={incidentSceneId} clickCallback={changeHappenceSon} field="incidentSceneId" />
+					<Combobox data={happenScene} width={140} renderClick={true} hasSlideIcon={false} defaultVal={incidentSceneId} clickCallback={changeHappenceSon} field="incidentSceneId" />
 					&nbsp;&nbsp;
-					<Combobox data={happenSceneSon} width={300} hasSlideIcon={false} defaultVal={dadIncidentSceneId} clickCallback={setComboboxObj} field="dadIncidentSceneId" />
+					<Combobox data={happenSceneSon} width={300} renderClick={true} hasSlideIcon={false} defaultVal={dadIncidentSceneId} clickCallback={setComboboxObj} field="dadIncidentSceneId" />
 
 				</span>
 				<span className="detail">

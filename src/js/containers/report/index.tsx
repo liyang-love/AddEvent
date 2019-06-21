@@ -17,7 +17,7 @@ import Infection from "./infection/index";
 import {createTypedMap} from "@js/common/ImmutableMap";
 
 enum ReportType {
-	accident="",//意外
+	accident="7025",//意外
 	drug="7023",//药品
 	infection="7033",//院感
 	logistics="7031",//后勤
@@ -112,6 +112,8 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 		})
 	}
 
+	
+
 	upReportHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
 
 		const params = this.state.params.toJS();
@@ -133,14 +135,31 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 		const {eventId} = this.props;
 		if(eventId){//修改
 			params.id=eventId;
-			Api.updateAllEvent(params).then(res=>{
+			Api.updateAllEvent(params).then((res:AxiosInterfaceResponse)=>{
 
-				console.log(res);
+			
+
+				if(res.code==200){
+
+					this.notificationRef.current!.addNotice("修改成功！","success");
+
+				}else{
+
+					this.notificationRef.current!.addNotice("修改失败！","error");
+				}
 			})
 
 		}else{
-			Api.allReport(params).then(res => {
-				console.log(res);
+			Api.allReport(params).then((res:AxiosInterfaceResponse) => {
+			
+				if(res.code==200){
+
+					this.notificationRef.current!.addNotice("提交成功！","success");
+
+				}else{
+
+					this.notificationRef.current!.addNotice("提交失败！","error");
+				}
 
 			});
 
@@ -218,7 +237,7 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 	render() {
 
 		const { curPage, totalPage } = this.state;
-		const { formType, text , orgName } = this.props;
+		const { formType, text , orgName ,eventId} = this.props;
 		const is_first = curPage === totalPage;
 
 
@@ -235,7 +254,7 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 						</Button>
 						<Button handle={this.upReportHandle} field="1">
 							<SvgIcon styleType="submit"/>
-							提交
+							{eventId ? "修改":"提交"}
 						</Button>
 						<Button handle={this.upReportHandle} field="2">
 							<Icon styleType="fa-save"/>
@@ -317,14 +336,16 @@ class Container extends React.PureComponent<RouteComponentProps<containerProps> 
 		effectiveDate: "",
 		productCode: "",
 		qxReasonDescribe:"",
-		qxAnalyseReason: "",
-		hurtRank: "",
+		qxAnalyseReason: "4",
+		hurtRank: "4",
 		hurtPerform: "",
 		kindEquipment:"",
 		degreeRisk: "",
 		pollutantSource: "",
 		dadCategoryId:"",
 		categoryId:"",
+		job:"",
+		cpOrgId:"",
 
 		passResult: "",
 		pass: "",
@@ -342,6 +363,8 @@ class Container extends React.PureComponent<RouteComponentProps<containerProps> 
 		caDate: "",//日期(改进措施)
 		relateHandle:"",
 		orgRank: "",//科室定级
+		diseaseEffect:"",//对原患者疾病的影响
+		analyseImpove: "",//分析与改进
 
 		functionOrgRank: "",//职能科室定级
 		property: "",//不良事件性质界定：风险注册、系统错误、个人错误
@@ -349,6 +372,10 @@ class Container extends React.PureComponent<RouteComponentProps<containerProps> 
 		frequency: "",//不良事件频率界定
 		frequencyContent: "",//界定说明
 		allotStatus: "",//分配的状态
+
+		badEventResult: "",//不良事件的结果
+		berSignatory:"",//不良事件的结果签字人名字
+		berDate: "",//不良事件的结果日期
 
 		man: "",//人(主要原因分析)
 		machine: "",//机(主要原因分析)

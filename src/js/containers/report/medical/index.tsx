@@ -28,7 +28,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                     <tbody>
                         <tr>
                             <td>
-                                <ReportHead formType={formType} hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
+                                <ReportHead  hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
                             </td>
                         </tr>
                         <tr>
@@ -99,7 +99,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                         </tr>
                         
                         <OrgDefineLevel formType={formType} txt="职能部门定级" getMethods={getMethods} />
-                        <Opinion txt="医务部" />
+                        <Opinion txt="医务科" />
                     </tbody>
                 </table>
             </div>

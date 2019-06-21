@@ -10,7 +10,7 @@ export default {
     },
     sceneCareerClass:function(id?:string){
        console.log(id)
-        return axios.get("event/sceneCareerClass?formType=")
+        return axios.get("event/sceneCareerClass")
     },
     submitAllotOrg:function(eventId:string){
        

@@ -1,48 +1,5 @@
 import * as React from "react";
 
-type itemObj = {
-	value: string;
-	tit: string;
-	changeHandle?: () => void;
-}
-
-type props = {
-	changeHandle: (value: string) => void;
-	data: itemObj[];
-	nameFiled: string;
-}
-
-
-class Radio extends React.PureComponent<props>{
-
-	static Item: React.SFC<itemObj & { nameFiled: string }> = ({ value, tit, nameFiled }) => {
-
-		return (<label className="m-label m-lab-radio" key={value}>
-			<span className="lab-tit">{tit}</span>
-			<input type="radio" name={nameFiled} value={value} />
-		</label>)
-	}
-
-	render() {
-
-		const { data, nameFiled } = this.props;
-
-		return (<span className="m-radio">
-
-			{
-				data.map(({ value, tit }) => {
-
-					return <Radio.Item key={value} value={value} tit={tit} nameFiled={nameFiled} />
-
-				})
-			}
-		</span>)
-	}
-
-}
-
-
-
 
 
 type checkProps = {
@@ -53,6 +10,7 @@ type checkProps = {
 	nameFiled: string;
 	hasChecked?:boolean;
 	type?:"checkbox"|"radio";
+	isControl?:boolean;
 }
 
 type checkState = {
@@ -62,15 +20,18 @@ type checkState = {
 class Checkbox extends React.PureComponent<checkProps, checkState>{
 
 	static defaultProps={
-		type:"checkbox"
+		type:"checkbox",
+		isControl:true,
 	}	
 
 	render() {
 
-		const { tit,checked,value, nameFiled, changeHandle,hasChecked,type } = this.props;
+		const { tit,checked,value, nameFiled, changeHandle,hasChecked,type,isControl } = this.props;
+
+		const obj = !isControl ? {defaultChecked:checked} :{checked:checked};
 
 		return  (<label className={`m-label m-lab-${type}`} >
-			<input type={type} className={hasChecked ? "ha-check" :""}  name={nameFiled} checked={checked} value={value} onChange={changeHandle!} />
+			<input type={type} className={hasChecked ? "ha-check" :""}   name={nameFiled} {...obj} value={value} onChange={changeHandle!} />
 			{tit ? (<span className="lab-tit">{tit}</span>) : null}
 		</label>)
 	}
@@ -155,7 +116,6 @@ class InpBox extends React.PureComponent<InpBoxProp, InpBoxState>{
 }
 
 export {
-	Radio,
 	Checkbox,
 	ComboInp,
 	InpBox,

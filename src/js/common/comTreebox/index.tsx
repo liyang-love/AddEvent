@@ -13,6 +13,7 @@ enum CheckStatus {
 	uncheck = "uncheck",
 }
 
+type slecteItem= { text: string; id: string; };
 
 type props = {
 	data: any[];
@@ -27,13 +28,13 @@ type props = {
 	defaultSel?: string;
 	hasSlideIcon?: boolean;
 	filed: string;
-	clickCallback?: Function;
+	clickCallback?: (slecte: Readonly<slecteItem[]>, field: string, node?: Readonly<any>, ) => void;
 	pannelWidth?: number;
 }
 
 
 type states = {
-	selected: Immutable.List<{ text: string; id: string; }>;
+	selected: Immutable.List<slecteItem>;
 	drop: boolean;
 	treeData: Immutable.List<Immutable.Map<string, any>>
 };
@@ -81,7 +82,7 @@ export default class ComTreeBox extends React.PureComponent<props, states> imple
 
 	}
 
-	getCommonMethod = <K extends ComTreeboxSpace.commonMethodName>(methodName: ComTreeboxSpace.commonMethodName):ComTreeboxSpace.comTreeboxAPI[K] => {
+	getCommonMethod = <K extends ComTreeboxSpace.commonMethodName>(methodName: ComTreeboxSpace.commonMethodName): ComTreeboxSpace.comTreeboxAPI[K] => {
 
 		return this[methodName as K];
 
@@ -479,6 +480,17 @@ export default class ComTreeBox extends React.PureComponent<props, states> imple
 			return {
 				treeData: immuTreeData,
 				selected: Immutable.List([_node])
+			}
+
+		},()=>{
+
+			const {clickCallback,filed} = this.props
+			const {selected} = this.state;
+
+			if(clickCallback){
+
+				clickCallback(selected.toJS(),filed);
+
 			}
 
 		});

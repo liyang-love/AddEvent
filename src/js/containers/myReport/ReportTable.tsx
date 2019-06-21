@@ -18,12 +18,13 @@ type tableItem = {
 }
 
 
-const ReportName ={
+const ReportName = {
 	"7023":"药品不良事件",
 	"7033":"院感不良事件",
 	"7031":"后勤不良事件",
 	"7021":"医疗不良事件",
 	"7024":"医疗器械不良事件",
+	"7025":"意外伤害及其他事件",
 	"7022":"护理不良事件"
 }
 
@@ -49,6 +50,19 @@ class TableWrap extends React.PureComponent<tableWrapProps ,tableWrapState>{
         {
             text: "事件类型",
             field: "categoryName",
+        },
+         {
+            text: "上报类型",
+            field: "formType",
+            formatter:function(node:any){
+
+              
+                const status = node.formType;
+                const name = (ReportName as any)[status]
+                return <span >{name}</span>; 
+
+            }
+
         },
         {
             text: "严重程度",
@@ -89,7 +103,7 @@ class TableWrap extends React.PureComponent<tableWrapProps ,tableWrapState>{
                     state:{
                         eventId:node.id,
                         id:node.formType,
-                        text:(ReportName as any)[node.formType]+"修改"
+                        text:(ReportName as any)[node.formType]+"-修改"
                     }
                 }
                 

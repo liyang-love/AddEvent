@@ -27,7 +27,6 @@ declare namespace ReportSpace {
 
 	export type methodName = "inputChange" | "setCalendarObj" | "setComboboxObj" | "getParams" | "upFileHandle" | "changeDateType";
 	export type hospitalName = "三院" | "中医院";
-IDBCursor
 	export interface params{
 			id?:string;//事件id
 			upOrgId: string; //科室
@@ -90,6 +89,8 @@ IDBCursor
 			relateHandle:string;//事件相关处理
 			categoryId: string;//事件类别
 			dadCategoryId:string; //事件类别父id
+			job:string;//涉事人职务  
+			cpOrgId:string;//涉事人所在科室
 
 			passResult: string;//简要事情的经过及结果
 			pass: string;//事件经过
@@ -105,7 +106,8 @@ IDBCursor
 			correctiveActions: string;//改进措施
 			caSignatory: string;//签字人(改进措施)
 			caDate: string;//日期(改进措施)
-
+			diseaseEffect:string;//对原患者疾病的影响
+			analyseImpove:string;//分析与改进
 			orgRank: string;//科室定级
 
 			functionOrgRank: string;//职能科室定级
@@ -114,6 +116,9 @@ IDBCursor
 			frequency: string;//不良事件频率界定
 			frequencyContent: string;//界定说明
 			allotStatus: string;//分配的状态
+			badEventResult:string;//不良事件的结果
+			berSignatory:string;//不良事件的结果签字人名字
+			berDate:string;//不良事件的结果日期
 
 			man: string;//人(主要原因分析)
 			machine: string;//机(主要原因分析)

@@ -15,7 +15,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
 
         const { formType, getMethods, hospitalName, upOrgName ,showPage} = this.props;
 
-        const { passResult,analysisCauses } = getMethods<"getParams">("getParams")();
+        const { passResult,analysisCauses,treatmentMeasures } = getMethods<"getParams">("getParams")();
         const inputChange = getMethods<"inputChange">("inputChange");
 
         let statusArr = new Array(2).fill("none"); 
@@ -28,7 +28,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                     <tbody>
                         <tr>
                             <td>
-                                <ReportHead formType={formType} hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
+                                <ReportHead  hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
                             </td>
                         </tr>
                         <tr>
@@ -52,22 +52,21 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                             <td >
                                <p className="main-tit">原因分析(器械耗材使用过程描述 事件发生经过)：</p>
                                 <div className="main" style={{ height: "120px" }}>
-                                    <textarea name="analysisCauses " required defaultValue={analysisCauses } onChange={inputChange} className={analysisCauses  ? "txtInp" : "txtInp no-fill"} placeholder="至少包括器械使用时间、使用目的、使用依据、使用情况、出现的不良事件情况、对受害者影响、采取的治疗措施" maxLength={200}></textarea>
+                                    <textarea name="analysisCauses" required defaultValue={analysisCauses } onChange={inputChange} className={analysisCauses  ? "txtInp" : "txtInp no-fill"} placeholder="至少包括器械使用时间、使用目的、使用依据、使用情况、出现的不良事件情况、对受害者影响、采取的治疗措施" maxLength={200}></textarea>
                                 </div>
                             </td>
                         </tr>
                         </tbody>
                 </table>
             </div>
-{/* todo:字段没有 */}
             <div className="report-content" style={{display:statusArr[1]}}>
                 <table >
                     <tbody>
                         <tr>
                             <td colSpan={2}>
-                                 <p className="main-tit">原因分析(器械耗材使用过程描述 事件发生经过)：</p>
+                                 <p className="main-tit">联合用药/器械情况说明：</p>
                                 <div className="main" style={{ height: "120px" }}>
-                                    <textarea name="analysisCauses " required defaultValue={analysisCauses } onChange={inputChange} className={analysisCauses  ? "txtInp" : "txtInp no-fill"} placeholder="至少包括器械使用时间、使用目的、使用依据、使用情况、出现的不良事件情况、对受害者影响、采取的治疗措施" maxLength={200}></textarea>
+                                    <textarea name="treatmentMeasures" required defaultValue={ treatmentMeasures } onChange={inputChange} className={ treatmentMeasures ? "txtInp" : "txtInp no-fill"} placeholder="如使用超声检查，彩超设备引发的不良事件，则联合使用中有涉及耦合剂，如无联合使用，则填写“无”" maxLength={200}></textarea>
                                 </div>
                             </td>
                         </tr>
