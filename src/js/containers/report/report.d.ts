@@ -57,6 +57,18 @@ declare namespace ReportSpace {
 		changeHappenceSon(slecteArr: Readonly<any[]>, filed: string, node: any): void;
 	}
 
+	export interface HeadHQText {
+  		arrConfig:HeadHQ["arrConfig"] ;
+		getDateType(str:string):string;
+		findArrNode(id: string, data: { id: string, text: string, children?: { id: string; text: string }[] }[], childId?: string): string;
+		findTreeNode(id:string,treeData:any):string;
+		uniqueFile?:infectionUniqueFile;
+		hospitalName:hospitalName;
+		upOrgName:string;
+		parmas:params;
+		
+	}
+
 	export type methodName = "inputChange" | "setCalendarObj" | "setComboboxObj" | "getParams" | "upFileHandle" | "changeDateType" | "inputChangeUniqueFile" | "checkboxGroupChange";
 	export type hospitalName = "三院" | "中医院";
 	export interface params {
