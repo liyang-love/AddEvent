@@ -2,23 +2,24 @@ import * as React from "react";
 import Opinion from "../common/Opinion";
 import OrgDefineLevel from "../common/OrgDefineLevel"
 import ReportSecond from "../common/ReportSecond";
-import ReportHead from "./Head";
+import {Head1,Head2} from "./Head";
 import TextWithUpFile from "../common/TextWithUpFile";
 import TextInpWithData from "../common/TextInpWithDate";
 
 
 
 export default class extends React.PureComponent<ReportSpace.ReportProps>{
-
-
+    
     render() {
 
-        const { formType, getMethods, hospitalName, upOrgName ,showPage} = this.props;
+        const { formType, getMethods, hospitalName, upOrgName ,showPage,infection} = this.props;
 
         const { passResult} = getMethods<"getParams">("getParams")();
         const inputChange = getMethods<"inputChange">("inputChange");
 
-        let statusArr = new Array(2).fill("none"); 
+
+
+        let statusArr = new Array(4).fill("none"); 
         statusArr[showPage] = "block";
 
         return (<>
@@ -28,14 +29,32 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                     <tbody>
                         <tr>
                             <td>
-                                <ReportHead  hospitalName={hospitalName} getMethods={getMethods} upOrgName={upOrgName} />
+                                <Head1   uniqueFile={infection!} getMethods={getMethods} upOrgName={upOrgName} hospitalName={hospitalName}  />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div className="report-content" style={{ display: statusArr[1] }}>
+                <table >
+                    <tbody>
+                        <tr>
+                            <td>
+                                <Head2   getMethods={getMethods} uniqueFile={infection!} />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <ReportSecond formType={formType} getMethods={getMethods} />
+                                <ReportSecond   getMethods={getMethods} formType={formType} />
                             </td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div className="report-content" style={{ display: statusArr[2] }}>
+                <table >
+                    <tbody>
                         <tr>
                             <td>
                                 <TextWithUpFile
@@ -49,7 +68,7 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                             </td>
                         </tr>
                          <tr>
-                            <td colSpan={2}>
+                            <td >
                                 <TextInpWithData
                                     getMethods={getMethods}
                                     tit="处理措施"
@@ -62,15 +81,8 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                                 />
                             </td>
                         </tr>
-                        </tbody>
-                </table>
-            </div>
-
-            <div className="report-content" style={{display:statusArr[1]}}>
-                <table >
-                    <tbody>
-                        <tr>
-                            <td colSpan={2}>
+                         <tr>
+                            <td >
                                 <TextInpWithData
                                     getMethods={getMethods}
                                     tit="主要原因分析"
@@ -83,6 +95,14 @@ export default class extends React.PureComponent<ReportSpace.ReportProps>{
                                 />
                             </td>
                         </tr>
+                        </tbody>
+                </table>
+            </div>
+
+            <div className="report-content" style={{display:statusArr[3]}}>
+                <table >
+                    <tbody>
+                       
                         <tr>
                             <td colSpan={2}>
                                 <TextInpWithData

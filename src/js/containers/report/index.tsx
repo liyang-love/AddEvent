@@ -46,10 +46,60 @@ type field = keyof ReportSpace.params;
 
 
 class Report extends React.PureComponent<ReportProp, ReportState> implements ReportSpace.ReportAPI {
+	uniqueFile: ReportSpace.infectionUniqueFile;
+	constructor(props:ReportProp){
+
+		super(props);
+		const {uniqueFile} = this.props.data;
+		const inflection = {
+			skin: ["0", "0"],//皮肤暴露
+			SharpWeapon: ["0", "0", "0", "0"],//利器利器伤
+			mucosal: ["0", "0", "0"],//黏膜暴露
+			flushingTime: "",//冲洗时间
+			flushingTimeTxt: "",//备注
+			HBV: "",//HBV
+			fiveCase: "",//乙肝五项情况 
+			HBV_DNA: "",
+			HBV_RNA: "",
+			treponema: "",//梅毒螺旋体抗体 
+			hiVAntibody: "",//HIV抗体 
+			otherIll: "",//其他传染病 
+			vaccine: "0",//是否接种过乙型肝炎疫苗
+			vaccineReaction: "",//疫苗反应
+			vaccineTime: "",//接种时间 
+			createAntibody: "0",//是否产生抗体
+			antibodyTiter: "",//抗体滴度(mIU/ml)
+			antibodyLastTime: "",//最后一次复查抗体时间
+			training: "0",//是否接受职业暴露培训
+			trainingPlace: "",//培训地点 
+			HBVTxt: "",//接触HBV后的预防措施
+			fiveCase1: "",
+			HBV_DNA1: "",
+			HBV_RNA1: "",
+			treponema1: "",
+			hiVAntibody1: "",
+			HCV: "",//抗-HCV
+		};
+
+		if(uniqueFile){
+			try {
+				this.uniqueFile = JSON.parse(uniqueFile);
+			} catch (error) {
+				console.log(error);
+				this.uniqueFile = inflection;
+			}
+			
+		}else{
+			this.uniqueFile = inflection;
+		}
+
+		
+	}
+
 
 	state: ReportState = {
 		curPage: 0,
-		totalPage: 1,
+		totalPage: this.props.formType == "7033" ? 3 : 1,
 		params:createTypedMap(this.props.data) 
 	}
 
@@ -75,6 +125,31 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 		
 	}
 
+	inputChangeUniqueFile=(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>)=>{
+
+		const target = e.currentTarget!;
+		const field = target.name ;
+		const requireValid = target.validity.valueMissing;
+		requireValid ? target.classList.add("no-fill") : target.classList.remove("no-fill");
+
+		(this.uniqueFile as any)[field] = target.value.trim();
+
+	}
+
+	checkboxGroupChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+
+		const  fieldArr = e.currentTarget!.name.split("@");
+		const field = fieldArr[0];
+		const index = fieldArr[1];
+
+		(this.uniqueFile as any)[field][index] = e.currentTarget!.value.trim();
+
+
+
+
+
+	}
+
 	changeDateType=(id:string)=>{
 
 		this.setState(pre=>{
@@ -89,14 +164,23 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 
 	setCalendarObj = (setTimeArr: Readonly<any[]>, field: field) => {
 
-		this.setState(pre=>{
+		if(field in this.uniqueFile){
 
 
-			return{
+		(this.uniqueFile as any)[field] = setTimeArr.join("");
 
-				params:pre.params.set(field,setTimeArr.join(""))
-			}
-		})
+		}else{
+
+			this.setState(pre=>{
+				return{
+
+					params:pre.params.set(field,setTimeArr.join(""))
+				}
+			})
+
+		}
+
+	
 
 	}
 
@@ -112,15 +196,15 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 		})
 	}
 
-	
-
 	upReportHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
 
 		const params = this.state.params.toJS();
 		
 		console.log(params);
+		console.log(this.uniqueFile);
+		console.log(JSON.stringify(params,null,"\t"));
 
-		console.log(JSON.stringify(params,null,"\t"))
+		params.uniqueFile = JSON.stringify(this.uniqueFile);
 
 		const noFill = document.querySelectorAll("#gReport .no-fill");
 		const Notification = this.notificationRef.current!;
@@ -195,10 +279,12 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 
 	}
 
-	changePage = () => {
+	changePage = (e:React.MouseEvent<HTMLButtonElement>) => {
+
+		const is_up = e.currentTarget!.innerText.includes("上");
 		this.setState(pre => {
 			return {
-				curPage: (1 - pre.curPage),
+				curPage: pre.curPage + (is_up ? -1 : 1),
 			}
 		})
 	}
@@ -217,7 +303,7 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 				return <Drug formType={id}  hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
 			case ReportType.infection:
 
-				return <Infection formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
+				return <Infection infection={this.uniqueFile} formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
 			case ReportType.medical:
 
 				return <Medical formType={id} hospitalName="中医院" showPage={curPage} getMethods={this.getMethods} upOrgName={orgName} />
@@ -240,7 +326,6 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 		const { formType, text , orgName ,eventId} = this.props;
 		const is_first = curPage === totalPage;
 
-
 		return (
 			<div className="page-report">
 
@@ -248,10 +333,18 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 
 				<div className="g-theme">
 					<span ><b style={{ fontSize: 18 }}>{text}</b><span>&nbsp;&nbsp;第 {curPage + 1} 页</span>&nbsp;&nbsp;&nbsp;<span className="require">（非必填项）</span></span>
-					<span className="m-optBtn">
+					<span className="m-optBtn">	
+						{
+							(curPage > 0 && curPage < totalPage) ? 
+							(<Button handle={this.changePage}>
+								上一页
+							</Button>) : null 
+						}
 						<Button handle={this.changePage}>
 							{is_first ? "上" : "下"}一页
 						</Button>
+					
+						
 						<Button handle={this.upReportHandle} field="1">
 							<SvgIcon styleType="submit"/>
 							{eventId ? "修改":"提交"}

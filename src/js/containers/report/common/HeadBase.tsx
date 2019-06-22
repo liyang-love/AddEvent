@@ -4,12 +4,6 @@ import { profession, topClass, dataTypeArr, medicalTypeArr } from "../config";
 
 
 
-type ReportHeadProp = {
-    getMethods: ReportSpace.ReportAPI["getMethods"];
-    upOrgName:string;
-    hospitalName:ReportSpace.hospitalName; 
-}
-
 type ReportHeadState = {
 
     happenScene: {//事发场所
@@ -30,10 +24,10 @@ type ReportHeadState = {
 
 
 
-export default  function (WrapComponent: React.ComponentType<ReportSpace.HeadHQ & ReportHeadProp>) {
+export default  function (WrapComponent: React.ComponentType<ReportSpace.HeadHQ & ReportSpace.HeadWrapProp>) {
 
 
-    return class  extends React.PureComponent<ReportHeadProp, ReportHeadState>  {
+    return class  extends React.PureComponent<ReportSpace.HeadWrapProp, ReportHeadState>  {
 
         state: ReportHeadState = {
             happenScene: [],
@@ -127,7 +121,7 @@ export default  function (WrapComponent: React.ComponentType<ReportSpace.HeadHQ 
         render() {
 
             const { happenScene, anonymity, orgArr, happenSceneSon, reportDateType } = this.state;
-            const {hospitalName,upOrgName,getMethods} = this.props;
+            const {hospitalName,upOrgName,getMethods,uniqueFile} = this.props;
 
             return <WrapComponent 
                         arrConfig = {{profession,medicalTypeArr,topClass,orgArr,happenScene,happenSceneSon}} 
@@ -136,7 +130,7 @@ export default  function (WrapComponent: React.ComponentType<ReportSpace.HeadHQ 
                         changeReportDayType={this.changeReportDayType}
                         changeAnonymity={this.changeAnonymity}
                         changeHappenceSon={this.changeHappenceSon}
-
+                        uniqueFile={uniqueFile}
                         hospitalName ={hospitalName}
                         upOrgName={upOrgName}
                         getMethods={getMethods}

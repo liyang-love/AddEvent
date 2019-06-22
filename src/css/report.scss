@@ -79,14 +79,33 @@ $borderColor:black;
 			border:1px solid ;
 	  }
 	  .item-tr{
-	  	position: relative;
-	  	//z-index: auto;
+		  position: relative;
+		  margin:6px;
 	  }
+	  .article-item{
+		  &>div{
+			  margin:6px 0;
+		  }
+		  &>p{
+			  font-weight: bolder;
+			  margin: 8px 0;
+		  }
+		.txtInp{
+			width:680px;
+			height:120px;
+			border:1px solid $normal;
+			padding:0;
+		}
+	  }
+ 	.checktit{
+		width: 250px;
+		display: inline-block;
+ }
 	  .detail{
 
-			margin:4px;
+			
 			display: inline-flex;
-  	  align-items: center;
+		align-items: center;
   	  .m-combo-inp ,.s-inp{
   	  	border:none;
   	  	border-bottom: 1px solid $borderColor;
