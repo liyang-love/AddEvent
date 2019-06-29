@@ -145,6 +145,11 @@ body,html{
 	padding: $pagePadding
 }
 
+// 阴影
+.shadow{
+	@extend %shadow;
+}
+
 /* 搜索框 */
 .m-search{
 	position: relative;
@@ -181,18 +186,20 @@ body,html{
 	box-sizing: border-box;
 	
 	.g-layout-article{
-		@extend %shadow;
-		flex: auto;
+		
+		flex: 1;
 		padding: 16px;
 		overflow: hidden;
 		
 	}
 	.g-layout-head{	
-		@extend %shadow;
-		position: relative;
-		z-index: 2;
-		padding: 16px;
-		margin-bottom: 16px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding:10px 20px;
+		color:$themeColor;
+		border-bottom: 2px solid $themeColor;
+	
 	}
 }
 

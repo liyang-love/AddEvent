@@ -8,26 +8,27 @@ const Main = ()=>{
 
 			return (
 								<>
-									<Route path="/index/report" component={loadable({
+									<Route path="/report" component={loadable({
 											loader:()=>import( /*webpackChunkName: "report" */"./containers/report/index"),
 											loading:()=><Loading.LoadingCom  />
 									})}  />
-									<Route path="/index/my_report" component={loadable({
+									<Route path="/my_report" component={loadable({
 											loader:()=>import( /*webpackChunkName: "myReport" */"./containers/myReport/index"),
 											loading:()=><Loading.LoadingCom  />
 									})}  />
-									<Route path="/index/my_back" component={loadable({
+									<Route path="/my_back" component={loadable({
 											loader:()=>import( /*webpackChunkName: "myBack" */"./containers/myBack/index"),
 											loading:()=><Loading.LoadingCom  />
 									})}  />
-									<Route path="/index/my_analysis" component={loadable({
+									<Route path="/my_analysis" component={loadable({
 											loader:()=>import( /*webpackChunkName: "myAnalysis" */"./containers/myAnalysis/index"),
 											loading:()=><Loading.LoadingCom  />
 									})}  />
-									<Route path="/index/my_inspector" component={loadable({
+									<Route path="/my_inspector" component={loadable({
 											loader:()=>import( /*webpackChunkName: "myInspector" */"./containers/myInspector/index"),
 											loading:()=><Loading.LoadingCom  />
 									})}  />
+									
 									<div  id="s-modal"></div>
 								</>
 				);

@@ -2,20 +2,8 @@
 
 $borderColor:black;
 
-.page-report{
-	 display: flex;
-	 flex-direction: column;			
-	 box-sizing: border-box;
-	 height: 100%;
-	.g-theme{
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding:10px 20px;
-		color:$themeColor;
-		border-bottom: 2px solid $themeColor;
-	}
-	.g-report{
+
+.g-report{
 		flex: 1;
 		overflow: auto;
 	}
@@ -33,8 +21,6 @@ $borderColor:black;
 			text-indent:1em;
 		}	
 	}
-}
-
 .report-article{
 	width: 790px;
   margin: 20px auto;

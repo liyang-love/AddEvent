@@ -1,6 +1,6 @@
 import * as React from "react";
 import Api from "@api/report";
-import { profession, topClass, medicalTypeArr } from "../config";
+import { profession, topClass, medicalTypeArr } from "@js/containers/report/config";
 
 
 type treeItem = {

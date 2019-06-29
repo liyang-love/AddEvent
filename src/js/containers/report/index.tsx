@@ -327,11 +327,11 @@ class Report extends React.PureComponent<ReportProp, ReportState> implements Rep
 		const is_first = curPage === totalPage;
 
 		return (
-			<div className="page-report">
+			<div className="g-layout">
 
 				<Notification ref={this.notificationRef}/>
 
-				<div className="g-theme">
+				<div className="g-layout-head">
 					<span ><b style={{ fontSize: 18 }}>{text}</b><span>&nbsp;&nbsp;第 {curPage + 1} 页</span>&nbsp;&nbsp;&nbsp;<span className="require">（非必填项）</span></span>
 					<span className="m-optBtn">	
 						{

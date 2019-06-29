@@ -99,7 +99,7 @@ class TableWrap extends React.PureComponent<tableWrapProps ,tableWrapState>{
             formatter: (node:any)=>{
 
                 const pathObjUpdate = {
-                    pathname:"/index/report",
+                    pathname:"/report",
                     state:{
                         eventId:node.id,
                         id:node.formType,
@@ -108,7 +108,7 @@ class TableWrap extends React.PureComponent<tableWrapProps ,tableWrapState>{
                 }
                 
                 const pathObjDetail = {
-                    pathname:"/index/",
+                    pathname:"/my_report/report_detail",
                     state:{
                         eventId:node.id,
                         id:node.formType,

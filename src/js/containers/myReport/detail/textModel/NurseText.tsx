@@ -1,5 +1,4 @@
 import * as React from "react";
-import HeadHQText from "../common/HeadTextBase";
  
 
 
@@ -99,4 +98,4 @@ import HeadHQText from "../common/HeadTextBase";
 } 
 
 
-export default HeadHQText(Modal);
+export default Modal ; 

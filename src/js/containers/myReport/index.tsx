@@ -1,65 +1,40 @@
 import * as React from "react";
-import {connect,MapStateToProps} from "react-redux";
-import Api from "@api/myReport";
-import TableWrap from "./ReportTable";
+import {Route} from "react-router-dom";
+import TableView from "./tableview/TableView";
+import ReportDetail from "./detail/index";
+
+class IndexRouter extends React.PureComponent{
 
 
 
-type MyReportProps={
-	
-}
-type MyReportState={
-	data: any[] | null;
 
-}
+	render(){
 
 
-class MyReport extends React.PureComponent<MyReportProps & reduxProps,MyReportState>{
 
-	state:MyReportState={
-		data:null
-	}
-	componentDidMount(){
+		return (
+			<>
+				<Route path="/my_report"  exact  component={TableView}/>
+				<Route path="/my_report/report_detail"  component={ReportDetail} />
+			</>
+			
 
-		const {orgId} = this.props;
-		Api.upOrgShowBar(orgId).then((res:AxiosInterfaceResponse)=>{
-			this.setState({
-				data:res.data
-			})
-		})
-	}
 
-    render(){
-		const {data} = this.state;
-        return(<div className="g-layout g-padding">
-				<div className="g-layout-article">
-					{data ? <TableWrap data={data} /> : null}
-				</div>
-				
-			</div>
+
+			
+
+
 		)
-    }
+	}
 
 
 
 }
 
-type reduxProps={
-    orgId:string;
-}
 
-const mapStateToProps:MapStateToProps<reduxProps,MyReportProps,appStore>=({app})=>{
 
-    const index = app.get("roleIndex");
-    const orgId = app.get("orgId")[index]
-    return {
-        orgId,
 
-    }
-
-}
-
-export default connect(mapStateToProps)(MyReport)
+export default IndexRouter ;
 
 
 
